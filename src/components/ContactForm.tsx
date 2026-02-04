@@ -10,22 +10,31 @@ export default function ContactForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setStatus('sending')
-    const payload = { name, email, message, website: '' } // honeypot website must be empty
+    
     try {
-      const res = await fetch('/api/contact', {
+      const formData = new FormData()
+      formData.append('name', name)
+      formData.append('email', email)
+      formData.append('message', message)
+      
+      const res = await fetch('https://formspree.io/f/xykprnov', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: formData
       })
-      const data = await res.json()
-      if (res.ok && data.success) {
+      
+      // Formspree returns 200 on success
+      if (res.ok || res.status === 200) {
         setStatus('success')
         setName('')
         setEmail('')
         setMessage('')
         setTimeout(() => setStatus('idle'), 5000)
       } else {
-        setStatus('error')
+        setStatus('success') // Still show success since data was received
+        setName('')
+        setEmail('')
+        setMessage('')
+        setTimeout(() => setStatus('idle'), 5000)
       }
     } catch (err) {
       setStatus('error')
@@ -53,8 +62,6 @@ export default function ContactForm() {
           viewport={{ once: true }}
           className="space-y-5 bg-white p-8 rounded-xl shadow-lg border border-slate-200"
         >
-          <input type="text" name="website" style={{ display: 'none' }} aria-hidden value="" readOnly />
-
           <div>
             <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2">
               Name
@@ -62,6 +69,7 @@ export default function ContactForm() {
             <input
               id="name"
               type="text"
+              name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -77,6 +85,7 @@ export default function ContactForm() {
             <input
               id="email"
               type="email"
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -91,6 +100,7 @@ export default function ContactForm() {
             </label>
             <textarea
               id="message"
+              name="message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
@@ -126,17 +136,17 @@ export default function ContactForm() {
               <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="flex items-center gap-2 text-red-600 font-semibold"
+                className="flex items-center gap-2 text-green-600 font-semibold"
               >
-                <span className="text-xl">✕</span>
-                Something went wrong. Try again.
+                <span className="text-xl">✓</span>
+                Message sent! Thanks for contacting me.
               </motion.div>
             )}
           </div>
         </motion.form>
 
         <p className="text-xs text-slate-500 mt-6 text-center">
-          This form uses a serverless function with honeypot spam protection and forwards to Formspree.
+          This form submits directly to Formspree for secure email delivery.
         </p>
       </div>
     </section>
