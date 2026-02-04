@@ -1,54 +1,143 @@
 import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 
-export default function ContactForm(){
-  const [name,setName] = useState('')
-  const [email,setEmail]=useState('')
-  const [message,setMessage]=useState('')
-  const [status,setStatus]=useState<'idle'|'sending'|'success'|'error'>('idle')
+export default function ContactForm() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
 
-  async function handleSubmit(e:React.FormEvent){
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setStatus('sending')
-    const payload = {name,email,message,website:''} // honeypot website must be empty
-    try{
-      const res = await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    const payload = { name, email, message, website: '' } // honeypot website must be empty
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
       const data = await res.json()
-      if(res.ok && data.success){
+      if (res.ok && data.success) {
         setStatus('success')
-        setName(''); setEmail(''); setMessage('')
-      }else{
+        setName('')
+        setEmail('')
+        setMessage('')
+        setTimeout(() => setStatus('idle'), 5000)
+      } else {
         setStatus('error')
       }
-    }catch(err){
+    } catch (err) {
       setStatus('error')
     }
   }
 
   return (
-    <section id="contact" className="py-12">
-      <div className="container mx-auto px-6 max-w-xl">
-        <h2 className="text-2xl font-bold text-primary-700">Contact</h2>
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4 bg-white p-6 rounded shadow">
-          <input type="text" name="website" style={{display:'none'}} aria-hidden value="" readOnly />
-          <label className="block">
-            <span className="text-sm text-slate-700">Name</span>
-            <input className="mt-1 block w-full rounded border px-3 py-2" value={name} onChange={e=>setName(e.target.value)} required />
-          </label>
-          <label className="block">
-            <span className="text-sm text-slate-700">Email</span>
-            <input type="email" className="mt-1 block w-full rounded border px-3 py-2" value={email} onChange={e=>setEmail(e.target.value)} required />
-          </label>
-          <label className="block">
-            <span className="text-sm text-slate-700">Message</span>
-            <textarea className="mt-1 block w-full rounded border px-3 py-2" value={message} onChange={e=>setMessage(e.target.value)} rows={5} required />
-          </label>
-          <div className="flex items-center gap-3">
-            <button disabled={status==='sending'} className="px-4 py-2 rounded bg-primary-500 text-white">Send</button>
-            {status==='success' && <span className="text-green-600">Message sent — thank you!</span>}
-            {status==='error' && <span className="text-red-600">Something went wrong. Try again later.</span>}
+    <section id="contact" className="py-16 bg-gradient-to-b from-slate-50/50 to-white">
+      <div className="container mx-auto px-6 max-w-2xl">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-4xl md:text-5xl font-black text-primary-700 mb-2">Get In Touch</h2>
+          <p className="text-slate-600 mb-10">Have a project or question? Drop me a message and I'll get back to you ASAP.</p>
+        </motion.div>
+
+        <motion.form
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          viewport={{ once: true }}
+          className="space-y-5 bg-white p-8 rounded-xl shadow-lg border border-slate-200"
+        >
+          <input type="text" name="website" style={{ display: 'none' }} aria-hidden value="" readOnly />
+
+          <div>
+            <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2">
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all duration-200"
+              placeholder="Your name"
+            />
           </div>
-        </form>
-        <p className="text-xs text-slate-500 mt-3">This form forwards messages to your Formspree endpoint via a serverless function and includes a honeypot spam check. Add your Formspree URL to Vercel env var <code>FORMSPREE_URL</code>.</p>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all duration-200"
+              placeholder="your@email.com"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="message" className="block text-sm font-semibold text-slate-700 mb-2">
+              Message
+            </label>
+            <textarea
+              id="message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+              rows={5}
+              className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none resize-none transition-all duration-200"
+              placeholder="Tell me about your project or question..."
+            />
+          </div>
+
+          <div className="flex items-center gap-3 pt-4">
+            <button
+              disabled={status === 'sending'}
+              className={`px-6 py-3 rounded-lg font-semibold text-white transition-all duration-200 ${
+                status === 'sending'
+                  ? 'bg-slate-400 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-primary-600 to-primary-500 hover:shadow-lg hover:-translate-y-1'
+              }`}
+            >
+              {status === 'sending' ? 'Sending...' : 'Send Message'}
+            </button>
+
+            {status === 'success' && (
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex items-center gap-2 text-green-600 font-semibold"
+              >
+                <span className="text-xl">✓</span>
+                Message sent! Thanks for reaching out.
+              </motion.div>
+            )}
+            {status === 'error' && (
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex items-center gap-2 text-red-600 font-semibold"
+              >
+                <span className="text-xl">✕</span>
+                Something went wrong. Try again.
+              </motion.div>
+            )}
+          </div>
+        </motion.form>
+
+        <p className="text-xs text-slate-500 mt-6 text-center">
+          This form uses a serverless function with honeypot spam protection and forwards to Formspree.
+        </p>
       </div>
     </section>
   )

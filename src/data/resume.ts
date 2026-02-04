@@ -31,6 +31,7 @@ export type Resume = {
   projects: Project[]
   experience: Experience[]
   skills: string[]
+  interests: string[]
 }
 
 export const resume: Resume = {
@@ -69,6 +70,42 @@ export const resume: Resume = {
         'Integrated Stripe and PayPal payments and NextAuth for auth',
         'Developed responsive interfaces and increased user-friendliness'
       ]
+    },
+    {
+      title: 'UmbrellaShare',
+      link: 'https://github.com',
+      stack: ['Rust', 'Java'],
+      date: 'Oct. 2025',
+      bullets: [
+        'Led a team of four to win third place among 24 teams at the UN-Habitat Quality of Life Hackathon',
+        'Built a city-embedded umbrella sharing service aligned with UN-Habitat urban mobility initiatives',
+        'Developed Rust backend on a VPS with real-time communication and a Java Android frontend',
+        'Implemented UWaterloo ID scanner for user authentication at scale',
+        'Produced demo scanner and pitch materials showcasing vision and scalability'
+      ]
+    },
+    {
+      title: 'Flask Authentication System',
+      link: 'https://github.com',
+      stack: ['Flask', 'MySQL', 'HTML/CSS', 'JavaScript'],
+      date: 'Dec. 2025 – Present',
+      bullets: [
+        'Built a Flask web application template with user-based features',
+        'Implemented authentication and authorization with token-based sessions',
+        'Designed MySQL schema and CRUD operations for user management'
+      ]
+    },
+    {
+      title: 'RougeRogue',
+      link: 'https://github.com',
+      stack: ['C#', 'RogueSharp', 'RLNET'],
+      date: 'Sep. 2025 – Present',
+      bullets: [
+        'Developing a roguelike dungeon crawler in C# using RogueSharp for core systems',
+        'Implementing randomized dungeon generation and hallway connectivity',
+        'Built field-of-view and line-of-sight systems for enemy AI',
+        'Creating character systems for stats, behaviors, and health tracking'
+      ]
     }
   ],
   experience: [
@@ -105,5 +142,6 @@ export const resume: Resume = {
     'PostgreSQL',
     'Stripe',
     'PayPal'
-  ]
+  ],
+  interests: ['Playing Board games', 'Playing Pickleball', 'Singing Water Boys Acapella']
 }
