@@ -1,12 +1,24 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Blocks, Cloud, Code2, Database, Music2, Wrench } from 'lucide-react'
 import { resume } from '../data/resume'
 
 const skillCategories = {
-  Languages: ['Python', 'Java', 'TypeScript', 'JavaScript', 'HTML/CSS', 'C', 'C++', 'Rust', 'C#', 'Racket'],
-  Frameworks: ['React', 'Next.js', 'Node.js', 'Flask', 'Redux', 'Android SDK', 'RogueSharp', 'NextAuth', 'Tailwind CSS'],
-  'Developer Tools': ['Git', 'VS Code', 'MySQL', 'PostgreSQL', 'Prisma ORM', 'Visual Studio', 'Eclipse', 'Linux', 'ANSYS HFSS', 'Jest'],
-  'APIs/Services': ['Stripe', 'PayPal', 'Google Gemini API', 'REST APIs', 'gRPC', 'WebSocket']
+  Languages: ['Python', 'Java', 'TypeScript', 'JavaScript', 'HTML/CSS', 'C', 'C++', 'C#', 'Rust', 'Racket'],
+  Frontend: ['React', 'Next.js', 'Tailwind CSS', 'Blazor WASM', 'Framer Motion', 'Responsive UI'],
+  Backend: ['Node.js', 'Flask', '.NET', 'REST APIs', 'WebSocket', 'Serverless Functions'],
+  Data: ['PostgreSQL', 'MySQL', 'Prisma', 'Market Data APIs', 'Provider Fallbacks', 'AI Assessments'],
+  Tools: ['Git', 'Vercel', 'Cloudinary', 'ANSYS HFSS', 'Visual Studio', 'VS Code', 'Linux'],
+  Services: ['OpenAI API', 'Brave Search API', 'Polygon', 'Alpha Vantage', 'Stripe', 'PayPal', 'Formspree']
+}
+
+const categoryIcons = {
+  Languages: Code2,
+  Frontend: Blocks,
+  Backend: Wrench,
+  Data: Database,
+  Tools: Cloud,
+  Services: Cloud
 }
 
 export default function Skills() {
@@ -15,67 +27,84 @@ export default function Skills() {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05
+        staggerChildren: 0.04
       }
     }
   }
 
   const item = {
-    hidden: { opacity: 0, scale: 0.8 },
-    show: { opacity: 1, scale: 1 }
+    hidden: { opacity: 0, y: 8 },
+    show: { opacity: 1, y: 0 }
   }
 
   return (
-    <section className="py-16">
+    <section id="skills" className="border-y border-white/10 bg-[#071018] py-20">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
+          className="mb-10 max-w-3xl"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-primary-700 mb-2">Skills & Tools</h2>
-          <p className="text-slate-600 mb-10">Languages, frameworks, and technologies I work with</p>
+          <p className="text-sm font-bold uppercase text-amber-200">Stack</p>
+          <h2 className="mt-3 text-4xl font-black text-white md:text-5xl">A toolkit for shipping fast without making the work feel cheap.</h2>
+          <p className="mt-4 text-base leading-7 text-slate-400">
+            Strongest in TypeScript and React, with enough backend, data, and creative technology range to own full product slices.
+          </p>
         </motion.div>
 
-        <div className="space-y-10">
-          {Object.entries(skillCategories).map(([category, skills], catIdx) => (
-            <div key={catIdx}>
-              <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                <span className="w-1 h-6 bg-gradient-to-b from-primary-600 to-accent-500 rounded-full"></span>
-                {category}
-              </h3>
+        <div className="grid gap-5 lg:grid-cols-3">
+          {Object.entries(skillCategories).map(([category, skills]) => {
+            const Icon = categoryIcons[category as keyof typeof categoryIcons]
+
+            return (
               <motion.div
-                variants={container}
-                initial="hidden"
-                whileInView="show"
+                key={category}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45 }}
                 viewport={{ once: true }}
-                className="flex flex-wrap gap-3"
+                className="rounded-lg border border-white/10 bg-white/[0.055] p-5"
               >
-                {skills.map((skill, i) => (
-                  <motion.div key={i} variants={item}>
-                    <div className="px-4 py-2 rounded-lg bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-200 hover:border-primary-400 hover:shadow-md transition-all duration-200">
-                      <span className="text-sm font-semibold text-primary-800">{skill}</span>
-                    </div>
-                  </motion.div>
-                ))}
+                <h3 className="flex items-center gap-3 text-lg font-black text-white">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-amber-200/25 bg-amber-300/10 text-amber-200">
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  {category}
+                </h3>
+                <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-5 flex flex-wrap gap-2">
+                  {skills.map((skill) => (
+                    <motion.span
+                      key={skill}
+                      variants={item}
+                      className="rounded-md border border-white/10 bg-black/20 px-3 py-2 text-sm font-bold text-slate-300 transition hover:border-amber-200/45 hover:text-white"
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </motion.div>
               </motion.div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          transition={{ duration: 0.45 }}
           viewport={{ once: true }}
-          className="mt-12 p-8 rounded-xl bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-200"
+          className="mt-5 rounded-lg border border-white/10 bg-white/[0.055] p-6"
         >
-          <h3 className="font-bold text-lg text-slate-800 mb-4">Beyond Code 🎵</h3>
-          <p className="text-slate-700 mb-4">When I'm not coding, you can find me:</p>
-          <div className="flex flex-wrap gap-3">
-            {resume.interests.map((interest, i) => (
-              <span key={i} className="px-4 py-2 rounded-lg bg-white border border-primary-300 text-slate-700 font-semibold">
+          <h3 className="flex items-center gap-3 text-lg font-black text-white">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-200/25 bg-cyan-300/10 text-cyan-200">
+              <Music2 className="h-4 w-4" aria-hidden="true" />
+            </span>
+            Outside the editor
+          </h3>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {resume.interests.map((interest) => (
+              <span key={interest} className="rounded-md border border-white/10 bg-black/20 px-3 py-2 text-sm font-bold text-slate-300">
                 {interest}
               </span>
             ))}

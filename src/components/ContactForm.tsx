@@ -1,101 +1,163 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { Mail, Send, ShieldCheck } from 'lucide-react'
+import { resume } from '../data/resume'
+
+const formspreeUrl = 'https://formspree.io/f/xykprnov'
 
 export default function ContactForm() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [website, setWebsite] = useState('')
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+
+  async function sendViaApi() {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, message, website })
+    })
+
+    return res.ok
+  }
+
+  async function sendViaFormspree() {
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('email', email)
+    formData.append('message', message)
+    formData.append('website', website)
+
+    const res = await fetch(formspreeUrl, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: formData
+    })
+
+    return res.ok
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setStatus('sending')
-    
+
     try {
-      const formData = new FormData()
-      formData.append('name', name)
-      formData.append('email', email)
-      formData.append('message', message)
-      
-      const res = await fetch('https://formspree.io/f/xykprnov', {
-        method: 'POST',
-        body: formData
-      })
-      
-      // Formspree returns 200 on success
-      if (res.ok || res.status === 200) {
-        setStatus('success')
-        setName('')
-        setEmail('')
-        setMessage('')
-        setTimeout(() => setStatus('idle'), 5000)
-      } else {
-        setStatus('success') // Still show success since data was received
-        setName('')
-        setEmail('')
-        setMessage('')
-        setTimeout(() => setStatus('idle'), 5000)
+      let sent = false
+
+      if (!import.meta.env.DEV) {
+        try {
+          sent = await sendViaApi()
+        } catch {
+          sent = false
+        }
       }
-    } catch (err) {
+
+      if (!sent) {
+        sent = await sendViaFormspree()
+      }
+
+      if (!sent) {
+        throw new Error('Contact submission failed')
+      }
+
+      setStatus('success')
+      setName('')
+      setEmail('')
+      setMessage('')
+      setWebsite('')
+      window.setTimeout(() => setStatus('idle'), 5000)
+    } catch {
       setStatus('error')
     }
   }
 
   return (
-    <section id="contact" className="py-16 bg-gradient-to-b from-slate-50/50 to-white">
-      <div className="container mx-auto px-6 max-w-2xl">
+    <section id="contact" className="bg-[#05070f] py-20">
+      <div className="container mx-auto grid gap-10 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
+          className="max-w-2xl"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-primary-700 mb-2">Get In Touch</h2>
-          <p className="text-slate-600 mb-10">Have a project or question? Drop me a message and I'll get back to you ASAP.</p>
+          <p className="text-sm font-bold uppercase text-cyan-200">Contact</p>
+          <h2 className="mt-3 text-4xl font-black text-white md:text-5xl">Have a project, team, or internship role in mind?</h2>
+          <p className="mt-4 text-base leading-7 text-slate-400">
+            Send the signal here or email me directly. I am especially interested in full-stack product engineering, AI tooling, and polished user-facing systems.
+          </p>
+
+          <div className="mt-8 space-y-3 text-sm font-semibold text-slate-300">
+            <a href={`mailto:${resume.email}`} className="flex items-center gap-3 transition hover:text-cyan-200">
+              <Mail className="h-4 w-4 text-cyan-200" aria-hidden="true" />
+              {resume.email}
+            </a>
+            <p className="flex items-center gap-3">
+              <ShieldCheck className="h-4 w-4 text-emerald-200" aria-hidden="true" />
+              {resume.location}
+            </p>
+          </div>
         </motion.div>
 
         <motion.form
           onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
           viewport={{ once: true }}
-          className="space-y-5 bg-white p-8 rounded-xl shadow-lg border border-slate-200"
+          className="rounded-lg border border-white/10 bg-white/[0.055] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.34)]"
         >
-          <div>
-            <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2">
-              Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all duration-200"
-              placeholder="Your name"
-            />
+          <label htmlFor="website" className="sr-only">
+            Website
+          </label>
+          <input
+            id="website"
+            type="text"
+            name="website"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+
+          <div className="grid gap-5 md:grid-cols-2">
+            <div>
+              <label htmlFor="name" className="block text-sm font-bold text-slate-200">
+                Name
+              </label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="mt-2 h-12 w-full rounded-lg border border-white/10 bg-black/30 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-200/70 focus:ring-2 focus:ring-cyan-300/15"
+                placeholder="Your name"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-bold text-slate-200">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="mt-2 h-12 w-full rounded-lg border border-white/10 bg-black/30 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-200/70 focus:ring-2 focus:ring-cyan-300/15"
+                placeholder="you@example.com"
+              />
+            </div>
           </div>
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all duration-200"
-              placeholder="your@email.com"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="message" className="block text-sm font-semibold text-slate-700 mb-2">
+          <div className="mt-5">
+            <label htmlFor="message" className="block text-sm font-bold text-slate-200">
               Message
             </label>
             <textarea
@@ -104,50 +166,29 @@ export default function ContactForm() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
-              rows={5}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none resize-none transition-all duration-200"
-              placeholder="Tell me about your project or question..."
+              rows={6}
+              className="mt-2 w-full resize-none rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-200/70 focus:ring-2 focus:ring-cyan-300/15"
+              placeholder="Tell me what you are building, hiring for, or curious about."
             />
           </div>
 
-          <div className="flex items-center gap-3 pt-4">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <button
               disabled={status === 'sending'}
-              className={`px-6 py-3 rounded-lg font-semibold text-white transition-all duration-200 ${
-                status === 'sending'
-                  ? 'bg-slate-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-primary-600 to-primary-500 hover:shadow-lg hover:-translate-y-1'
-              }`}
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-cyan-300 px-5 text-sm font-black text-[#041014] transition hover:-translate-y-0.5 hover:bg-cyan-200 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-200"
             >
-              {status === 'sending' ? 'Sending...' : 'Send Message'}
+              <Send className="h-4 w-4" aria-hidden="true" />
+              {status === 'sending' ? 'Sending' : 'Send message'}
             </button>
 
-            {status === 'success' && (
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="flex items-center gap-2 text-green-600 font-semibold"
-              >
-                <span className="text-xl">✓</span>
-                Message sent! Thanks for reaching out.
-              </motion.div>
-            )}
+            {status === 'success' && <p className="text-sm font-bold text-emerald-200">Message sent. Thanks for reaching out.</p>}
             {status === 'error' && (
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="flex items-center gap-2 text-green-600 font-semibold"
-              >
-                <span className="text-xl">✓</span>
-                Message sent! Thanks for contacting me.
-              </motion.div>
+              <p className="text-sm font-bold text-rose-200">
+                Something failed. Email me at <a href={`mailto:${resume.email}`}>{resume.email}</a>.
+              </p>
             )}
           </div>
         </motion.form>
-
-        <p className="text-xs text-slate-500 mt-6 text-center">
-          This form submits directly to Formspree for secure email delivery.
-        </p>
       </div>
     </section>
   )
