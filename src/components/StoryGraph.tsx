@@ -9,16 +9,11 @@ const accentHex: Record<string, string> = {
   blue: '#93c5fd'
 }
 
-type Node = {
-  x: number
-  y: number
-  index: number
-}
+type Node = { x: number; y: number; index: number }
 
-// Hand-placed nodes shaped like a branching narrative graph:
-// one origin, paths that split, converge, and split again.
+// Hand-placed nodes shaped like a branching narrative graph.
 const nodes: Node[] = [
-  { x: 70, y: 230, index: 0 }, // origin
+  { x: 70, y: 230, index: 0 },
   { x: 200, y: 110, index: 1 },
   { x: 215, y: 330, index: 2 },
   { x: 360, y: 200, index: 3 },
@@ -26,7 +21,6 @@ const nodes: Node[] = [
   { x: 510, y: 310, index: 5 }
 ]
 
-// Edges as gentle curves between scene nodes.
 const edges: Array<[number, number]> = [
   [0, 1],
   [0, 2],
@@ -44,6 +38,64 @@ function curve(a: Node, b: Node) {
   return `M ${a.x} ${a.y} Q ${mx + bend} ${my + bend} ${b.x} ${b.y}`
 }
 
+// Small glyphs drawn around (0,0), fits inside a 22px-radius node.
+function Glyph({ title, color }: { title: string; color: string }) {
+  switch (title) {
+    case 'StockTracker':
+      return (
+        <g stroke={color} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="-10,7 -4,1 1,5 10,-6" />
+          <polyline points="4,-6 10,-6 10,0" />
+        </g>
+      )
+    case 'The Air Outside':
+      // an open book
+      return (
+        <g stroke={color} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M 0 -6 C -3 -9, -10 -9, -11 -7 L -11 7 C -10 5, -3 5, 0 8" />
+          <path d="M 0 -6 C 3 -9, 10 -9, 11 -7 L 11 7 C 10 5, 3 5, 0 8" />
+          <line x1="0" y1="-6" x2="0" y2="8" />
+        </g>
+      )
+    case "HardHaq '25":
+      // an atom
+      return (
+        <g stroke={color} strokeWidth="1.6" fill="none">
+          <ellipse rx="11" ry="4.5" />
+          <ellipse rx="11" ry="4.5" transform="rotate(60)" />
+          <ellipse rx="11" ry="4.5" transform="rotate(-60)" />
+          <circle r="2" fill={color} stroke="none" />
+        </g>
+      )
+    case 'UmbrellaShare':
+      return (
+        <g stroke={color} strokeWidth="2" fill="none" strokeLinecap="round">
+          <path d="M -11 0 A 11 11 0 0 1 11 0 Q 8.2 -3 5.5 0 Q 2.8 -3 0 0 Q -2.8 -3 -5.5 0 Q -8.2 -3 -11 0" fill={color} stroke="none" />
+          <line x1="0" y1="0" x2="0" y2="9" />
+          <path d="M 0 9 q 0 3 3 3" />
+        </g>
+      )
+    case 'Hairrison':
+      // scissors
+      return (
+        <g stroke={color} strokeWidth="1.8" fill="none" strokeLinecap="round">
+          <circle cx="-7" cy="6" r="3" />
+          <circle cx="7" cy="6" r="3" />
+          <line x1="-5" y1="3.5" x2="8" y2="-9" />
+          <line x1="5" y1="3.5" x2="-8" y2="-9" />
+        </g>
+      )
+    case 'RougeRogue':
+      return (
+        <text textAnchor="middle" dominantBaseline="central" fill={color} fontSize="17" fontFamily="IBM Plex Mono, monospace">
+          @
+        </text>
+      )
+    default:
+      return <circle r="5" fill={color} />
+  }
+}
+
 export default function StoryGraph() {
   const projects = resume.projects.slice(0, nodes.length)
   const [active, setActive] = useState<number | null>(null)
@@ -55,28 +107,19 @@ export default function StoryGraph() {
 
   return (
     <figure aria-label="Story map of selected projects. Each node links to a project below.">
-      <svg
-        viewBox="0 0 580 400"
-        role="group"
-        className="w-full h-auto"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* threads */}
+      <svg viewBox="0 0 580 400" role="group" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
         {edges.map(([from, to], i) => (
           <path
             key={`${from}-${to}`}
             d={curve(nodes[from], nodes[to])}
             fill="none"
-            stroke={
-              active === from || active === to ? accentHex[projects[to]?.accent] ?? '#403868' : '#403868'
-            }
+            stroke={active === from || active === to ? accentHex[projects[to]?.accent] ?? '#403868' : '#403868'}
             strokeWidth={active === from || active === to ? 2 : 1.25}
             className="thread-path"
             style={{ animationDelay: `${i * 0.18}s` }}
           />
         ))}
 
-        {/* scene nodes */}
         {projects.map((project, i) => {
           const node = nodes[i]
           const hex = accentHex[project.accent] ?? '#f1ebdd'
@@ -101,11 +144,13 @@ export default function StoryGraph() {
               role="link"
               aria-label={`Go to ${project.title}`}
             >
-              <circle cx={node.x} cy={node.y} r={isActive ? 26 : 20} fill="#221c40" stroke={hex} strokeWidth={isActive ? 2.5 : 1.5} />
-              <circle cx={node.x} cy={node.y} r={5} fill={hex} />
+              <circle cx={node.x} cy={node.y} r={isActive ? 27 : 22} fill="#221c40" stroke={hex} strokeWidth={isActive ? 2.5 : 1.5} />
+              <g transform={`translate(${node.x} ${node.y})${isActive ? ' scale(1.2)' : ''}`}>
+                <Glyph title={project.title} color={hex} />
+              </g>
               <text
                 x={node.x}
-                y={node.y - (isActive ? 36 : 30)}
+                y={node.y - (isActive ? 38 : 32)}
                 textAnchor="middle"
                 fill={isActive ? hex : '#9a93b8'}
                 fontSize={isActive ? 14 : 12}
@@ -117,8 +162,7 @@ export default function StoryGraph() {
           )
         })}
 
-        {/* origin marker */}
-        <text x={70} y={272} textAnchor="middle" fill="#9a93b8" fontSize={11} fontFamily="IBM Plex Mono, monospace">
+        <text x={70} y={274} textAnchor="middle" fill="#9a93b8" fontSize={11} fontFamily="IBM Plex Mono, monospace">
           start here
         </text>
       </svg>

@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import Tilt from 'react-parallax-tilt'
 import { resume } from './data/resume'
 import StoryGraph from './components/StoryGraph'
+import ProjectArt from './components/ProjectArt'
 
 const accentText: Record<string, string> = {
   cyan: 'text-glow-cyan',
@@ -17,6 +19,9 @@ const accentBorder: Record<string, string> = {
   rose: 'border-glow-rose',
   blue: 'border-glow-blue'
 }
+
+const reducedMotion = () =>
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 function useReveal() {
   useEffect(() => {
@@ -37,6 +42,86 @@ function useReveal() {
   }, [])
 }
 
+/* The story thread: a fixed line down the left edge that inks in as you read. */
+function ProgressThread() {
+  const fillRef = useRef<HTMLDivElement>(null)
+  const dotRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    let raf = 0
+    const update = () => {
+      const doc = document.documentElement
+      const max = doc.scrollHeight - window.innerHeight
+      const p = max > 0 ? Math.min(1, window.scrollY / max) : 0
+      if (fillRef.current) fillRef.current.style.transform = `scaleY(${p})`
+      if (dotRef.current) dotRef.current.style.top = `${p * 100}%`
+    }
+    const onScroll = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      cancelAnimationFrame(raf)
+    }
+  }, [])
+
+  return (
+    <div aria-hidden className="fixed left-4 top-20 bottom-8 z-30 hidden w-px lg:block">
+      <div className="absolute inset-0 bg-thread/60" />
+      <div ref={fillRef} className="absolute inset-0 origin-top bg-glow-amber" style={{ transform: 'scaleY(0)' }} />
+      <div
+        ref={dotRef}
+        className="absolute -left-[5px] h-[11px] w-[11px] rounded-full border border-glow-amber bg-ink"
+        style={{ top: 0 }}
+      />
+    </div>
+  )
+}
+
+function useParallax(ref: React.RefObject<HTMLElement>, factor: number) {
+  useEffect(() => {
+    if (reducedMotion()) return
+    let raf = 0
+    const update = () => {
+      if (ref.current) ref.current.style.transform = `translateY(${window.scrollY * factor}px)`
+    }
+    const onScroll = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(update)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(raf)
+    }
+  }, [ref, factor])
+}
+
+function useActiveSection(ids: string[]) {
+  const [active, setActive] = useState('')
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id)
+        })
+      },
+      { rootMargin: '-30% 0px -60% 0px' }
+    )
+    ids.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
+  }, [ids.join(',')])
+  return active
+}
+
 function SectionLabel({ kicker, title }: { kicker: string; title: string }) {
   return (
     <header className="reveal mb-12">
@@ -47,22 +132,29 @@ function SectionLabel({ kicker, title }: { kicker: string; title: string }) {
 }
 
 function TopBar() {
-  const links = [
-    ['Scenes', '#scenes'],
-    ['Backstory', '#backstory'],
-    ['Timeline', '#timeline'],
-    ['Glossary', '#glossary'],
-    ['Epilogue', '#epilogue']
+  const links: Array<[string, string]> = [
+    ['Scenes', 'scenes'],
+    ['Backstory', 'backstory'],
+    ['Timeline', 'timeline'],
+    ['Glossary', 'glossary'],
+    ['Epilogue', 'epilogue']
   ]
+  const active = useActiveSection(links.map(([, id]) => id))
   return (
     <nav className="sticky top-0 z-40 border-b border-thread/60 bg-ink/85 backdrop-blur">
       <div className="mx-auto flex max-w-page items-center justify-between px-5 py-3 sm:px-8">
         <a href="#top" className="font-mono text-sm text-paper">
           w.chenyin<span className="text-glow-amber">()</span>
         </a>
-        <div className="hidden gap-6 font-mono text-xs text-fade sm:flex">
-          {links.map(([label, href]) => (
-            <a key={href} href={href} className="transition-colors hover:text-paper">
+        <div className="hidden gap-6 font-mono text-xs sm:flex">
+          {links.map(([label, id]) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={`transition-colors hover:text-paper ${
+                active === id ? 'text-glow-amber' : 'text-fade'
+              }`}
+            >
               {label}
             </a>
           ))}
@@ -79,8 +171,10 @@ function TopBar() {
 }
 
 function Hero() {
+  const graphRef = useRef<HTMLDivElement>(null)
+  useParallax(graphRef, -0.06)
   return (
-    <section id="top" className="mx-auto grid max-w-page items-center gap-12 px-5 pb-24 pt-16 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-24">
+    <section id="top" className="mx-auto grid max-w-page items-center gap-12 overflow-x-clip px-5 pb-24 pt-16 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-24">
       <div>
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-fade">
           {resume.location} · {resume.availability}
@@ -119,7 +213,7 @@ function Hero() {
           ))}
         </dl>
       </div>
-      <div className="rounded-2xl border border-thread/70 bg-dusk/40 p-5 sm:p-7">
+      <div ref={graphRef} className="rounded-2xl border border-thread/70 bg-dusk/40 p-5 sm:p-7">
         <StoryGraph />
       </div>
     </section>
@@ -130,54 +224,70 @@ function Scenes() {
   return (
     <section id="scenes" className="mx-auto max-w-page px-5 py-20 sm:px-8">
       <SectionLabel kicker="Act I · The work" title="Scenes" />
-      <div className="space-y-20">
+      <div className="space-y-24">
         {resume.projects.map((project, i) => (
           <article
             key={project.title}
             id={`scene-${i + 1}`}
-            className="reveal scroll-mt-24 grid gap-8 border-t border-thread/60 pt-10 lg:grid-cols-[260px_1fr]"
+            className="reveal scroll-mt-24 border-t border-thread/60 pt-10"
           >
-            <aside>
-              <p className={`font-mono text-xs uppercase tracking-[0.3em] ${accentText[project.accent]}`}>
-                Scene {String(i + 1).padStart(2, '0')}
-              </p>
-              <p className="mt-4 font-mono text-sm text-fade">{project.category}</p>
-              <p className="mt-1 font-mono text-sm text-fade">{project.date}</p>
-              <p className={`mt-4 inline-block rounded-full border px-3 py-1 font-mono text-xs ${accentBorder[project.accent]} ${accentText[project.accent]}`}>
-                {project.status}
-              </p>
-              <ul className="mt-6 flex flex-wrap gap-2">
-                {project.stack.map((tech) => (
-                  <li key={tech} className="rounded bg-dusk px-2 py-1 font-mono text-[11px] text-fade">
-                    {tech}
-                  </li>
-                ))}
-              </ul>
-            </aside>
-            <div>
-              <h3 className="font-display text-3xl font-medium sm:text-4xl">{project.title}</h3>
-              <p className="mt-3 max-w-2xl text-lg text-fade">{project.subtitle}</p>
-              <p className="mt-5 max-w-2xl border-l-2 border-thread pl-4 italic text-paper/90">
-                {project.highlight}
-              </p>
-              <ul className="mt-6 max-w-2xl space-y-3 text-fade">
-                {project.bullets.map((bullet) => (
-                  <li key={bullet} className="leading-relaxed">
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-7 flex flex-wrap gap-5 font-mono text-sm">
-                {project.live && (
-                  <a href={project.live} target="_blank" rel="noreferrer" className={`underline underline-offset-4 ${accentText[project.accent]}`}>
-                    Visit live →
-                  </a>
-                )}
-                {project.repo && (
-                  <a href={project.repo} target="_blank" rel="noreferrer" className="text-paper underline underline-offset-4">
-                    Source →
-                  </a>
-                )}
+            <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
+              <aside>
+                <p className={`font-mono text-xs uppercase tracking-[0.3em] ${accentText[project.accent]}`}>
+                  Scene {String(i + 1).padStart(2, '0')}
+                </p>
+                <p className="mt-4 font-mono text-sm text-fade">{project.category}</p>
+                <p className="mt-1 font-mono text-sm text-fade">{project.date}</p>
+                <p className={`mt-4 inline-block rounded-full border px-3 py-1 font-mono text-xs ${accentBorder[project.accent]} ${accentText[project.accent]}`}>
+                  {project.status}
+                </p>
+                <ul className="mt-6 flex flex-wrap gap-2">
+                  {project.stack.map((tech) => (
+                    <li key={tech} className="rounded bg-dusk px-2 py-1 font-mono text-[11px] text-fade">
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+              <div>
+                <h3 className="font-display text-3xl font-medium sm:text-4xl">{project.title}</h3>
+                <p className="mt-3 max-w-2xl text-lg text-fade">{project.subtitle}</p>
+                <div className="mt-7 grid items-start gap-8 xl:grid-cols-[1fr_420px]">
+                  <div>
+                    <p className="max-w-2xl border-l-2 border-thread pl-4 italic text-paper/90">{project.highlight}</p>
+                    <ul className="mt-6 max-w-2xl space-y-3 text-fade">
+                      {project.bullets.map((bullet) => (
+                        <li key={bullet} className="leading-relaxed">
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-7 flex flex-wrap gap-5 font-mono text-sm">
+                      {project.live && (
+                        <a href={project.live} target="_blank" rel="noreferrer" className={`underline underline-offset-4 ${accentText[project.accent]}`}>
+                          Visit live →
+                        </a>
+                      )}
+                      {project.repo && (
+                        <a href={project.repo} target="_blank" rel="noreferrer" className="text-paper underline underline-offset-4">
+                          Source →
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <Tilt
+                    tiltMaxAngleX={6}
+                    tiltMaxAngleY={6}
+                    transitionSpeed={1200}
+                    tiltEnable={!reducedMotion()}
+                    className="will-change-transform"
+                  >
+                    <div className={`overflow-hidden rounded-xl border ${accentBorder[project.accent]} border-opacity-40 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)]`}>
+                      <ProjectArt title={project.title} />
+                    </div>
+                    <p className="mt-2 text-center font-mono text-[11px] text-fade">illustrated preview, drawn in code</p>
+                  </Tilt>
+                </div>
               </div>
             </div>
           </article>
@@ -194,8 +304,8 @@ function Backstory() {
         <SectionLabel kicker="Act II · The author" title="Backstory" />
         <p className="reveal max-w-3xl text-xl leading-relaxed text-paper/90">{resume.summary}</p>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {resume.focusAreas.map((area) => (
-            <div key={area.label} className="reveal rounded-xl border border-thread/70 bg-ink/50 p-6">
+          {resume.focusAreas.map((area, i) => (
+            <div key={area.label} className="reveal rounded-xl border border-thread/70 bg-ink/50 p-6" style={{ transitionDelay: `${i * 0.12}s` }}>
               <h3 className="font-display text-xl text-glow-amber">{area.label}</h3>
               <p className="mt-3 leading-relaxed text-fade">{area.detail}</p>
             </div>
@@ -228,8 +338,8 @@ function Timeline() {
     <section id="timeline" className="mx-auto max-w-page px-5 py-20 sm:px-8">
       <SectionLabel kicker="Act III · The arc" title="Timeline" />
       <ol className="relative ml-3 space-y-12 border-l border-thread pl-8">
-        {entries.map((entry) => (
-          <li key={entry.title} className="reveal relative">
+        {entries.map((entry, i) => (
+          <li key={entry.title} className="reveal relative" style={{ transitionDelay: `${i * 0.1}s` }}>
             <span className="absolute -left-[39px] top-1.5 h-3 w-3 rounded-full border border-glow-amber bg-ink" aria-hidden />
             <p className="font-mono text-xs uppercase tracking-widest text-fade">{entry.date}</p>
             <h3 className="mt-2 font-display text-2xl">{entry.title}</h3>
@@ -257,7 +367,7 @@ function Glossary() {
           {resume.skills.map((skill) => (
             <li
               key={skill}
-              className="rounded-full border border-thread px-4 py-2 font-mono text-sm text-fade transition-colors hover:border-glow-amber hover:text-paper"
+              className="rounded-full border border-thread px-4 py-2 font-mono text-sm text-fade transition-all hover:-translate-y-0.5 hover:border-glow-amber hover:text-paper"
             >
               {skill}
             </li>
@@ -272,7 +382,7 @@ function Epilogue() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-  const [website, setWebsite] = useState('') // honeypot
+  const [website, setWebsite] = useState('')
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
 
   async function submit() {
@@ -330,7 +440,7 @@ function Epilogue() {
               href={choice.href}
               target={choice.href.startsWith('mailto') ? undefined : '_blank'}
               rel="noreferrer"
-              className="block rounded-xl border border-thread bg-dusk/40 px-6 py-5 transition-colors hover:border-glow-amber"
+              className="block rounded-xl border border-thread bg-dusk/40 px-6 py-5 transition-all hover:-translate-y-0.5 hover:border-glow-amber"
             >
               <span className="font-display text-xl text-paper">{choice.label}</span>
               <span className="mt-1 block font-mono text-sm text-fade">{choice.detail}</span>
@@ -408,6 +518,7 @@ export default function App() {
   useReveal()
   return (
     <div>
+      <ProgressThread />
       <TopBar />
       <main>
         <Hero />
