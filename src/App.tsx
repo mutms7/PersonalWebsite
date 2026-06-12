@@ -126,7 +126,7 @@ function useActiveSection(ids: string[]) {
 function SectionLabel({ kicker, title }: { kicker: string; title: string }) {
   return (
     <header className="reveal mb-12">
-      <p className="font-mono text-xs uppercase tracking-[0.3em] text-glow-amber">{kicker}</p>
+      <p className="font-mono text-sm uppercase tracking-[0.3em] text-glow-amber">{kicker}</p>
       <h2 className="mt-3 font-display text-4xl sm:text-5xl font-medium">{title}</h2>
     </header>
   )
@@ -148,7 +148,7 @@ function TopBar() {
         <a href="#top" className="font-mono text-sm text-paper">
           w.chenyin<span className="text-glow-amber">()</span>
         </a>
-        <div className="hidden gap-6 font-mono text-xs sm:flex">
+        <div className="hidden gap-6 font-mono text-sm sm:flex">
           {links.map(([label, id]) => (
             <a
               key={id}
@@ -163,7 +163,7 @@ function TopBar() {
         </div>
         <a
           href={`mailto:${resume.email}`}
-          className="rounded-full border border-glow-amber px-4 py-1.5 font-mono text-xs text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink"
+          className="rounded-full border border-glow-amber px-4 py-1.5 font-mono text-sm text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink"
         >
           Say hello
         </a>
@@ -178,7 +178,7 @@ function Hero() {
   return (
     <section id="top" className="mx-auto grid max-w-page items-center gap-12 overflow-x-clip px-5 pb-24 pt-16 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-24">
       <div>
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-fade">
+        <p className="font-mono text-sm uppercase tracking-[0.3em] text-fade">
           {resume.location} · {resume.availability}
         </p>
         <h1 className="mt-6 font-display text-5xl font-medium leading-[1.05] sm:text-6xl lg:text-7xl">
@@ -209,7 +209,7 @@ function Hero() {
         <dl className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
           {resume.stats.map((stat) => (
             <div key={stat.label}>
-              <dt className="font-mono text-[11px] uppercase tracking-widest text-fade">{stat.label}</dt>
+              <dt className="font-mono text-sm uppercase tracking-widest text-fade">{stat.label}</dt>
               <dd className="mt-1 font-display text-2xl text-paper">{stat.value}</dd>
             </div>
           ))}
@@ -224,7 +224,7 @@ function Hero() {
               className="block h-auto w-full"
             />
           </div>
-          <figcaption className="mt-3 text-center font-mono text-xs text-fade">
+          <figcaption className="mt-3 text-center font-mono text-sm text-fade">
             the author, between takes · the water boys, winter 2026
           </figcaption>
         </figure>
@@ -262,7 +262,7 @@ function Scenes() {
           >
             <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
               <aside>
-                <p className={`font-mono text-xs uppercase tracking-[0.3em] ${accentText[project.accent]}`}>
+                <p className={`font-mono text-sm uppercase tracking-[0.3em] ${accentText[project.accent]}`}>
                   Scene {String(i + 1).padStart(2, '0')}
                 </p>
                 <p className="mt-4 font-mono text-sm text-fade">{project.category}</p>
@@ -272,7 +272,7 @@ function Scenes() {
                 </p>
                 <ul className="mt-6 flex flex-wrap gap-2">
                   {project.stack.map((tech) => (
-                    <li key={tech} className="rounded bg-dusk px-2 py-1 font-mono text-[11px] text-fade">
+                    <li key={tech} className="rounded bg-dusk px-2.5 py-1 font-mono text-xs text-fade">
                       {tech}
                     </li>
                   ))}
@@ -314,7 +314,7 @@ function Scenes() {
                     <div className={`overflow-hidden rounded-xl border ${accentBorder[project.accent]} border-opacity-40 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)]`}>
                       <ProjectArt title={project.title} />
                     </div>
-                    <p className="mt-2 text-center font-mono text-[11px] text-fade">illustrated preview, drawn in code</p>
+                    <p className="mt-2 text-center font-mono text-xs text-fade">illustrated preview, drawn in code</p>
                   </Tilt>
                 </div>
               </div>
@@ -370,7 +370,7 @@ function Timeline() {
         {entries.map((entry, i) => (
           <li key={entry.title} className="reveal relative" style={{ transitionDelay: `${i * 0.1}s` }}>
             <span className="absolute -left-[39px] top-1.5 h-3 w-3 rounded-full border border-glow-amber bg-ink" aria-hidden />
-            <p className="font-mono text-xs uppercase tracking-widest text-fade">{entry.date}</p>
+            <p className="font-mono text-sm uppercase tracking-widest text-fade">{entry.date}</p>
             <h3 className="mt-2 font-display text-2xl">{entry.title}</h3>
             {entry.subtitle && <p className="mt-1 text-fade">{entry.subtitle}</p>}
             <ul className="mt-3 max-w-2xl space-y-2 text-fade">
@@ -535,7 +535,7 @@ function Epilogue() {
 function Footer() {
   return (
     <footer className="border-t border-thread/60">
-      <div className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-3 px-5 py-8 font-mono text-xs text-fade sm:px-8">
+      <div className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-3 px-5 py-8 font-mono text-sm text-fade sm:px-8">
         <p>© {new Date().getFullYear()} {resume.name}. Hand-built with React, TypeScript, and Tailwind.</p>
         <p>fin — until the next commit.</p>
       </div>

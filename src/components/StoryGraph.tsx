@@ -126,7 +126,7 @@ export default function StoryGraph() {
     <figure aria-label="Story map of projects grouped by theme. Threads describe how projects relate.">
       <svg viewBox="0 0 1200 440" role="group" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
         {clusters.map((c) => (
-          <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#9a93b8" opacity="0.7" fontSize="13" letterSpacing="4" fontFamily="IBM Plex Mono, monospace">
+          <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#9a93b8" opacity="0.7" fontSize="15" letterSpacing="4" fontFamily="IBM Plex Mono, monospace">
             {c.label.toUpperCase()}
           </text>
         ))}
@@ -155,17 +155,17 @@ export default function StoryGraph() {
               {activeEdge === i && (
                 <g pointerEvents="none">
                   <rect
-                    x={lx - Math.min(edge.label.length * 3.6, 250)}
-                    y={ly - 14}
-                    width={Math.min(edge.label.length * 7.2, 500)}
-                    height="26"
-                    rx="13"
+                    x={lx - edge.label.split(':')[0].length * 4.6 - 14}
+                    y={ly - 16}
+                    width={edge.label.split(':')[0].length * 9.2 + 28}
+                    height="30"
+                    rx="15"
                     fill="#14122b"
                     stroke={hex}
                     strokeWidth="1"
                   />
-                  <text x={lx} y={ly + 3} textAnchor="middle" fill={hex} fontSize="12" fontFamily="IBM Plex Mono, monospace">
-                    {edge.label.length > 66 ? edge.label.slice(0, 64) + '…' : edge.label}
+                  <text x={lx} y={ly + 4} textAnchor="middle" fill={hex} fontSize="14" fontFamily="IBM Plex Mono, monospace">
+                    {edge.label.split(':')[0]}
                   </text>
                 </g>
               )}
@@ -207,7 +207,7 @@ export default function StoryGraph() {
                 y={pos.y + (isActive ? 52 : 46)}
                 textAnchor="middle"
                 fill={isActive ? hex : '#9a93b8'}
-                fontSize={isActive ? 15 : 13}
+                fontSize={isActive ? 17 : 15}
                 fontFamily="IBM Plex Mono, monospace"
               >
                 {project.title}
@@ -216,7 +216,7 @@ export default function StoryGraph() {
           )
         })}
       </svg>
-      <figcaption className="mx-auto mt-4 max-w-3xl text-center font-mono text-xs text-fade min-h-[2.5rem] px-4">
+      <figcaption className="mx-auto mt-4 max-w-3xl text-center font-mono text-sm text-fade min-h-[2.5rem] px-4">
         {caption}
       </figcaption>
     </figure>
