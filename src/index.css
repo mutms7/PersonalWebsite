@@ -46,8 +46,8 @@ textarea:focus-visible {
 
 /* Story graph edge draw-in */
 .thread-path {
-  stroke-dasharray: 600;
-  stroke-dashoffset: 600;
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 1600;
   animation: draw-thread 2.4s ease forwards;
 }
 
