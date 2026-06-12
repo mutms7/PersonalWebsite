@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import { resume } from './data/resume'
 import StoryGraph from './components/StoryGraph'
+import WebBackdrop from './components/WebBackdrop'
 import ProjectArt from './components/ProjectArt'
 
 const accentText: Record<string, string> = {
@@ -133,6 +134,7 @@ function SectionLabel({ kicker, title }: { kicker: string; title: string }) {
 
 function TopBar() {
   const links: Array<[string, string]> = [
+    ['Map', 'map'],
     ['Scenes', 'scenes'],
     ['Backstory', 'backstory'],
     ['Timeline', 'timeline'],
@@ -213,8 +215,35 @@ function Hero() {
           ))}
         </dl>
       </div>
-      <div ref={graphRef} className="rounded-2xl border border-thread/70 bg-dusk/40 p-5 sm:p-7">
-        <StoryGraph />
+      <div ref={graphRef} className="mx-auto w-full max-w-sm lg:max-w-none">
+        <figure className="rotate-[1.5deg] transition-transform duration-500 hover:rotate-0">
+          <div className="overflow-hidden rounded-2xl border border-glow-amber/40 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]">
+            <img
+              src="/portrait.jpg"
+              alt="William Chenyin in a blazer, smiling mid-performance while surrounded by phone cameras"
+              className="block h-auto w-full"
+            />
+          </div>
+          <figcaption className="mt-3 text-center font-mono text-xs text-fade">
+            the author, between takes · the water boys, winter 2026
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  )
+}
+
+function StoryMap() {
+  return (
+    <section id="map" className="relative overflow-hidden border-y border-thread/60 bg-dusk/20 py-20">
+      <WebBackdrop />
+      <div className="relative">
+        <div className="mx-auto max-w-page px-5 sm:px-8">
+          <SectionLabel kicker="Prologue · The map" title="How the stories connect" />
+        </div>
+        <div className="mx-auto w-full max-w-[90rem] px-2 sm:px-6">
+          <StoryGraph />
+        </div>
       </div>
     </section>
   )
@@ -522,6 +551,7 @@ export default function App() {
       <TopBar />
       <main>
         <Hero />
+        <StoryMap />
         <Scenes />
         <Backstory />
         <Timeline />
