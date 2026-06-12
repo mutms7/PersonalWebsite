@@ -172,15 +172,16 @@ export const resume: Resume = {
     },
     {
       title: 'Hairrison',
-      subtitle: 'Hair styling visualization tool powered by Cloudinary transformations.',
+      subtitle: 'Hair styling visualization tool with Cloudinary transformations and Stripe-powered payments.',
       category: 'AI-assisted consumer app',
-      status: 'Live',
+      status: 'Live with payments',
       date: 'Mar. 2026',
       live: 'https://hairrison.vercel.app',
       repo: 'https://github.com/mutms7/Hairrison',
-      stack: ['TypeScript', 'React', 'Cloudinary', 'Vercel'],
-      highlight: 'A lightweight product experience for previewing and iterating on hairstyle ideas.',
+      stack: ['TypeScript', 'React', 'Cloudinary', 'Stripe', 'Vercel'],
+      highlight: 'A lightweight product experience for previewing hairstyle ideas, now monetized end to end with Stripe.',
       bullets: [
+        'Integrated Stripe payment processing for secure checkout, turning the prototype into a monetizable product.',
         'Built a polished visual interface for hair styling exploration and image transformation workflows.',
         'Connected Cloudinary-powered media handling to a fast TypeScript frontend deployed on Vercel.',
         'Focused the UX on quick comparison, low-friction uploads, and clear visual feedback.'
