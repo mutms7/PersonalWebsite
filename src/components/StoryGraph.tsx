@@ -152,23 +152,6 @@ export default function StoryGraph() {
                 className="thread-path"
                 style={{ animationDelay: `${i * 0.18}s`, transition: 'stroke 0.25s' }}
               />
-              {activeEdge === i && (
-                <g pointerEvents="none">
-                  <rect
-                    x={lx - edge.label.split(':')[0].length * 4.6 - 14}
-                    y={ly - 16}
-                    width={edge.label.split(':')[0].length * 9.2 + 28}
-                    height="30"
-                    rx="15"
-                    fill="#14122b"
-                    stroke={hex}
-                    strokeWidth="1"
-                  />
-                  <text x={lx} y={ly + 4} textAnchor="middle" fill={hex} fontSize="14" fontFamily="IBM Plex Mono, monospace">
-                    {edge.label.split(':')[0]}
-                  </text>
-                </g>
-              )}
             </g>
           )
         })}
@@ -215,6 +198,32 @@ export default function StoryGraph() {
             </g>
           )
         })}
+
+        {/* hover pill, painted last so it sits above the nodes */}
+        {activeEdge !== null &&
+          (() => {
+            const edge = edgeList[activeEdge]
+            const { lx, ly } = curve(positions[edge.a], positions[edge.b], activeEdge)
+            const hex = accentHex[projects[edge.b].accent]
+            const short = edge.label.split(':')[0]
+            return (
+              <g pointerEvents="none">
+                <rect
+                  x={lx - short.length * 4.6 - 14}
+                  y={ly - 16}
+                  width={short.length * 9.2 + 28}
+                  height="30"
+                  rx="15"
+                  fill="#14122b"
+                  stroke={hex}
+                  strokeWidth="1"
+                />
+                <text x={lx} y={ly + 4} textAnchor="middle" fill={hex} fontSize="14" fontFamily="IBM Plex Mono, monospace">
+                  {short}
+                </text>
+              </g>
+            )
+          })()}
       </svg>
       <figcaption className="mx-auto mt-4 max-w-3xl text-center font-mono text-sm text-fade min-h-[2.5rem] px-4">
         {caption}
