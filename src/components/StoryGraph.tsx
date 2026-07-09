@@ -12,19 +12,19 @@ const accentHex: Record<string, string> = {
 }
 
 // Positions keyed by project index in resume.projects:
-// 0 StockTracker · 1 The Air Outside · 2 HardHaq '25 · 3 UmbrellaShare · 4 Hairrison
-// 5 RougeRogue · 6 ConquestCartes · 7 Blend Together · 8 Molt
+// 0 ConquestCartes · 1 Blend Together · 2 Molt · 3 StockTracker · 4 The Air Outside
+// 5 HardHaq '25 · 6 UmbrellaShare · 7 Hairrison · 8 RougeRogue
 // Clustered by theme: interactive worlds (left), hackathon podiums (centre), live products (right).
 const positions: Record<number, { x: number; y: number }> = {
-  1: { x: 255, y: 150 },
-  5: { x: 180, y: 295 },
-  8: { x: 300, y: 415 },
-  2: { x: 600, y: 150 },
-  3: { x: 665, y: 295 },
-  4: { x: 585, y: 415 },
-  0: { x: 960, y: 150 },
-  6: { x: 1035, y: 295 },
-  7: { x: 955, y: 415 }
+  4: { x: 255, y: 150 },
+  8: { x: 180, y: 295 },
+  2: { x: 300, y: 415 },
+  5: { x: 600, y: 150 },
+  6: { x: 665, y: 295 },
+  7: { x: 585, y: 415 },
+  3: { x: 960, y: 150 },
+  0: { x: 1035, y: 295 },
+  1: { x: 955, y: 415 }
 }
 
 const clusters = [
@@ -36,16 +36,16 @@ const clusters = [
 type Edge = { a: number; b: number; label: string }
 
 const edgeList: Edge[] = [
-  { a: 1, b: 5, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
-  { a: 5, b: 8, label: 'Playable worlds: a roguelike crawler and a 3D platformer' },
-  { a: 1, b: 8, label: 'Same world and mood: suits as masks, presence over performance' },
-  { a: 2, b: 3, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
-  { a: 3, b: 4, label: 'Hackathon builds around everyday, human problems' },
-  { a: 0, b: 4, label: 'TypeScript + React products shipped live on Vercel' },
-  { a: 0, b: 2, label: 'Heavy data on both sides: market feeds and Maxwell capacitance matrices' },
-  { a: 6, b: 7, label: 'Live multiplayer on shared, synced game state' },
-  { a: 4, b: 7, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
-  { a: 6, b: 8, label: 'Two browser games of mine: a deck-builder and a 3D platformer' }
+  { a: 4, b: 8, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
+  { a: 8, b: 2, label: 'Playable worlds: a roguelike crawler and a 3D platformer' },
+  { a: 4, b: 2, label: 'Same world and mood: suits as masks, presence over performance' },
+  { a: 5, b: 6, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
+  { a: 6, b: 7, label: 'Hackathon builds around everyday, human problems' },
+  { a: 3, b: 7, label: 'TypeScript + React products shipped live on Vercel' },
+  { a: 3, b: 5, label: 'Heavy data on both sides: market feeds and Maxwell capacitance matrices' },
+  { a: 0, b: 1, label: 'Live multiplayer on shared, synced game state' },
+  { a: 7, b: 1, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
+  { a: 0, b: 2, label: 'Two browser games of mine: a deck-builder and a 3D platformer' }
 ]
 
 function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: number) {

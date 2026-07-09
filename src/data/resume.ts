@@ -110,6 +110,75 @@ export const resume: Resume = {
   ],
   projects: [
     {
+      title: 'ConquestCartes',
+      subtitle: 'An original fantasy deck-builder in Godot: buy from a rotating market, build an engine from almost nothing, and race for victory points.',
+      category: 'Game · deck-builder',
+      status: 'Live · multiplayer',
+      date: 'Jul. 2026',
+      live: 'https://conquest-cartes.vercel.app',
+      repo: 'https://github.com/mutms7/ConquestCartes',
+      stack: ['Godot 4.7', 'GDScript', 'Node', 'WebAssembly', 'Vercel'],
+      highlight: 'That "build an engine from almost nothing" Dominion feeling, with my own painted cards, plus relics and time-based combat.',
+      bullets: [
+        '63 data-driven cards with original artwork and the full deck-builder verb set: draw, trash, gain, upgrade, replay, and reactive triggers on gain, buy, discard, and cleanup.',
+        'A fresh 14-card kingdom market every game, finite supply piles with visible counts and sold-out handling, and 0-cost Briar Hex curses worth -1 VP.',
+        'Multiplayer over both direct-IP LAN tables and 4-letter online-code lobbies, with a host-authoritative relay, shared supplies, and attacks that hit your rivals.',
+        'A handmade medieval UI: jewel-toned cards, quiet UI sounds, layered music, an end-game score plaque, and a Kingdoms browser that filters the random market pool.'
+      ],
+      accent: 'violet',
+      featured: true,
+      shots: [
+        { src: '/shots/conquestcartes/home.webp', caption: 'The ConquestCartes home screen, with the Sunspire tower artwork.' },
+        { src: '/shots/conquestcartes/table.webp', caption: 'A game in progress: the market of action cards, your treasury and estates, and your opening hand.' }
+      ]
+    },
+    {
+      title: 'Blend Together',
+      subtitle: 'A co-op 3D modeling party game: sculpt one shared low-poly model against a timer, then let an AI judge score it.',
+      category: 'Game · AI · multiplayer',
+      status: 'Live',
+      date: 'Jul. 2026',
+      live: 'https://blending3d.vercel.app',
+      repo: 'https://github.com/mutms7/blending',
+      stack: ['React', 'TypeScript', 'Three.js', 'R3F', 'Yjs', 'Node', 'Claude'],
+      highlight: 'Lightweight Blender meets Jackbox: build something dumb with friends under pressure, then have Claude tell you exactly how the handle turned out.',
+      bullets: [
+        'A real-time shared mesh (vertices, faces, colors, and paint) synced with Yjs, so concurrent edits merge per-key and undo stays scoped to your own transactions.',
+        'A full modeling toolset: vertex / edge / face / object select, move-rotate-scale gizmos, extrude, subdivide, per-face paint, and a Blender-style view-cube.',
+        'On timeout the round captures the model from six angles and sends them to Claude vision for a 0-100 score, locked to a JSON schema so the reply always parses.',
+        'A daily challenge with a global leaderboard and per-player streaks, run modifiers, a timelapse replay of the build, and a session gallery.'
+      ],
+      accent: 'blue',
+      featured: true,
+      shots: [
+        { src: '/shots/blend/editor.webp', caption: 'The Blend Together editor: a shared model, the modeling toolbar, and the interactive tutorial.' },
+        { src: '/shots/blend/sculpt.webp', caption: 'Sculpting with primitives and the move gizmo.' }
+      ]
+    },
+    {
+      title: 'Molt',
+      subtitle: 'A 3D puzzle platformer about precise movement, and about when to take your armor off.',
+      category: 'Game · 3D platformer',
+      status: 'Live',
+      date: 'Jul. 2026',
+      live: 'https://molt-one.vercel.app',
+      repo: 'https://github.com/mutms7/Molt',
+      stack: ['Three.js', 'React-Three-Fiber', 'Rapier', 'TypeScript', 'Vite', 'Zustand'],
+      highlight: 'One toggle, a real trade-off both ways. Suited, you\'re fast but half-blind; bare, color and sound flood in and hidden platforms appear.',
+      bullets: [
+        'A reversible "Shell" transition that morphs between states smoothly, without letting you half-toggle to steal the target state\'s powers early.',
+        'Crisp movement on Rapier\'s kinematic controller: per-axis move-and-slide, coyote time, a suited double-jump, and a dash that keeps your vertical velocity.',
+        'A procedurally-animated character rig (idle, speed-blended run, jump, landing squash, victory pose) with two genuinely different silhouettes and no model files.',
+        'A hub plus five zones, each with its own palette and twist, built in the same world and mood as my visual novel: suits as masks, presence over performance.'
+      ],
+      accent: 'orange',
+      shots: [
+        { src: '/shots/molt/title.webp', caption: 'The Molt title screen.' },
+        { src: '/shots/molt/suited.webp', caption: 'Suited: fast and armored, but the world is desaturated and some geometry is invisible.' },
+        { src: '/shots/molt/bare.webp', caption: 'Bare: slower and exposed, but color floods in and the hidden platforms appear.' }
+      ]
+    },
+    {
       title: 'StockTracker',
       subtitle: 'Dark market intelligence dashboard for equities, ETFs, news, and AI-assisted quick takes.',
       category: 'Finance / AI',
@@ -217,75 +286,6 @@ export const resume: Resume = {
         'Designed character stats, health tracking, and behavior systems for extendable gameplay.'
       ],
       accent: 'amber'
-    },
-    {
-      title: 'ConquestCartes',
-      subtitle: 'An original fantasy deck-builder in Godot: buy from a rotating market, build an engine from almost nothing, and race for victory points.',
-      category: 'Game · deck-builder',
-      status: 'Live · multiplayer',
-      date: 'Jul. 2026',
-      live: 'https://conquest-cartes.vercel.app',
-      repo: 'https://github.com/mutms7/ConquestCartes',
-      stack: ['Godot 4.7', 'GDScript', 'Node', 'WebAssembly', 'Vercel'],
-      highlight: 'That "build an engine from almost nothing" Dominion feeling, with my own painted cards, plus relics and time-based combat.',
-      bullets: [
-        '63 data-driven cards with original artwork and the full deck-builder verb set: draw, trash, gain, upgrade, replay, and reactive triggers on gain, buy, discard, and cleanup.',
-        'A fresh 14-card kingdom market every game, finite supply piles with visible counts and sold-out handling, and 0-cost Briar Hex curses worth -1 VP.',
-        'Multiplayer over both direct-IP LAN tables and 4-letter online-code lobbies, with a host-authoritative relay, shared supplies, and attacks that hit your rivals.',
-        'A handmade medieval UI: jewel-toned cards, quiet UI sounds, layered music, an end-game score plaque, and a Kingdoms browser that filters the random market pool.'
-      ],
-      accent: 'violet',
-      featured: true,
-      shots: [
-        { src: '/shots/conquestcartes/home.webp', caption: 'The ConquestCartes home screen, with the Sunspire tower artwork.' },
-        { src: '/shots/conquestcartes/table.webp', caption: 'A game in progress: the market of action cards, your treasury and estates, and your opening hand.' }
-      ]
-    },
-    {
-      title: 'Blend Together',
-      subtitle: 'A co-op 3D modeling party game: sculpt one shared low-poly model against a timer, then let an AI judge score it.',
-      category: 'Game · AI · multiplayer',
-      status: 'Live',
-      date: 'Jul. 2026',
-      live: 'https://blending3d.vercel.app',
-      repo: 'https://github.com/mutms7/blending',
-      stack: ['React', 'TypeScript', 'Three.js', 'R3F', 'Yjs', 'Node', 'Claude'],
-      highlight: 'Lightweight Blender meets Jackbox: build something dumb with friends under pressure, then have Claude tell you exactly how the handle turned out.',
-      bullets: [
-        'A real-time shared mesh (vertices, faces, colors, and paint) synced with Yjs, so concurrent edits merge per-key and undo stays scoped to your own transactions.',
-        'A full modeling toolset: vertex / edge / face / object select, move-rotate-scale gizmos, extrude, subdivide, per-face paint, and a Blender-style view-cube.',
-        'On timeout the round captures the model from six angles and sends them to Claude vision for a 0-100 score, locked to a JSON schema so the reply always parses.',
-        'A daily challenge with a global leaderboard and per-player streaks, run modifiers, a timelapse replay of the build, and a session gallery.'
-      ],
-      accent: 'blue',
-      featured: true,
-      shots: [
-        { src: '/shots/blend/editor.webp', caption: 'The Blend Together editor: a shared model, the modeling toolbar, and the interactive tutorial.' },
-        { src: '/shots/blend/sculpt.webp', caption: 'Sculpting with primitives and the move gizmo.' }
-      ]
-    },
-    {
-      title: 'Molt',
-      subtitle: 'A 3D puzzle platformer about precise movement, and about when to take your armor off.',
-      category: 'Game · 3D platformer',
-      status: 'Live',
-      date: 'Jul. 2026',
-      live: 'https://molt-one.vercel.app',
-      repo: 'https://github.com/mutms7/Molt',
-      stack: ['Three.js', 'React-Three-Fiber', 'Rapier', 'TypeScript', 'Vite', 'Zustand'],
-      highlight: 'One toggle, a real trade-off both ways. Suited, you\'re fast but half-blind; bare, color and sound flood in and hidden platforms appear.',
-      bullets: [
-        'A reversible "Shell" transition that morphs between states smoothly, without letting you half-toggle to steal the target state\'s powers early.',
-        'Crisp movement on Rapier\'s kinematic controller: per-axis move-and-slide, coyote time, a suited double-jump, and a dash that keeps your vertical velocity.',
-        'A procedurally-animated character rig (idle, speed-blended run, jump, landing squash, victory pose) with two genuinely different silhouettes and no model files.',
-        'A hub plus five zones, each with its own palette and twist, built in the same world and mood as my visual novel: suits as masks, presence over performance.'
-      ],
-      accent: 'orange',
-      shots: [
-        { src: '/shots/molt/title.webp', caption: 'The Molt title screen.' },
-        { src: '/shots/molt/suited.webp', caption: 'Suited: fast and armored, but the world is desaturated and some geometry is invisible.' },
-        { src: '/shots/molt/bare.webp', caption: 'Bare: slower and exposed, but color floods in and the hidden platforms appear.' }
-      ]
     }
   ],
   experience: [
