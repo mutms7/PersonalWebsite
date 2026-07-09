@@ -14,7 +14,9 @@ module.exports = {
           emerald: '#6ee7b7',
           amber: '#fcd34d',
           rose: '#fda4af',
-          blue: '#93c5fd'
+          blue: '#93c5fd',
+          violet: '#c4b5fd',
+          orange: '#fb923c'
         }
       },
       fontFamily: {

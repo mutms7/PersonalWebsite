@@ -261,6 +261,160 @@ function RougeRogue() {
   )
 }
 
+function ConquestCartes() {
+  const market = ['a', 'a', 'a', 'r', 'a', 'a', 'a', 'a', 'a', 'v']
+  const stripFor = (t: string) => (t === 'r' ? '#c9922e' : t === 'v' ? '#8a3a72' : '#5a8fd6')
+  return (
+    <svg {...frameProps} aria-label="ConquestCartes deck-builder preview">
+      <Chrome label="conquest-cartes.vercel.app" accent="#c4b5fd" />
+      <rect x="20" y="48" width="520" height="262" rx="8" fill="#100d20" />
+      <text x="34" y="70" fill="#e8c87a" fontSize="14" fontFamily="Georgia, serif" letterSpacing="1">CONQUEST CARTES</text>
+      <rect x="214" y="54" width="150" height="20" rx="10" fill="#1b1630" stroke="#4a3f68" strokeWidth="1" />
+      <text x="228" y="68" fill="#9a93b8" fontSize="9" fontFamily="IBM Plex Mono, monospace">RELICS</text>
+      {[286, 306, 326, 346].map((cx) => (
+        <circle key={cx} cx={cx} cy="64" r="6" fill="none" stroke="#6a5f88" strokeWidth="1" />
+      ))}
+      <text x="26" y="92" fill="#c9922e" fontSize="8" fontFamily="IBM Plex Mono, monospace">TREASURY</text>
+      <text x="280" y="92" textAnchor="middle" fill="#5a8fd6" fontSize="8" fontFamily="IBM Plex Mono, monospace">BARRACKS</text>
+      <text x="534" y="92" textAnchor="end" fill="#a85a8a" fontSize="8" fontFamily="IBM Plex Mono, monospace">ESTATES</text>
+      {[0, 1].map((i) => (
+        <g key={`t${i}`}>
+          <rect x="26" y={98 + i * 74} width="46" height="66" rx="5" fill="#241d1a" stroke="#c9922e" strokeWidth="1" />
+          <rect x="30" y={102 + i * 74} width="38" height="26" rx="3" fill="#3a2e1c" />
+          <circle cx="40" cy={110 + i * 74} r="6" fill="#c9922e" opacity="0.7" />
+        </g>
+      ))}
+      {market.map((t, i) => {
+        const col = i % 5
+        const row = Math.floor(i / 5)
+        const x = 96 + col * 78
+        const y = 98 + row * 74
+        return (
+          <g key={`m${i}`}>
+            <rect x={x} y={y} width="62" height="66" rx="5" fill="#1c1730" stroke="#3a3358" strokeWidth="1" />
+            <rect x={x + 4} y={y + 4} width="54" height="26" rx="3" fill="#2a2340" />
+            <rect x={x} y={y + 40} width="62" height="4" fill={stripFor(t)} opacity="0.9" />
+            <circle cx={x + 13} cy={y + 13} r="6" fill="#3a3358" />
+            <rect x={x + 6} y={y + 48} width="50" height="3" rx="1.5" fill="#3a3358" />
+            <rect x={x + 6} y={y + 55} width="34" height="3" rx="1.5" fill="#3a3358" />
+          </g>
+        )
+      })}
+      {[0, 1].map((i) => (
+        <g key={`e${i}`}>
+          <rect x="496" y={98 + i * 74} width="44" height="66" rx="5" fill="#2a1d2a" stroke="#8a3a72" strokeWidth="1" />
+          <rect x="500" y={102 + i * 74} width="36" height="26" rx="3" fill="#3a2438" />
+          <text x="518" y={152 + i * 74} textAnchor="middle" fill="#c98ab5" fontSize="8" fontFamily="IBM Plex Mono, monospace">{i ? '3' : '6'} VP</text>
+        </g>
+      ))}
+      <rect x="20" y="250" width="150" height="60" rx="6" fill="#161227" />
+      <text x="34" y="272" fill="#e8c87a" fontSize="10" fontFamily="IBM Plex Mono, monospace">COINS · 0</text>
+      <text x="34" y="289" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">ACTIONS · 1</text>
+      <text x="34" y="306" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">BUYS · 1</text>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <g key={`h${i}`} transform={`rotate(${(i - 2) * 7} 320 430)`}>
+          <rect x={282 + i * 6} y="256" width="42" height="56" rx="4" fill="#241d1a" stroke="#c9922e" strokeWidth="1" />
+          <circle cx={303 + i * 6} cy="272" r="6" fill="#c9922e" opacity="0.6" />
+        </g>
+      ))}
+      <rect x="448" y="280" width="92" height="30" rx="6" fill="#d9b45e" />
+      <text x="494" y="300" textAnchor="middle" fill="#1a1206" fontSize="10" fontFamily="IBM Plex Mono, monospace">END TURN</text>
+    </svg>
+  )
+}
+
+function BlendTogether() {
+  return (
+    <svg {...frameProps} aria-label="Blend Together 3D modeling preview">
+      <Chrome label="blending3d.vercel.app" accent="#93c5fd" />
+      <rect x="20" y="48" width="520" height="262" rx="8" fill="#0e1526" />
+      <text x="34" y="68" fill="#f1ebdd" fontSize="12" fontFamily="Instrument Sans, sans-serif">Blend Together</text>
+      <circle cx="150" cy="63" r="4" fill="#fb7185" />
+      <rect x="250" y="53" width="72" height="20" rx="6" fill="#3b82f6" />
+      <text x="286" y="67" textAnchor="middle" fill="#ffffff" fontSize="9" fontFamily="IBM Plex Mono, monospace">Start round</text>
+      <rect x="328" y="53" width="48" height="20" rx="6" fill="#1b2438" stroke="#33415c" strokeWidth="1" />
+      <text x="352" y="67" textAnchor="middle" fill="#c9d4e6" fontSize="9" fontFamily="IBM Plex Mono, monospace">★ Daily</text>
+      <rect x="28" y="86" width="86" height="216" rx="8" fill="#141c2e" stroke="#28324a" strokeWidth="1" />
+      {['Cube', 'Sphere', 'Vertex', 'Edge', 'Face', 'Move', 'Rotate'].map((t, i) => (
+        <g key={t}>
+          <rect x="36" y={96 + i * 28} width="70" height="20" rx="5" fill={i === 4 || i === 5 ? '#3b82f6' : '#1b2438'} stroke="#2c3852" strokeWidth="1" />
+          <text x="44" y={110 + i * 28} fill={i === 4 || i === 5 ? '#ffffff' : '#aab7cc'} fontSize="9" fontFamily="IBM Plex Mono, monospace">{t}</text>
+        </g>
+      ))}
+      {[0, 1, 2, 3, 4].map((i) => (
+        <line key={`g${i}`} x1="132" y1={132 + i * 34} x2="440" y2={132 + i * 34} stroke="#1c2740" strokeWidth="1" />
+      ))}
+      <polygon points="300,152 360,152 360,222 300,222" fill="#c8a06a" opacity="0.92" />
+      <polygon points="300,152 330,130 390,130 360,152" fill="#9fb0c8" />
+      <polygon points="360,152 390,130 390,200 360,222" fill="#8290ab" />
+      <line x1="330" y1="187" x2="330" y2="122" stroke="#4ade80" strokeWidth="2.5" />
+      <line x1="330" y1="187" x2="406" y2="207" stroke="#f87171" strokeWidth="2.5" />
+      <line x1="330" y1="187" x2="272" y2="216" stroke="#60a5fa" strokeWidth="2.5" />
+      <rect x="132" y="264" width="40" height="40" rx="4" fill="#1b2438" stroke="#33415c" strokeWidth="1" />
+      <text x="152" y="288" textAnchor="middle" fill="#8ea3bf" fontSize="7" fontFamily="IBM Plex Mono, monospace">FRONT</text>
+      <rect x="212" y="266" width="182" height="40" rx="8" fill="#131b2c" stroke="#3b82f6" strokeWidth="1" />
+      <text x="303" y="283" textAnchor="middle" fill="#7fb0ff" fontSize="8" fontFamily="IBM Plex Mono, monospace">TUTORIAL · STEP 3 OF 7</text>
+      <text x="303" y="298" textAnchor="middle" fill="#f1ebdd" fontSize="9" fontFamily="Instrument Sans, sans-serif">Drag the arrows to move the face</text>
+      <rect x="452" y="86" width="88" height="118" rx="8" fill="#141c2e" stroke="#28324a" strokeWidth="1" />
+      <text x="462" y="102" fill="#8ea3bf" fontSize="8" fontFamily="IBM Plex Mono, monospace">COLOR</text>
+      {['#f87171', '#fb923c', '#fcd34d', '#4ade80', '#22d3ee', '#60a5fa', '#a78bfa', '#f472b6'].map((c, i) => (
+        <circle key={c} cx={466 + (i % 4) * 20} cy={118 + Math.floor(i / 4) * 18} r="6" fill={c} />
+      ))}
+      <rect x="462" y="158" width="72" height="20" rx="5" fill="#3b82f6" />
+      <text x="498" y="172" textAnchor="middle" fill="#ffffff" fontSize="8" fontFamily="IBM Plex Mono, monospace">Color face</text>
+    </svg>
+  )
+}
+
+function Molt() {
+  return (
+    <svg {...frameProps} aria-label="Molt 3D platformer preview">
+      <Chrome label="molt-one.vercel.app" accent="#fb923c" />
+      <defs>
+        <linearGradient id="molt-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#bcd0e6" />
+          <stop offset="0.55" stopColor="#e9dcc0" />
+          <stop offset="1" stopColor="#efe4c8" />
+        </linearGradient>
+      </defs>
+      <rect x="20" y="48" width="520" height="262" rx="8" fill="url(#molt-sky)" />
+      <ellipse cx="280" cy="150" rx="150" ry="118" fill="#f6eecf" opacity="0.6" />
+      <polygon points="20,120 96,150 96,310 20,310" fill="#b07b45" opacity="0.85" />
+      <polygon points="540,120 464,150 464,310 540,310" fill="#b07b45" opacity="0.85" />
+      <polygon points="96,310 464,310 396,222 164,222" fill="#d8c79f" />
+      {[0.25, 0.5, 0.75].map((t, i) => (
+        <line
+          key={i}
+          x1={164 + (96 - 164) * t}
+          y1={222 + (310 - 222) * t}
+          x2={396 + (464 - 396) * t}
+          y2={222 + (310 - 222) * t}
+          stroke="#b9a67c"
+          strokeWidth="1"
+        />
+      ))}
+      <polygon points="228,152 342,152 362,168 248,168" fill="#8a7f6a" />
+      <rect x="246" y="132" width="16" height="4" fill="#5cc8e0" />
+      <rect x="300" y="128" width="14" height="4" fill="#5cc8e0" />
+      <circle cx="332" cy="122" r="4" fill="#fcd34d" />
+      <ellipse cx="280" cy="250" rx="20" ry="7" fill="#000000" opacity="0.13" />
+      <rect x="268" y="190" width="24" height="34" rx="10" fill="#e07b3a" />
+      <rect x="274" y="206" width="12" height="10" rx="2" fill="#efe4c8" opacity="0.7" />
+      <circle cx="280" cy="182" r="10" fill="#e8b98a" />
+      <path d="M 270 178 q 10 -8 20 0" fill="#4a3524" />
+      <rect x="272" y="224" width="6" height="16" fill="#2f2a3a" />
+      <rect x="282" y="224" width="6" height="16" fill="#2f2a3a" />
+      <rect x="26" y="54" width="128" height="20" rx="10" fill="#2a2620" opacity="0.9" />
+      <circle cx="38" cy="64" r="5" fill="#fb923c" />
+      <text x="48" y="68" fill="#f1ebdd" fontSize="9" fontFamily="Instrument Sans, sans-serif">Bare · slow-seeing</text>
+      <rect x="26" y="78" width="104" height="18" rx="9" fill="#2a2620" opacity="0.85" />
+      <text x="36" y="91" fill="#fcd34d" fontSize="9" fontFamily="IBM Plex Mono, monospace">★ 0 / 4 needed</text>
+      <rect x="150" y="292" width="260" height="16" rx="8" fill="#2a2620" opacity="0.85" />
+      <text x="280" y="304" textAnchor="middle" fill="#d9d2c4" fontSize="8" fontFamily="IBM Plex Mono, monospace">WASD move · Space jump · Q molt</text>
+    </svg>
+  )
+}
+
 export default function ProjectArt({ title }: Props) {
   switch (title) {
     case 'StockTracker':
@@ -275,6 +429,12 @@ export default function ProjectArt({ title }: Props) {
       return <Hairrison />
     case 'RougeRogue':
       return <RougeRogue />
+    case 'ConquestCartes':
+      return <ConquestCartes />
+    case 'Blend Together':
+      return <BlendTogether />
+    case 'Molt':
+      return <Molt />
     default:
       return null
   }

@@ -1,4 +1,9 @@
-export type ProjectAccent = 'cyan' | 'emerald' | 'amber' | 'rose' | 'blue'
+export type ProjectAccent = 'cyan' | 'emerald' | 'amber' | 'rose' | 'blue' | 'violet' | 'orange'
+
+export type Shot = {
+  src: string
+  caption: string
+}
 
 export type Project = {
   title: string
@@ -13,6 +18,7 @@ export type Project = {
   bullets: string[]
   accent: ProjectAccent
   featured?: boolean
+  shots?: Shot[]
 }
 
 export type Experience = {
@@ -66,7 +72,7 @@ export const resume: Resume = {
   role: 'Computer Science student, full-stack builder, and product-minded engineer',
   headline: 'I build polished systems where useful data, humane interfaces, and ambitious ideas meet.',
   summary:
-    'Waterloo CS student shipping full-stack applications, AI-assisted workflows, finance dashboards, and interactive story systems with a bias toward fast iteration and memorable interfaces.',
+    'Waterloo CS student shipping full-stack applications, AI-assisted workflows, finance dashboards, interactive story systems, and 3D browser games with a bias toward fast iteration and memorable interfaces.',
   site: 'william-chenyin.vercel.app',
   location: 'Waterloo, ON / Coquitlam, BC',
   availability: 'Open to 2026 software internships, hackathons, and ambitious product builds',
@@ -75,9 +81,9 @@ export const resume: Resume = {
   email: 'chenyinwilliam@gmail.com',
   phone: '778-903-6567',
   stats: [
-    { label: 'Waterloo CS', value: '4.0 GPA' },
+    { label: 'Waterloo CS', value: '3.9 GPA' },
     { label: 'Hackathon podiums', value: '2' },
-    { label: 'Live products', value: '4+' },
+    { label: 'Live products', value: '6' },
     { label: 'Primary stack', value: 'TS / React' }
   ],
   focusAreas: [
@@ -97,7 +103,7 @@ export const resume: Resume = {
   education: [
     {
       school: 'University of Waterloo, Waterloo, ON',
-      degree: 'Bachelor of Computer Science (Honours), Co-operative Program - GPA: 4.0/4.0',
+      degree: 'Bachelor of Computer Science (Honours), Co-operative Program - GPA: 3.9/4.0',
       date: 'Sep 2025 - Apr 2030 (expected)',
       details: "President's Scholarship with Distinction; BC Provincial District/Authority Scholarship"
     }
@@ -137,7 +143,12 @@ export const resume: Resume = {
         'Built browser and Windows desktop targets over shared Blazor components and code-first SVG illustration.'
       ],
       accent: 'emerald',
-      featured: true
+      featured: true,
+      shots: [
+        { src: '/shots/airoutside/intro.webp', caption: 'The opening: people decided they could be safer wearing something between themselves and the world.' },
+        { src: '/shots/airoutside/wren.webp', caption: 'Wren, in their suit, at home in the early morning.' },
+        { src: '/shots/airoutside/morning.webp', caption: 'A quiet everyday moment: the house is still, the kitchen is clean.' }
+      ]
     },
     {
       title: "HardHaq '25",
@@ -172,21 +183,25 @@ export const resume: Resume = {
     },
     {
       title: 'Hairrison',
-      subtitle: 'Hair styling visualization tool with Cloudinary transformations and Stripe-powered payments.',
-      category: 'AI-assisted consumer app',
-      status: 'Live with payments',
+      subtitle: 'An AI hairstyle preview, rebuilt as a real product: upload a selfie, describe any look, and see it in a salon mirror before the chair.',
+      category: 'AI consumer app',
+      status: 'Live · Stripe payments',
       date: 'Mar. 2026',
       live: 'https://hairrison.vercel.app',
       repo: 'https://github.com/mutms7/Hairrison',
-      stack: ['TypeScript', 'React', 'Cloudinary', 'Stripe', 'Vercel'],
-      highlight: 'A lightweight product experience for previewing hairstyle ideas, now monetized end to end with Stripe.',
+      stack: ['React 19', 'TypeScript', 'Vite', 'Cloudinary', 'Stripe', 'Vercel'],
+      highlight: 'Try the haircut before the haircut. Cloudinary Generative Replace does the restyle; a $1.99 Stripe unlock turns it into a real product.',
       bullets: [
-        'Integrated Stripe payment processing for secure checkout, turning the prototype into a monetizable product.',
-        'Built a polished visual interface for hair styling exploration and image transformation workflows.',
-        'Connected Cloudinary-powered media handling to a fast TypeScript frontend deployed on Vercel.',
-        'Focused the UX on quick comparison, low-friction uploads, and clear visual feedback.'
+        'Rebuilt v2 ("Hairrison Studio") from the ground up around a custom look builder: type anything, or assemble a look from length / texture / color chips.',
+        'Wired Cloudinary Generative Replace to swap hair from short, literal prompts, with a draggable salon-mirror slider that sweeps between before and after.',
+        'Shipped a real paywall: two free tries, then a one-time $1.99 Stripe Checkout unlock, with HMAC-signed licenses verified server-side after redirect.',
+        'Added a preset inspiration gallery filterable by length and texture, result tabs, downloads, and a locally-saved session history. Originally built for Hack Canada 2026.'
       ],
-      accent: 'rose'
+      accent: 'rose',
+      shots: [
+        { src: '/shots/hairrison/landing.webp', caption: 'The Hairrison Studio landing page.' },
+        { src: '/shots/hairrison/studio.webp', caption: 'The look builder: describe anything, or pick from length / texture / color chips, plus the inspiration gallery.' }
+      ]
     },
     {
       title: 'RougeRogue',
@@ -202,6 +217,75 @@ export const resume: Resume = {
         'Designed character stats, health tracking, and behavior systems for extendable gameplay.'
       ],
       accent: 'amber'
+    },
+    {
+      title: 'ConquestCartes',
+      subtitle: 'An original fantasy deck-builder in Godot: buy from a rotating market, build an engine from almost nothing, and race for victory points.',
+      category: 'Game · deck-builder',
+      status: 'Live · multiplayer',
+      date: 'Jul. 2026',
+      live: 'https://conquest-cartes.vercel.app',
+      repo: 'https://github.com/mutms7/ConquestCartes',
+      stack: ['Godot 4.7', 'GDScript', 'Node', 'WebAssembly', 'Vercel'],
+      highlight: 'That "build an engine from almost nothing" Dominion feeling, with my own painted cards, plus relics and time-based combat.',
+      bullets: [
+        '63 data-driven cards with original artwork and the full deck-builder verb set: draw, trash, gain, upgrade, replay, and reactive triggers on gain, buy, discard, and cleanup.',
+        'A fresh 14-card kingdom market every game, finite supply piles with visible counts and sold-out handling, and 0-cost Briar Hex curses worth -1 VP.',
+        'Multiplayer over both direct-IP LAN tables and 4-letter online-code lobbies, with a host-authoritative relay, shared supplies, and attacks that hit your rivals.',
+        'A handmade medieval UI: jewel-toned cards, quiet UI sounds, layered music, an end-game score plaque, and a Kingdoms browser that filters the random market pool.'
+      ],
+      accent: 'violet',
+      featured: true,
+      shots: [
+        { src: '/shots/conquestcartes/home.webp', caption: 'The ConquestCartes home screen, with the Sunspire tower artwork.' },
+        { src: '/shots/conquestcartes/table.webp', caption: 'A game in progress: the market of action cards, your treasury and estates, and your opening hand.' }
+      ]
+    },
+    {
+      title: 'Blend Together',
+      subtitle: 'A co-op 3D modeling party game: sculpt one shared low-poly model against a timer, then let an AI judge score it.',
+      category: 'Game · AI · multiplayer',
+      status: 'Live',
+      date: 'Jul. 2026',
+      live: 'https://blending3d.vercel.app',
+      repo: 'https://github.com/mutms7/blending',
+      stack: ['React', 'TypeScript', 'Three.js', 'R3F', 'Yjs', 'Node', 'Claude'],
+      highlight: 'Lightweight Blender meets Jackbox: build something dumb with friends under pressure, then have Claude tell you exactly how the handle turned out.',
+      bullets: [
+        'A real-time shared mesh (vertices, faces, colors, and paint) synced with Yjs, so concurrent edits merge per-key and undo stays scoped to your own transactions.',
+        'A full modeling toolset: vertex / edge / face / object select, move-rotate-scale gizmos, extrude, subdivide, per-face paint, and a Blender-style view-cube.',
+        'On timeout the round captures the model from six angles and sends them to Claude vision for a 0-100 score, locked to a JSON schema so the reply always parses.',
+        'A daily challenge with a global leaderboard and per-player streaks, run modifiers, a timelapse replay of the build, and a session gallery.'
+      ],
+      accent: 'blue',
+      featured: true,
+      shots: [
+        { src: '/shots/blend/editor.webp', caption: 'The Blend Together editor: a shared model, the modeling toolbar, and the interactive tutorial.' },
+        { src: '/shots/blend/sculpt.webp', caption: 'Sculpting with primitives and the move gizmo.' }
+      ]
+    },
+    {
+      title: 'Molt',
+      subtitle: 'A 3D puzzle platformer about precise movement, and about when to take your armor off.',
+      category: 'Game · 3D platformer',
+      status: 'Live',
+      date: 'Jul. 2026',
+      live: 'https://molt-one.vercel.app',
+      repo: 'https://github.com/mutms7/Molt',
+      stack: ['Three.js', 'React-Three-Fiber', 'Rapier', 'TypeScript', 'Vite', 'Zustand'],
+      highlight: 'One toggle, a real trade-off both ways. Suited, you\'re fast but half-blind; bare, color and sound flood in and hidden platforms appear.',
+      bullets: [
+        'A reversible "Shell" transition that morphs between states smoothly, without letting you half-toggle to steal the target state\'s powers early.',
+        'Crisp movement on Rapier\'s kinematic controller: per-axis move-and-slide, coyote time, a suited double-jump, and a dash that keeps your vertical velocity.',
+        'A procedurally-animated character rig (idle, speed-blended run, jump, landing squash, victory pose) with two genuinely different silhouettes and no model files.',
+        'A hub plus five zones, each with its own palette and twist, built in the same world and mood as my visual novel: suits as masks, presence over performance.'
+      ],
+      accent: 'orange',
+      shots: [
+        { src: '/shots/molt/title.webp', caption: 'The Molt title screen.' },
+        { src: '/shots/molt/suited.webp', caption: 'Suited: fast and armored, but the world is desaturated and some geometry is invisible.' },
+        { src: '/shots/molt/bare.webp', caption: 'Bare: slower and exposed, but color floods in and the hidden platforms appear.' }
+      ]
     }
   ],
   experience: [
@@ -242,6 +326,8 @@ export const resume: Resume = {
     'Tailwind CSS',
     'Blazor',
     '.NET',
+    'Godot',
+    'Three.js',
     'Git',
     'MySQL',
     'PostgreSQL',

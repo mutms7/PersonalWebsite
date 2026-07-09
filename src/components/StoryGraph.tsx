@@ -6,36 +6,46 @@ const accentHex: Record<string, string> = {
   emerald: '#6ee7b7',
   amber: '#fcd34d',
   rose: '#fda4af',
-  blue: '#93c5fd'
+  blue: '#93c5fd',
+  violet: '#c4b5fd',
+  orange: '#fb923c'
 }
 
 // Positions keyed by project index in resume.projects:
-// 0 StockTracker · 1 The Air Outside · 2 HardHaq '25 · 3 UmbrellaShare · 4 Hairrison · 5 RougeRogue
+// 0 StockTracker · 1 The Air Outside · 2 HardHaq '25 · 3 UmbrellaShare · 4 Hairrison
+// 5 RougeRogue · 6 ConquestCartes · 7 Blend Together · 8 Molt
 // Clustered by theme: interactive worlds (left), hackathon podiums (centre), live products (right).
 const positions: Record<number, { x: number; y: number }> = {
-  1: { x: 270, y: 150 },
-  5: { x: 215, y: 320 },
-  2: { x: 600, y: 120 },
-  3: { x: 650, y: 330 },
-  0: { x: 950, y: 140 },
-  4: { x: 1010, y: 320 }
+  1: { x: 255, y: 150 },
+  5: { x: 180, y: 295 },
+  8: { x: 300, y: 415 },
+  2: { x: 600, y: 150 },
+  3: { x: 665, y: 295 },
+  4: { x: 585, y: 415 },
+  0: { x: 960, y: 150 },
+  6: { x: 1035, y: 295 },
+  7: { x: 955, y: 415 }
 }
 
 const clusters = [
-  { label: 'interactive worlds', x: 240, y: 60 },
-  { label: 'hackathon podiums', x: 625, y: 60 },
-  { label: 'live products', x: 980, y: 60 }
+  { label: 'interactive worlds', x: 245, y: 64 },
+  { label: 'hackathon podiums', x: 625, y: 64 },
+  { label: 'live products', x: 980, y: 64 }
 ]
 
 type Edge = { a: number; b: number; label: string }
 
 const edgeList: Edge[] = [
-  { a: 1, b: 5, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon generator' },
-  { a: 2, b: 3, label: 'Hackathon podiums: 1st place in quantum hardware, 3rd at UN-Habitat' },
+  { a: 1, b: 5, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
+  { a: 5, b: 8, label: 'Playable worlds: a roguelike crawler and a 3D platformer' },
+  { a: 1, b: 8, label: 'Same world and mood: suits as masks, presence over performance' },
+  { a: 2, b: 3, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
+  { a: 3, b: 4, label: 'Hackathon builds around everyday, human problems' },
   { a: 0, b: 4, label: 'TypeScript + React products shipped live on Vercel' },
   { a: 0, b: 2, label: 'Heavy data on both sides: market feeds and Maxwell capacitance matrices' },
-  { a: 3, b: 4, label: 'Consumer services built around everyday problems' },
-  { a: 1, b: 4, label: 'Hand-crafted visuals: code-first SVG art and styling previews' }
+  { a: 6, b: 7, label: 'Live multiplayer on shared, synced game state' },
+  { a: 4, b: 7, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
+  { a: 6, b: 8, label: 'Two browser games of mine: a deck-builder and a 3D platformer' }
 ]
 
 function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: number) {
@@ -94,6 +104,28 @@ function Glyph({ title, color }: { title: string; color: string }) {
           @
         </text>
       )
+    case 'ConquestCartes':
+      return (
+        <g stroke={color} strokeWidth="1.8" fill="none" strokeLinejoin="round">
+          <rect x="-10" y="-8" width="12" height="17" rx="2" transform="rotate(-13 -4 1)" />
+          <rect x="-2" y="-9" width="12" height="17" rx="2" transform="rotate(13 4 -1)" />
+        </g>
+      )
+    case 'Blend Together':
+      return (
+        <g stroke={color} strokeWidth="1.6" fill="none" strokeLinejoin="round">
+          <polygon points="0,-10 9,-5 0,0 -9,-5" />
+          <path d="M -9 -5 L -9 6 L 0 11 L 9 6 L 9 -5" />
+          <line x1="0" y1="0" x2="0" y2="11" />
+        </g>
+      )
+    case 'Molt':
+      return (
+        <g stroke={color} strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="0" cy="-6" r="3.5" />
+          <path d="M 0 -2 L 0 6 M -5 1 L 0 -2 L 5 1 M -4 11 L 0 6 L 4 11" />
+        </g>
+      )
     default:
       return <circle r="5" fill={color} />
   }
@@ -112,7 +144,7 @@ export default function StoryGraph() {
         .map((e) => projects[e.a === activeNode ? e.b : e.a].title)
       return `${projects[activeNode].title} connects to ${related.join(' and ')}. Click to read its scene.`
     }
-    return 'Six projects, three clusters. Hover a thread to see why two stories connect; click a node to jump to it.'
+    return 'Nine projects, three clusters. Hover a thread to see why two stories connect; click a node to jump to it.'
   }, [activeNode, activeEdge, projects])
 
   function goTo(index: number) {
@@ -124,7 +156,7 @@ export default function StoryGraph() {
 
   return (
     <figure aria-label="Story map of projects grouped by theme. Threads describe how projects relate.">
-      <svg viewBox="0 0 1200 440" role="group" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 1200 480" role="group" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
         {clusters.map((c) => (
           <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#9a93b8" opacity="0.7" fontSize="15" letterSpacing="4" fontFamily="IBM Plex Mono, monospace">
             {c.label.toUpperCase()}

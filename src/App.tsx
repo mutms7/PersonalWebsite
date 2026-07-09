@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
-import { resume } from './data/resume'
+import { resume, type Shot } from './data/resume'
 import StoryGraph from './components/StoryGraph'
 import WebBackdrop from './components/WebBackdrop'
 import ProjectArt from './components/ProjectArt'
@@ -187,8 +187,8 @@ function Hero() {
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-fade">
           I'm <span className="text-paper">{resume.name}</span>, a Waterloo CS student who ships finance
-          dashboards, interactive fiction engines, quantum tooling, and consumer apps. Different genres,
-          one author: fast iteration, humane interfaces, endings worth reaching.
+          dashboards, interactive fiction, 3D browser games, quantum tooling, and consumer apps. Different
+          genres, one author: fast iteration, humane interfaces, endings worth reaching.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
           <a
@@ -249,7 +249,91 @@ function StoryMap() {
   )
 }
 
-function Scenes() {
+/* Full-screen viewer for real project screenshots. */
+function Lightbox({
+  shots,
+  index,
+  onClose,
+  onNav
+}: {
+  shots: Shot[]
+  index: number
+  onClose: () => void
+  onNav: (dir: number) => void
+}) {
+  const closeRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    const prevFocus = document.activeElement as HTMLElement | null
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    closeRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+      else if (e.key === 'ArrowRight') onNav(1)
+      else if (e.key === 'ArrowLeft') onNav(-1)
+    }
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+      prevFocus?.focus?.()
+    }
+  }, [onClose, onNav])
+
+  const shot = shots[index]
+  const many = shots.length > 1
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={shot.caption}
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/92 p-4 backdrop-blur-sm sm:p-8"
+      onClick={onClose}
+    >
+      <button
+        ref={closeRef}
+        onClick={onClose}
+        aria-label="Close screenshot"
+        className="absolute right-4 top-4 rounded-full border border-thread bg-dusk/60 px-3 py-1.5 font-mono text-sm text-paper transition-colors hover:border-glow-amber hover:text-glow-amber"
+      >
+        Close ✕
+      </button>
+      <figure className="relative max-w-5xl" onClick={(e) => e.stopPropagation()}>
+        <img
+          src={shot.src}
+          alt={shot.caption}
+          className="mx-auto max-h-[78vh] w-auto rounded-xl border border-thread shadow-[0_30px_90px_-20px_rgba(0,0,0,0.9)]"
+        />
+        <figcaption className="mt-4 px-4 text-center font-mono text-sm text-fade">
+          {shot.caption}
+          {many && <span className="ml-3 text-fade/60">{index + 1} / {shots.length}</span>}
+        </figcaption>
+        {many && (
+          <>
+            <button
+              onClick={() => onNav(-1)}
+              aria-label="Previous screenshot"
+              className="absolute -left-2 top-1/2 -translate-y-1/2 rounded-full border border-thread bg-ink/80 px-3 py-2 font-mono text-lg text-paper transition-colors hover:border-glow-amber hover:text-glow-amber sm:-left-14"
+            >
+              ‹
+            </button>
+            <button
+              onClick={() => onNav(1)}
+              aria-label="Next screenshot"
+              className="absolute -right-2 top-1/2 -translate-y-1/2 rounded-full border border-thread bg-ink/80 px-3 py-2 font-mono text-lg text-paper transition-colors hover:border-glow-amber hover:text-glow-amber sm:-right-14"
+            >
+              ›
+            </button>
+          </>
+        )}
+      </figure>
+    </div>
+  )
+}
+
+function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => void }) {
   return (
     <section id="scenes" className="mx-auto max-w-page px-5 py-20 sm:px-8">
       <SectionLabel kicker="Act I · The work" title="Scenes" />
@@ -304,18 +388,46 @@ function Scenes() {
                       )}
                     </div>
                   </div>
-                  <Tilt
-                    tiltMaxAngleX={6}
-                    tiltMaxAngleY={6}
-                    transitionSpeed={1200}
-                    tiltEnable={!reducedMotion()}
-                    className="will-change-transform"
-                  >
-                    <div className={`overflow-hidden rounded-xl border ${accentBorder[project.accent]} border-opacity-40 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)]`}>
-                      <ProjectArt title={project.title} />
-                    </div>
-                    <p className="mt-2 text-center font-mono text-xs text-fade">illustrated preview, drawn in code</p>
-                  </Tilt>
+                  <div>
+                    <Tilt
+                      tiltMaxAngleX={6}
+                      tiltMaxAngleY={6}
+                      transitionSpeed={1200}
+                      tiltEnable={!reducedMotion()}
+                      className="will-change-transform"
+                    >
+                      <div className={`overflow-hidden rounded-xl border ${accentBorder[project.accent]} border-opacity-40 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)]`}>
+                        <ProjectArt title={project.title} />
+                      </div>
+                      <p className="mt-2 text-center font-mono text-xs text-fade">illustrated preview, drawn in code</p>
+                    </Tilt>
+                    {project.shots && project.shots.length > 0 && (
+                      <div className="mt-6">
+                        <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-fade">
+                          From the real build →{' '}
+                          <span className="text-paper/70">tap to enlarge</span>
+                        </p>
+                        <div className="flex flex-wrap gap-2.5">
+                          {project.shots.map((shot, si) => (
+                            <button
+                              key={shot.src}
+                              onClick={() => onOpenShot(project.shots!, si)}
+                              aria-label={`Open screenshot: ${shot.caption}`}
+                              className={`group relative overflow-hidden rounded-lg border ${accentBorder[project.accent]} border-opacity-30 transition-transform hover:-translate-y-0.5 hover:border-opacity-70`}
+                            >
+                              <img
+                                src={shot.src}
+                                alt={shot.caption}
+                                loading="lazy"
+                                className="h-[4.5rem] w-28 object-cover object-top sm:h-20 sm:w-32"
+                              />
+                              <span className="absolute inset-0 bg-ink/10 transition-colors group-hover:bg-transparent" />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -455,7 +567,8 @@ function Epilogue() {
   const choices = [
     { label: '→ Send an email', href: `mailto:${resume.email}`, detail: resume.email ?? '' },
     { label: '→ Read the source', href: `https://${resume.github}`, detail: resume.github ?? '' },
-    { label: '→ Connect on LinkedIn', href: `https://${resume.linkedin}`, detail: resume.linkedin ?? '' }
+    { label: '→ Connect on LinkedIn', href: `https://${resume.linkedin}`, detail: resume.linkedin ?? '' },
+    { label: '→ Download the résumé', href: '/resume.pdf', detail: 'PDF, one page' }
   ]
 
   return (
@@ -537,7 +650,7 @@ function Footer() {
     <footer className="border-t border-thread/60">
       <div className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-3 px-5 py-8 font-mono text-sm text-fade sm:px-8">
         <p>© {new Date().getFullYear()} {resume.name}. Hand-built with React, TypeScript, and Tailwind.</p>
-        <p>fin — until the next commit.</p>
+        <p>fin, until the next commit.</p>
       </div>
     </footer>
   )
@@ -545,6 +658,7 @@ function Footer() {
 
 export default function App() {
   useReveal()
+  const [lightbox, setLightbox] = useState<{ shots: Shot[]; index: number } | null>(null)
   return (
     <div>
       <ProgressThread />
@@ -552,13 +666,25 @@ export default function App() {
       <main>
         <Hero />
         <StoryMap />
-        <Scenes />
+        <Scenes onOpenShot={(shots, index) => setLightbox({ shots, index })} />
         <Backstory />
         <Timeline />
         <Glossary />
         <Epilogue />
       </main>
       <Footer />
+      {lightbox && (
+        <Lightbox
+          shots={lightbox.shots}
+          index={lightbox.index}
+          onClose={() => setLightbox(null)}
+          onNav={(dir) =>
+            setLightbox((s) =>
+              s ? { ...s, index: (s.index + dir + s.shots.length) % s.shots.length } : s
+            )
+          }
+        />
+      )}
     </div>
   )
 }
