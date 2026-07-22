@@ -175,22 +175,37 @@ function TopBar() {
 function Hero() {
   const graphRef = useRef<HTMLDivElement>(null)
   useParallax(graphRef, -0.06)
+
+  // One orchestrated page-load, staggered in reading order. The animations are
+  // pure CSS (see index.css): the natural, visible state is the default, so if
+  // motion is reduced or CSS never loads the hero simply renders in place.
+  const step = (i: number) => ({ animationDelay: `${0.04 + i * 0.08}s` })
+
   return (
     <section id="top" className="mx-auto grid max-w-page items-center gap-12 overflow-x-clip px-5 pb-24 pt-16 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-24">
       <div>
-        <p className="font-mono text-sm uppercase tracking-[0.3em] text-fade">
+        <p className="hero-enter font-mono text-sm uppercase tracking-[0.3em] text-fade" style={step(0)}>
           {resume.location} · {resume.availability}
         </p>
-        <h1 className="mt-6 font-display text-5xl font-medium leading-[1.05] sm:text-6xl lg:text-7xl">
-          Every build is a<br />
-          <em className="text-glow-amber">branching story.</em>
+        <h1
+          className="hero-enter mt-6 font-display font-medium leading-[1.02] tracking-[-0.02em] text-[clamp(2.75rem,7vw,5.25rem)]"
+          style={step(1)}
+        >
+          Every build is a{' '}<br />
+          <span className="relative inline-block">
+            <em className="font-semibold text-glow-amber">branching story.</em>
+            <span
+              aria-hidden
+              className="hero-thread absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-glow-amber/80"
+            />
+          </span>
         </h1>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-fade">
+        <p className="hero-enter mt-7 max-w-xl text-lg leading-relaxed text-fade" style={step(2)}>
           I'm <span className="text-paper">{resume.name}</span>, a Waterloo CS student who ships finance
           dashboards, interactive fiction, 3D browser games, quantum tooling, and consumer apps. Different
           genres, one author: fast iteration, humane interfaces, endings worth reaching.
         </p>
-        <div className="mt-8 flex flex-wrap gap-4">
+        <div className="hero-enter mt-8 flex flex-wrap gap-4" style={step(3)}>
           <a
             href="#scenes"
             className="rounded-full bg-glow-amber px-6 py-3 font-mono text-sm text-ink transition-transform hover:-translate-y-0.5"
@@ -206,28 +221,30 @@ function Hero() {
             github/mutms7
           </a>
         </div>
-        <dl className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
+        <dl className="hero-enter mt-12 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4" style={step(4)}>
           {resume.stats.map((stat) => (
             <div key={stat.label}>
-              <dt className="font-mono text-sm uppercase tracking-widest text-fade">{stat.label}</dt>
-              <dd className="mt-1 font-display text-2xl text-paper">{stat.value}</dd>
+              <dd className="font-display text-4xl leading-none text-paper">{stat.value}</dd>
+              <dt className="mt-2 font-mono text-xs uppercase tracking-widest text-fade">{stat.label}</dt>
             </div>
           ))}
         </dl>
       </div>
       <div ref={graphRef} className="mx-auto w-full max-w-sm lg:max-w-none">
-        <figure className="rotate-[1.5deg] transition-transform duration-500 hover:rotate-0">
-          <div className="overflow-hidden rounded-2xl border border-glow-amber/40 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]">
-            <img
-              src="/portrait.jpg"
-              alt="William Chenyin in a blazer, smiling mid-performance while surrounded by phone cameras"
-              className="block h-auto w-full"
-            />
-          </div>
-          <figcaption className="mt-3 text-center font-mono text-sm text-fade">
-            the author, between takes · the water boys, winter 2026
-          </figcaption>
-        </figure>
+        <div className="hero-portrait">
+          <figure className="rotate-[1.5deg] transition-transform duration-500 hover:rotate-0">
+            <div className="overflow-hidden rounded-2xl border border-glow-amber/40 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]">
+              <img
+                src="/portrait.jpg"
+                alt="William Chenyin in a blazer, smiling mid-performance while surrounded by phone cameras"
+                className="block h-auto w-full"
+              />
+            </div>
+            <figcaption className="mt-3 text-center font-mono text-sm text-fade">
+              the author, between takes · the water boys, winter 2026
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </section>
   )

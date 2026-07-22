@@ -23,6 +23,17 @@ body {
   color: #14122b;
 }
 
+/* Even line breaks on headings; fewer orphans in long prose. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -32,16 +43,67 @@ textarea:focus-visible {
   border-radius: 2px;
 }
 
-/* Reveal-on-scroll */
-.reveal {
+/* Reveal-on-scroll. Only hide the content once we know JS is running (see
+   main.tsx); without the .js gate the page renders fully by default. */
+.js .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(16px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.reveal.is-visible {
+.js .reveal.is-visible {
   opacity: 1;
   transform: none;
+}
+
+/* Hero page-load choreography. The default state is the natural, visible one;
+   only the entrance animates from hidden, so reduced motion / no CSS renders
+   the hero in place. `backwards` fill holds the start frame during the stagger. */
+.js .hero-enter {
+  animation: hero-rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.js .hero-portrait {
+  animation: hero-portrait 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.25s backwards;
+}
+
+/* The amber thread under the emphasized line, tying the hero to the story
+   graph / progress thread motif. */
+.js .hero-thread {
+  transform-origin: left;
+  animation: hero-thread 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.55s backwards;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-portrait {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-thread {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 /* Story graph edge draw-in */
@@ -75,7 +137,7 @@ textarea:focus-visible {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
+  .js .reveal {
     opacity: 1;
     transform: none;
     transition: none;
@@ -86,6 +148,11 @@ textarea:focus-visible {
     animation: none;
   }
   .node-float {
+    animation: none;
+  }
+  .js .hero-enter,
+  .js .hero-portrait,
+  .js .hero-thread {
     animation: none;
   }
 }

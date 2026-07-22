@@ -39,6 +39,8 @@ export default function WebBackdrop() {
       }))
     }
 
+    let running = false
+
     function frame() {
       if (!ctx) return
       ctx.clearRect(0, 0, width, height)
@@ -73,15 +75,42 @@ export default function WebBackdrop() {
         ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2)
         ctx.fill()
       }
-      if (!reduced) raf = requestAnimationFrame(frame)
+      if (!reduced && running) raf = requestAnimationFrame(frame)
+    }
+
+    function start() {
+      if (running || reduced || document.hidden) return
+      running = true
+      raf = requestAnimationFrame(frame)
+    }
+
+    function stop() {
+      running = false
+      cancelAnimationFrame(raf)
     }
 
     resize()
-    frame()
+
+    // Only animate while the map section is on screen. The rest of the page
+    // (most of it) leaves the canvas idle instead of burning a CPU core.
+    const io = new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting ? start() : stop()),
+      { threshold: 0 }
+    )
+    if (canvas.parentElement) io.observe(canvas.parentElement)
+
+    const onVisibility = () => (document.hidden ? stop() : start())
+    document.addEventListener('visibilitychange', onVisibility)
     window.addEventListener('resize', resize)
+
+    // Paint one frame immediately so the backdrop is present before it animates.
+    frame()
+
     return () => {
+      io.disconnect()
+      document.removeEventListener('visibilitychange', onVisibility)
       window.removeEventListener('resize', resize)
-      cancelAnimationFrame(raf)
+      stop()
     }
   }, [])
 
