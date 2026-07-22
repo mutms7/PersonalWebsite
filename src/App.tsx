@@ -106,11 +106,18 @@ function useParallax(ref: React.RefObject<HTMLElement>, factor: number) {
 function useActiveSection(ids: string[]) {
   const [active, setActive] = useState('')
   useEffect(() => {
+    // Track which sections are currently in the active band and pick the
+    // topmost one, so scrolling back up updates the indicator instead of
+    // leaving it stuck on a section you've already left.
+    const visible = new Set<string>()
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id)
+          if (entry.isIntersecting) visible.add(entry.target.id)
+          else visible.delete(entry.target.id)
         })
+        const current = ids.find((id) => visible.has(id))
+        if (current) setActive(current)
       },
       { rootMargin: '-30% 0px -60% 0px' }
     )
@@ -142,10 +149,21 @@ function TopBar() {
     ['Epilogue', 'epilogue']
   ]
   const active = useActiveSection(links.map(([, id]) => id))
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
+
   return (
     <nav className="sticky top-0 z-40 border-b border-thread/60 bg-ink/85 backdrop-blur">
       <div className="mx-auto flex max-w-page items-center justify-between px-5 py-3 sm:px-8">
-        <a href="#top" className="font-mono text-sm text-paper">
+        <a href="#top" onClick={() => setOpen(false)} className="font-mono text-sm text-paper">
           w.chenyin<span className="text-glow-amber">()</span>
         </a>
         <div className="hidden gap-6 font-mono text-sm sm:flex">
@@ -163,11 +181,60 @@ function TopBar() {
         </div>
         <a
           href={`mailto:${resume.email}`}
-          className="rounded-full border border-glow-amber px-4 py-1.5 font-mono text-sm text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink"
+          className="hidden rounded-full border border-glow-amber px-4 py-1.5 font-mono text-sm text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink sm:inline-block"
         >
           Say hello
         </a>
+        <button
+          type="button"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          onClick={() => setOpen((v) => !v)}
+          className="-mr-2 inline-flex h-11 w-11 items-center justify-center text-paper sm:hidden"
+        >
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+            {open ? (
+              <>
+                <line x1="5" y1="5" x2="19" y2="19" />
+                <line x1="19" y1="5" x2="5" y2="19" />
+              </>
+            ) : (
+              <>
+                <line x1="3" y1="7" x2="21" y2="7" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="17" x2="21" y2="17" />
+              </>
+            )}
+          </svg>
+        </button>
       </div>
+      {open && (
+        <div id="mobile-menu" className="border-t border-thread/60 px-5 pb-4 pt-1 sm:hidden">
+          <ul className="flex flex-col">
+            {links.map(([label, id]) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  onClick={() => setOpen(false)}
+                  className={`flex min-h-[3rem] items-center font-mono text-sm transition-colors ${
+                    active === id ? 'text-glow-amber' : 'text-fade'
+                  }`}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={`mailto:${resume.email}`}
+            onClick={() => setOpen(false)}
+            className="mt-2 flex min-h-[3rem] items-center justify-center rounded-full border border-glow-amber font-mono text-sm text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink"
+          >
+            Say hello
+          </a>
+        </div>
+      )}
     </nav>
   )
 }
@@ -325,7 +392,7 @@ function Lightbox({
         />
         <figcaption className="mt-4 px-4 text-center font-mono text-sm text-fade">
           {shot.caption}
-          {many && <span className="ml-3 text-fade/60">{index + 1} / {shots.length}</span>}
+          {many && <span className="ml-3 text-fade">{index + 1} / {shots.length}</span>}
         </figcaption>
         {many && (
           <>
@@ -542,10 +609,28 @@ function Epilogue() {
   const [message, setMessage] = useState('')
   const [website, setWebsite] = useState('')
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({})
 
-  async function submit() {
-    if (!name || !email || !message) {
-      setStatus('error')
+  function validate() {
+    const next: { name?: string; email?: string; message?: string } = {}
+    if (!name.trim()) next.name = 'Please enter your name.'
+    if (!email.trim()) next.email = 'Please enter your email.'
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = 'That email looks off. Try name@example.com.'
+    if (!message.trim()) next.message = 'Please add a short message.'
+    return next
+  }
+
+  const clearError = (field: 'name' | 'email' | 'message') =>
+    setErrors((prev) => (prev[field] ? { ...prev, [field]: undefined } : prev))
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    const found = validate()
+    setErrors(found)
+    if (Object.keys(found).length > 0) {
+      // Move focus to the first field that needs attention.
+      const first = (['name', 'email', 'message'] as const).find((f) => found[f])
+      if (first) document.getElementById(`cf-${first}`)?.focus()
       return
     }
     setStatus('sending')
@@ -575,6 +660,11 @@ function Epilogue() {
           body: formData
         })
         setStatus(res.ok ? 'success' : 'error')
+        if (res.ok) {
+          setName('')
+          setEmail('')
+          setMessage('')
+        }
       } catch {
         setStatus('error')
       }
@@ -608,30 +698,51 @@ function Epilogue() {
         </div>
         <div className="reveal rounded-xl border border-thread bg-dusk/40 p-6">
           <h3 className="font-display text-xl">Or write the next line here</h3>
-          <div className="mt-5 space-y-4">
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Your name"
-              aria-label="Your name"
-              className="w-full rounded-lg border border-thread bg-ink px-4 py-3 text-paper placeholder:text-fade"
-            />
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="Your email"
-              aria-label="Your email"
-              className="w-full rounded-lg border border-thread bg-ink px-4 py-3 text-paper placeholder:text-fade"
-            />
-            <textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              rows={4}
-              placeholder="What should we build?"
-              aria-label="Your message"
-              className="w-full rounded-lg border border-thread bg-ink px-4 py-3 text-paper placeholder:text-fade"
-            />
+          <form onSubmit={handleSubmit} noValidate className="mt-5 space-y-4">
+            <div>
+              <input
+                id="cf-name"
+                value={name}
+                onChange={(e) => { setName(e.target.value); clearError('name') }}
+                placeholder="Your name"
+                aria-label="Your name"
+                required
+                aria-invalid={!!errors.name}
+                aria-describedby={errors.name ? 'cf-name-err' : undefined}
+                className={`w-full rounded-lg border bg-ink px-4 py-3 text-paper placeholder:text-fade ${errors.name ? 'border-glow-rose' : 'border-thread'}`}
+              />
+              {errors.name && <p id="cf-name-err" className="mt-1.5 font-mono text-xs text-glow-rose">{errors.name}</p>}
+            </div>
+            <div>
+              <input
+                id="cf-email"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); clearError('email') }}
+                type="email"
+                placeholder="Your email"
+                aria-label="Your email"
+                required
+                aria-invalid={!!errors.email}
+                aria-describedby={errors.email ? 'cf-email-err' : undefined}
+                className={`w-full rounded-lg border bg-ink px-4 py-3 text-paper placeholder:text-fade ${errors.email ? 'border-glow-rose' : 'border-thread'}`}
+              />
+              {errors.email && <p id="cf-email-err" className="mt-1.5 font-mono text-xs text-glow-rose">{errors.email}</p>}
+            </div>
+            <div>
+              <textarea
+                id="cf-message"
+                value={message}
+                onChange={(e) => { setMessage(e.target.value); clearError('message') }}
+                rows={4}
+                placeholder="What should we build?"
+                aria-label="Your message"
+                required
+                aria-invalid={!!errors.message}
+                aria-describedby={errors.message ? 'cf-message-err' : undefined}
+                className={`w-full rounded-lg border bg-ink px-4 py-3 text-paper placeholder:text-fade ${errors.message ? 'border-glow-rose' : 'border-thread'}`}
+              />
+              {errors.message && <p id="cf-message-err" className="mt-1.5 font-mono text-xs text-glow-rose">{errors.message}</p>}
+            </div>
             <input
               value={website}
               onChange={(e) => setWebsite(e.target.value)}
@@ -641,21 +752,19 @@ function Epilogue() {
               className="hidden"
             />
             <button
-              onClick={submit}
+              type="submit"
               disabled={status === 'sending'}
               className="w-full rounded-lg bg-glow-amber py-3 font-mono text-sm text-ink transition-opacity disabled:opacity-60"
             >
               {status === 'sending' ? 'Sending…' : 'Send message'}
             </button>
-            {status === 'success' && (
-              <p className="font-mono text-sm text-glow-emerald">Message sent. I'll reply soon.</p>
-            )}
-            {status === 'error' && (
-              <p className="font-mono text-sm text-glow-rose">
-                Couldn't send. Fill every field, or email me directly at {resume.email}.
-              </p>
-            )}
-          </div>
+            <p role="status" aria-live="polite" className="min-h-[1.25rem] font-mono text-sm">
+              {status === 'success' && <span className="text-glow-emerald">Message sent. I'll reply soon.</span>}
+              {status === 'error' && (
+                <span className="text-glow-rose">Couldn't send. Please email me directly at {resume.email}.</span>
+              )}
+            </p>
+          </form>
         </div>
       </div>
     </section>

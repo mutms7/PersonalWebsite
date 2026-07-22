@@ -33,6 +33,15 @@ const clusters = [
   { label: 'live products', x: 980, y: 64 }
 ]
 
+// Same three clusters, ordered for the touch-native mobile layout (project
+// indices into resume.projects). The SVG map is unreadable below ~640px, so
+// small screens get this legible, tappable list instead of a shrunken graph.
+const clusterGroups: { label: string; members: number[] }[] = [
+  { label: 'interactive worlds', members: [4, 8, 2] },
+  { label: 'hackathon podiums', members: [5, 6, 7] },
+  { label: 'live products', members: [3, 0, 1] }
+]
+
 type Edge = { a: number; b: number; label: string }
 
 const edgeList: Edge[] = [
@@ -144,18 +153,63 @@ export default function StoryGraph() {
         .map((e) => projects[e.a === activeNode ? e.b : e.a].title)
       return `${projects[activeNode].title} connects to ${related.join(' and ')}. Click to read its scene.`
     }
-    return 'Nine projects, three clusters. Hover a thread to see why two stories connect; click a node to jump to it.'
+    return 'Nine projects, three clusters. Hover a thread to see why two stories connect; select a project to jump to its scene.'
   }, [activeNode, activeEdge, projects])
 
   function goTo(index: number) {
     const el = document.getElementById(`scene-${index + 1}`)
-    el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    el?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
   }
 
   const edgeIsLit = (e: Edge, i: number) => activeEdge === i || activeNode === e.a || activeNode === e.b
 
   return (
     <figure aria-label="Story map of projects grouped by theme. Threads describe how projects relate.">
+      {/* Mobile: the SVG graph is illegible when scaled down, so small screens
+          get a legible, tappable list of the same three clusters. */}
+      <div className="sm:hidden">
+        <p className="mb-6 px-1 text-center font-mono text-sm text-fade">
+          Nine projects in three clusters. Tap one to jump to its scene.
+        </p>
+        <div className="space-y-6">
+          {clusterGroups.map((group) => (
+            <section key={group.label}>
+              <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-fade">
+                {group.label}
+              </h3>
+              <ul className="space-y-2">
+                {group.members.map((i) => {
+                  const project = projects[i]
+                  const hex = accentHex[project.accent] ?? '#f1ebdd'
+                  return (
+                    <li key={project.title}>
+                      <button
+                        onClick={() => goTo(i)}
+                        className="flex min-h-[3rem] w-full items-center gap-3 rounded-xl border border-thread/70 bg-ink/40 px-4 py-2.5 text-left transition-colors hover:border-fade"
+                      >
+                        <svg viewBox="-16 -16 32 32" className="h-6 w-6 shrink-0" aria-hidden>
+                          <Glyph title={project.title} color={hex} />
+                        </svg>
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate font-mono text-sm text-paper">{project.title}</span>
+                          <span className="block truncate font-mono text-xs text-fade">{project.category}</span>
+                        </span>
+                        <span aria-hidden className="font-mono text-lg" style={{ color: hex }}>
+                          ›
+                        </span>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </section>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop: the interactive SVG story graph. */}
+      <div className="hidden sm:block">
       <svg viewBox="0 0 1200 480" role="group" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
         {clusters.map((c) => (
           <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#9a93b8" opacity="0.7" fontSize="15" letterSpacing="4" fontFamily="IBM Plex Mono, monospace">
@@ -260,6 +314,7 @@ export default function StoryGraph() {
       <figcaption className="mx-auto mt-4 max-w-3xl text-center font-mono text-sm text-fade min-h-[2.5rem] px-4">
         {caption}
       </figcaption>
+      </div>
     </figure>
   )
 }
