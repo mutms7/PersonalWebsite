@@ -422,11 +422,11 @@ function GoodLife() {
     { label: 'repeat', color: '#8fbe9f' }
   ]
   return (
-    <svg {...frameProps} aria-label="GoodLife local-first life coach preview">
+    <svg {...frameProps} aria-label="GoodLife.AI local-first life coach preview">
       <Chrome label="goodlife-daily-guide.w-chenyin.chatgpt.site" accent="#8fbe9f" />
       <rect x="20" y="48" width="520" height="262" rx="8" fill="#10241f" />
       <path d="M 20 48 H 540 V 112 C 440 90 360 126 260 102 C 170 80 92 114 20 94 Z" fill="#173b31" />
-      <text x="38" y="76" fill="#f1d08b" fontSize="9" letterSpacing="2" fontFamily="IBM Plex Mono, monospace">GOODLIFE / DAILY GUIDE</text>
+      <text x="38" y="76" fill="#f1d08b" fontSize="9" letterSpacing="2" fontFamily="IBM Plex Mono, monospace">GOODLIFE.AI / DAILY GUIDE</text>
       <text x="38" y="103" fill="#f7f0df" fontSize="19" fontFamily="Georgia, serif">Make the next good step small.</text>
       <text x="38" y="121" fill="#a9c2ad" fontSize="9" fontFamily="IBM Plex Mono, monospace">private · local-first · built for ordinary days</text>
 
@@ -467,7 +467,7 @@ function GoodLife() {
 
 export default function ProjectArt({ title }: Props) {
   switch (title) {
-    case 'GoodLife':
+    case 'GoodLife.AI':
       return <GoodLife />
     case 'StockTracker':
       return <StockTracker />

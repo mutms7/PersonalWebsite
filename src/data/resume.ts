@@ -110,21 +110,20 @@ export const resume: Resume = {
   ],
   projects: [
     {
-      title: 'GoodLife',
-      subtitle: 'A private, local-first life coach that turns the life you want into three small starts and a practical first-week plan.',
+      title: 'GoodLife.AI',
+      subtitle: 'A private, local-first coach for building a life that fits.',
       category: 'Local-first AI · life systems',
       status: 'Live',
       date: '2026',
       live: 'https://goodlife-daily-guide.w-chenyin.chatgpt.site',
-      repo: 'https://github.com/mutms7/GoodLife',
+      repo: 'https://github.com/mutms7/GoodLife.AI',
       stack: ['React', 'TypeScript', 'WebLLM', 'Qwen2.5 0.5B', 'PWA'],
-      highlight: 'A quiet daily guide for making the next useful step obvious—without pretending a plan can guarantee an outcome.',
+      highlight: 'I built a quiet daily guide that turns a few honest answers into three deterministic starting actions and a seven-day plan, without promising an outcome.',
       bullets: [
-        'Short onboarding asks what a better life looks like, then returns the top three high-leverage starts and a first-week plan you can actually try.',
-        'Wealthy Barber-derived money guidance turns pay-yourself-first into automated, low-cost, diversified broad-market ETF habits, with debt, cash-buffer, and risk guardrails.',
-        'Atomic Habits-inspired tiny cues, environment design, and a never-miss-twice recovery loop make progress easier to repeat.',
-        'Grounded prompts cover sleep, outdoors, meditation, cooking, relationships, meaning, and rent-vs-own trade-offs in one place.',
-        'Optional on-device Qwen2.5 0.5B via WebLLM; deterministic high-stakes and crisis safety paths stay in control.'
+        'The questionnaire becomes three deterministic starting actions and a practical seven-day habit plan, so the first step is clear instead of abstract.',
+        'Optional Qwen2.5 0.5B chat runs on-device through WebLLM and WebGPU, with no API key. The pretrained model is integrated as-is, not trained or fine-tuned by me.',
+        'The small language model handles lower-risk conversation. Money, health, housing, and crisis messages stay on controlled deterministic paths, with a fallback when the model is unavailable.',
+        'Profile, progress, and chat stay in the browser, and the app installs as a PWA. The product draws from Atomic Habits and The Wealthy Barber without promising outcomes or giving individualized investment advice.'
       ],
       accent: 'emerald',
       featured: true

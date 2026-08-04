@@ -11,8 +11,8 @@ const accentHex: Record<string, string> = {
   orange: '#fb923c'
 }
 
-// Positions keyed by project index in resume.projects (GoodLife is index 0):
-// 0 GoodLife · 1 ConquestCartes · 2 Blend Together · 3 Molt · 4 StockTracker
+// Positions keyed by project index in resume.projects (GoodLife.AI is index 0):
+// 0 GoodLife.AI · 1 ConquestCartes · 2 Blend Together · 3 Molt · 4 StockTracker
 // 5 The Air Outside · 6 HardHaq '25 · 7 UmbrellaShare · 8 Hairrison · 9 RougeRogue
 // Clustered by theme: interactive worlds (left), hackathon podiums (centre), live products (right).
 const positions: Record<number, { x: number; y: number }> = {
@@ -56,7 +56,7 @@ const edgeList: Edge[] = [
   { a: 1, b: 2, label: 'Live multiplayer on shared, synced game state' },
   { a: 8, b: 2, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
   { a: 1, b: 3, label: 'Two browser games of mine: a deck-builder and a 3D platformer' },
-  { a: 0, b: 4, label: 'GoodLife and StockTracker make money decisions more legible' },
+  { a: 0, b: 4, label: 'GoodLife.AI and StockTracker make money decisions more legible' },
   { a: 0, b: 5, label: 'A local-first guide and a story about making room for ordinary life' },
   { a: 0, b: 1, label: 'Small, repeatable loops turn a useful intention into momentum' }
 ]
