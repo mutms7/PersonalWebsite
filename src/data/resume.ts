@@ -83,7 +83,7 @@ export const resume: Resume = {
   stats: [
     { label: 'Waterloo CS', value: '3.9 GPA' },
     { label: 'Hackathon podiums', value: '2' },
-    { label: 'Live products', value: '6' },
+    { label: 'Live products', value: '7' },
     { label: 'Primary stack', value: 'TS / React' }
   ],
   focusAreas: [
@@ -109,6 +109,26 @@ export const resume: Resume = {
     }
   ],
   projects: [
+    {
+      title: 'GoodLife',
+      subtitle: 'A private, local-first life coach that turns the life you want into three small starts and a practical first-week plan.',
+      category: 'Local-first AI · life systems',
+      status: 'Live',
+      date: '2026',
+      live: 'https://goodlife-daily-guide.w-chenyin.chatgpt.site',
+      repo: 'https://github.com/mutms7/GoodLife',
+      stack: ['React', 'TypeScript', 'WebLLM', 'Qwen2.5 0.5B', 'PWA'],
+      highlight: 'A quiet daily guide for making the next useful step obvious—without pretending a plan can guarantee an outcome.',
+      bullets: [
+        'Short onboarding asks what a better life looks like, then returns the top three high-leverage starts and a first-week plan you can actually try.',
+        'Wealthy Barber-derived money guidance turns pay-yourself-first into automated, low-cost, diversified broad-market ETF habits, with debt, cash-buffer, and risk guardrails.',
+        'Atomic Habits-inspired tiny cues, environment design, and a never-miss-twice recovery loop make progress easier to repeat.',
+        'Grounded prompts cover sleep, outdoors, meditation, cooking, relationships, meaning, and rent-vs-own trade-offs in one place.',
+        'Optional on-device Qwen2.5 0.5B via WebLLM; deterministic high-stakes and crisis safety paths stay in control.'
+      ],
+      accent: 'emerald',
+      featured: true
+    },
     {
       title: 'ConquestCartes',
       subtitle: 'An original fantasy deck-builder in Godot: buy from a rotating market, build an engine from almost nothing, and race for victory points.',

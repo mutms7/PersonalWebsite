@@ -11,20 +11,21 @@ const accentHex: Record<string, string> = {
   orange: '#fb923c'
 }
 
-// Positions keyed by project index in resume.projects:
-// 0 ConquestCartes · 1 Blend Together · 2 Molt · 3 StockTracker · 4 The Air Outside
-// 5 HardHaq '25 · 6 UmbrellaShare · 7 Hairrison · 8 RougeRogue
+// Positions keyed by project index in resume.projects (GoodLife is index 0):
+// 0 GoodLife · 1 ConquestCartes · 2 Blend Together · 3 Molt · 4 StockTracker
+// 5 The Air Outside · 6 HardHaq '25 · 7 UmbrellaShare · 8 Hairrison · 9 RougeRogue
 // Clustered by theme: interactive worlds (left), hackathon podiums (centre), live products (right).
 const positions: Record<number, { x: number; y: number }> = {
-  4: { x: 255, y: 150 },
-  8: { x: 180, y: 295 },
-  2: { x: 300, y: 415 },
-  5: { x: 600, y: 150 },
-  6: { x: 665, y: 295 },
-  7: { x: 585, y: 415 },
-  3: { x: 960, y: 150 },
-  0: { x: 1035, y: 295 },
-  1: { x: 955, y: 415 }
+  5: { x: 255, y: 150 },
+  9: { x: 180, y: 295 },
+  3: { x: 300, y: 415 },
+  6: { x: 600, y: 150 },
+  7: { x: 665, y: 295 },
+  8: { x: 585, y: 415 },
+  4: { x: 960, y: 150 },
+  0: { x: 830, y: 295 },
+  1: { x: 1035, y: 295 },
+  2: { x: 955, y: 415 }
 }
 
 const clusters = [
@@ -37,24 +38,27 @@ const clusters = [
 // indices into resume.projects). The SVG map is unreadable below ~640px, so
 // small screens get this legible, tappable list instead of a shrunken graph.
 const clusterGroups: { label: string; members: number[] }[] = [
-  { label: 'interactive worlds', members: [4, 8, 2] },
-  { label: 'hackathon podiums', members: [5, 6, 7] },
-  { label: 'live products', members: [3, 0, 1] }
+  { label: 'live products', members: [0, 4, 1, 2] },
+  { label: 'hackathon podiums', members: [6, 7, 8] },
+  { label: 'interactive worlds', members: [5, 9, 3] }
 ]
 
 type Edge = { a: number; b: number; label: string }
 
 const edgeList: Edge[] = [
-  { a: 4, b: 8, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
-  { a: 8, b: 2, label: 'Playable worlds: a roguelike crawler and a 3D platformer' },
-  { a: 4, b: 2, label: 'Same world and mood: suits as masks, presence over performance' },
-  { a: 5, b: 6, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
-  { a: 6, b: 7, label: 'Hackathon builds around everyday, human problems' },
-  { a: 3, b: 7, label: 'TypeScript + React products shipped live on Vercel' },
-  { a: 3, b: 5, label: 'Heavy data on both sides: market feeds and Maxwell capacitance matrices' },
-  { a: 0, b: 1, label: 'Live multiplayer on shared, synced game state' },
-  { a: 7, b: 1, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
-  { a: 0, b: 2, label: 'Two browser games of mine: a deck-builder and a 3D platformer' }
+  { a: 5, b: 9, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
+  { a: 9, b: 3, label: 'Playable worlds: a roguelike crawler and a 3D platformer' },
+  { a: 5, b: 3, label: 'Same world and mood: suits as masks, presence over performance' },
+  { a: 6, b: 7, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
+  { a: 7, b: 8, label: 'Hackathon builds around everyday, human problems' },
+  { a: 4, b: 8, label: 'TypeScript + React products shipped live on Vercel' },
+  { a: 4, b: 6, label: 'Heavy data on both sides: market feeds and Maxwell capacitance matrices' },
+  { a: 1, b: 2, label: 'Live multiplayer on shared, synced game state' },
+  { a: 8, b: 2, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
+  { a: 1, b: 3, label: 'Two browser games of mine: a deck-builder and a 3D platformer' },
+  { a: 0, b: 4, label: 'GoodLife and StockTracker make money decisions more legible' },
+  { a: 0, b: 5, label: 'A local-first guide and a story about making room for ordinary life' },
+  { a: 0, b: 1, label: 'Small, repeatable loops turn a useful intention into momentum' }
 ]
 
 function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: number) {
@@ -153,7 +157,7 @@ export default function StoryGraph() {
         .map((e) => projects[e.a === activeNode ? e.b : e.a].title)
       return `${projects[activeNode].title} connects to ${related.join(' and ')}. Click to read its scene.`
     }
-    return 'Nine projects, three clusters. Hover a thread to see why two stories connect; select a project to jump to its scene.'
+    return 'Ten projects, three clusters. Hover a thread to see why two stories connect; select a project to jump to its scene.'
   }, [activeNode, activeEdge, projects])
 
   function goTo(index: number) {
@@ -170,7 +174,7 @@ export default function StoryGraph() {
           get a legible, tappable list of the same three clusters. */}
       <div className="sm:hidden">
         <p className="mb-6 px-1 text-center font-mono text-sm text-fade">
-          Nine projects in three clusters. Tap one to jump to its scene.
+          Ten projects in three clusters. Tap one to jump to its scene.
         </p>
         <div className="space-y-6">
           {clusterGroups.map((group) => (

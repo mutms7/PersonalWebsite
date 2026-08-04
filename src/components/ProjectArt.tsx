@@ -415,8 +415,60 @@ function Molt() {
   )
 }
 
+function GoodLife() {
+  const steps = [
+    { label: 'notice', color: '#f1d08b' },
+    { label: 'choose', color: '#f28f78' },
+    { label: 'repeat', color: '#8fbe9f' }
+  ]
+  return (
+    <svg {...frameProps} aria-label="GoodLife local-first life coach preview">
+      <Chrome label="goodlife-daily-guide.w-chenyin.chatgpt.site" accent="#8fbe9f" />
+      <rect x="20" y="48" width="520" height="262" rx="8" fill="#10241f" />
+      <path d="M 20 48 H 540 V 112 C 440 90 360 126 260 102 C 170 80 92 114 20 94 Z" fill="#173b31" />
+      <text x="38" y="76" fill="#f1d08b" fontSize="9" letterSpacing="2" fontFamily="IBM Plex Mono, monospace">GOODLIFE / DAILY GUIDE</text>
+      <text x="38" y="103" fill="#f7f0df" fontSize="19" fontFamily="Georgia, serif">Make the next good step small.</text>
+      <text x="38" y="121" fill="#a9c2ad" fontSize="9" fontFamily="IBM Plex Mono, monospace">private · local-first · built for ordinary days</text>
+
+      <rect x="36" y="142" width="194" height="116" rx="8" fill="#17352c" stroke="#496d5c" strokeWidth="1" />
+      <text x="50" y="162" fill="#8fbe9f" fontSize="9" letterSpacing="1.4" fontFamily="IBM Plex Mono, monospace">YOUR FIRST WEEK</text>
+      <text x="50" y="180" fill="#f7f0df" fontSize="12" fontFamily="Georgia, serif">Three starts, not a total reset.</text>
+      {[['01', 'Put shoes by the door'], ['02', 'Automate one transfer'], ['03', 'Call someone you love']].map(([n, text], i) => (
+        <g key={n}>
+          <circle cx="54" cy={200 + i * 17} r="6" fill={i === 1 ? '#f28f78' : '#f1d08b'} />
+          <text x="54" y={203 + i * 17} textAnchor="middle" fill="#10241f" fontSize="7" fontFamily="IBM Plex Mono, monospace">{n}</text>
+          <text x="68" y={203 + i * 17} fill="#dce8d7" fontSize="9" fontFamily="IBM Plex Mono, monospace">{text}</text>
+        </g>
+      ))}
+
+      <path d="M 252 179 C 274 153 300 153 322 179 S 370 205 390 179" fill="none" stroke="#496d5c" strokeWidth="2" strokeDasharray="4 4" />
+      {steps.map((step, i) => (
+        <g key={step.label} transform={`translate(${270 + i * 54} ${179 + (i === 1 ? 0 : i === 2 ? 0 : 0)})`}>
+          <circle r="15" fill="#10241f" stroke={step.color} strokeWidth="2" />
+          <circle r="5" fill={step.color} opacity="0.9" />
+          <text y="30" textAnchor="middle" fill={step.color} fontSize="8" fontFamily="IBM Plex Mono, monospace">{step.label}</text>
+        </g>
+      ))}
+
+      <rect x="390" y="142" width="134" height="116" rx="8" fill="#19352b" stroke="#496d5c" strokeWidth="1" />
+      <text x="404" y="162" fill="#f28f78" fontSize="9" letterSpacing="1.4" fontFamily="IBM Plex Mono, monospace">GUARDRAILS</text>
+      <text x="404" y="181" fill="#dce8d7" fontSize="9" fontFamily="IBM Plex Mono, monospace">debt first</text>
+      <rect x="404" y="187" width="104" height="4" rx="2" fill="#2f5b4a" />
+      <text x="404" y="207" fill="#dce8d7" fontSize="9" fontFamily="IBM Plex Mono, monospace">cash buffer</text>
+      <rect x="404" y="213" width="74" height="4" rx="2" fill="#f1d08b" />
+      <text x="404" y="233" fill="#dce8d7" fontSize="9" fontFamily="IBM Plex Mono, monospace">risk-aware</text>
+      <rect x="404" y="239" width="90" height="4" rx="2" fill="#8fbe9f" />
+
+      <rect x="36" y="274" width="488" height="24" rx="12" fill="#17352c" />
+      <text x="280" y="290" textAnchor="middle" fill="#a9c2ad" fontSize="8" fontFamily="IBM Plex Mono, monospace">sleep · outdoors · meditation · cooking · relationships · meaning · rent vs own</text>
+    </svg>
+  )
+}
+
 export default function ProjectArt({ title }: Props) {
   switch (title) {
+    case 'GoodLife':
+      return <GoodLife />
     case 'StockTracker':
       return <StockTracker />
     case 'The Air Outside':
