@@ -423,7 +423,7 @@ function GoodLife() {
   ]
   return (
     <svg {...frameProps} aria-label="GoodLife.AI local-first life coach preview">
-      <Chrome label="goodlife-daily-guide.w-chenyin.chatgpt.site" accent="#8fbe9f" />
+      <Chrome label="goodlifeai.vercel.app" accent="#8fbe9f" />
       <rect x="20" y="48" width="520" height="262" rx="8" fill="#10241f" />
       <path d="M 20 48 H 540 V 112 C 440 90 360 126 260 102 C 170 80 92 114 20 94 Z" fill="#173b31" />
       <text x="38" y="76" fill="#f1d08b" fontSize="9" letterSpacing="2" fontFamily="IBM Plex Mono, monospace">GOODLIFE.AI / DAILY GUIDE</text>

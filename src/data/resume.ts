@@ -115,7 +115,7 @@ export const resume: Resume = {
       category: 'Local-first AI · life systems',
       status: 'Live',
       date: '2026',
-      live: 'https://goodlife-daily-guide.w-chenyin.chatgpt.site',
+      live: 'https://goodlifeai.vercel.app',
       repo: 'https://github.com/mutms7/GoodLife.AI',
       stack: ['React', 'TypeScript', 'WebLLM', 'Qwen2.5 0.5B', 'PWA'],
       highlight: 'I built a quiet daily guide that turns a few honest answers into three deterministic starting actions and a seven-day plan, without promising an outcome.',
