@@ -117,12 +117,14 @@ export const resume: Resume = {
       date: '2026',
       live: 'https://goodlifeai.vercel.app',
       repo: 'https://github.com/mutms7/GoodLife.AI',
-      stack: ['React', 'TypeScript', 'WebLLM', 'Qwen2.5 0.5B', 'PWA'],
-      highlight: 'I built a quiet daily guide that turns a few honest answers into three deterministic starting actions and a seven-day plan, without promising an outcome.',
+      stack: ['React', 'TypeScript', 'WebLLM', 'Qwen2.5 0.5B', 'Prompt hardening', 'PWA'],
+      highlight: 'I built a quiet daily guide that turns a few honest answers into three deterministic starting actions and a seven-day plan, then made a 0.5B on-device model safe enough to be the only thing answering the chat.',
       bullets: [
         'The questionnaire becomes three deterministic starting actions and a practical seven-day habit plan, so the first step is clear instead of abstract.',
-        'Optional Qwen2.5 0.5B chat runs on-device through WebLLM and WebGPU, with no API key. The pretrained model is integrated as-is, not trained or fine-tuned by me.',
-        'The small language model handles lower-risk conversation. Money, health, housing, and crisis messages stay on controlled deterministic paths, with a fallback when the model is unavailable.',
+        'Conversation requires Qwen2.5 0.5B running on-device through WebLLM and WebGPU, with no API key and no inference server. There is no cloud fallback, so the app gates the chat behind the download instead of quietly answering with something else.',
+        'All coaching guidance lives in one editable markdown playbook rather than a keyword table. The model reads each topic’s plain-English description and picks one in a short first pass, then only that topic’s notes go into the answering prompt, which a 0.5B model follows far better than the whole playbook at once.',
+        'The safeguards do not depend on the model behaving: literal-phrase crisis matching runs before any generation and returns a fixed reply the model never sees, and the disclaimers are appended verbatim afterwards so a bad generation cannot soften or drop them.',
+        'The prompt treats the user message and the stored good-day line as untrusted: chat-template tokens, injected role headers and zero-width characters are stripped, the text is fenced with a per-message random marker, and a reply that echoes the scaffolding is dropped mid-stream.',
         'Profile, progress, and chat stay in the browser, and the app installs as a PWA. The product draws from Atomic Habits and The Wealthy Barber without promising outcomes or giving individualized investment advice.'
       ],
       accent: 'emerald',
