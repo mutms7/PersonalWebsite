@@ -13,6 +13,7 @@ export type Project = {
   date?: string
   live?: string
   repo?: string
+  desktopDownload?: string
   stack: string[]
   highlight: string
   bullets: string[]
@@ -117,6 +118,7 @@ export const resume: Resume = {
       date: '2026',
       live: 'https://goodlifeai.vercel.app',
       repo: 'https://github.com/mutms7/GoodLife.AI',
+      desktopDownload: 'https://github.com/mutms7/GoodLife.AI/releases/latest/download/GoodLife.AI-Setup.exe',
       stack: ['React', 'TypeScript', 'WebLLM', 'Qwen2.5 1.5B', 'Prompt hardening', 'PWA'],
       highlight: 'I built a quiet daily guide that turns a few honest answers into three deterministic starting actions and a seven-day plan, then made a small on-device model safe enough to be the only thing answering the chat.',
       bullets: [

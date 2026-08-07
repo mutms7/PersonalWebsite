@@ -460,6 +460,17 @@ function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => 
                       ))}
                     </ul>
                     <div className="mt-7 flex flex-wrap gap-5 font-mono text-sm">
+                      {project.desktopDownload && (
+                        <a
+                          href={project.desktopDownload}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`Download ${project.title} for desktop (recommended)`}
+                          className={`rounded-lg border px-4 py-2 no-underline transition-all hover:-translate-y-0.5 ${accentBorder[project.accent]} ${accentText[project.accent]} hover:bg-dusk/70`}
+                        >
+                          Download (Recommended) ↓
+                        </a>
+                      )}
                       {project.live && (
                         <a href={project.live} target="_blank" rel="noreferrer" className={`underline underline-offset-4 ${accentText[project.accent]}`}>
                           Visit live →
