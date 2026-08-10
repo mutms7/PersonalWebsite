@@ -112,7 +112,7 @@ export const resume: Resume = {
   projects: [
     {
       title: 'GoodLife.AI',
-      subtitle: 'A private, local-first coach for building a life that fits.',
+      subtitle: 'The only ethical AI coach, running locally on your computer or phone.',
       category: 'Local-first AI · life systems',
       status: 'Live',
       date: '2026',
@@ -120,15 +120,11 @@ export const resume: Resume = {
       repo: 'https://github.com/mutms7/GoodLife.AI',
       desktopDownload: 'https://github.com/mutms7/GoodLife.AI/releases/latest/download/GoodLife.AI-Setup.exe',
       stack: ['React', 'TypeScript', 'WebLLM', 'Qwen2.5 1.5B', 'Prompt hardening', 'PWA'],
-      highlight: 'I built a quiet daily guide that turns a few honest answers into three deterministic starting actions and a seven-day plan, then made a small on-device model safe enough to be the only thing answering the chat.',
+      highlight: 'A local AI coach that turns a few honest answers into small, practical next steps.',
       bullets: [
-        'The questionnaire becomes three deterministic starting actions and a practical seven-day habit plan, so the first step is clear instead of abstract.',
-        'Conversation requires Qwen2.5 1.5B running on-device through WebLLM and WebGPU, with no API key and no inference server. There is no cloud fallback, so the app gates the chat behind the download instead of quietly answering with something else. I moved up from the 0.5B version after it recommended a sleeping pill it had invented the generic name for, with the rule against naming a medication sitting in its own prompt.',
-        'All coaching guidance lives in one editable markdown playbook rather than a keyword table. The model reads each topic’s plain-English description and picks one in a short first pass, then only that topic’s notes go into the answering prompt, which a small model follows far better than the whole playbook at once.',
-        'Routing is the model’s call end to end, including crisis. There is no phrase list underneath it, so the topic prompt is instead biased to answer crisis whenever a message could be about wanting to die, even where another topic also fits. The trade is explicit: the coach cannot recognise a crisis message until the model has downloaded, so the download screen carries emergency numbers unconditionally and the app says it cannot answer rather than answering with something else.',
-        'What does not depend on the model behaving sits on the output side. A topic with a fixed reply is sent verbatim and never generated, disclaimers are appended by the app afterwards so a bad generation cannot soften or drop them, and a reply is dropped mid-stream if it echoes the prompt scaffolding or starts prescribing, checked against prescription-only drug names and against any number next to a dose unit.',
-        'The prompt treats the user message and the stored good-day line as untrusted: chat-template tokens, injected role headers and zero-width characters are stripped, and the text is fenced with a per-message random marker the message cannot guess or forge.',
-        'Profile, progress, and chat stay in the browser, and the app installs as a PWA. The product draws from Atomic Habits and The Wealthy Barber without promising outcomes or giving individualized investment advice.'
+        'Runs Qwen2.5 1.5B on-device through WebLLM and WebGPU; no inference server or API key.',
+        'Turns a short questionnaire into three clear actions and a lightweight habit plan.',
+        'Profile and progress stay local by default; only chosen account data syncs online, and conversations disappear after seven days.'
       ],
       accent: 'emerald',
       featured: true
