@@ -269,8 +269,8 @@ function Hero() {
         </h1>
         <p className="hero-enter mt-7 max-w-xl text-lg leading-relaxed text-fade" style={step(2)}>
           I'm <span className="text-paper">{resume.name}</span>, founder of GoodLife.AI and a Waterloo CS
-          student. I ship local-first AI, finance dashboards, interactive fiction, 3D browser games, and
-          quantum tooling. Different genres, one author: fast iteration, humane interfaces, endings worth reaching.
+          student. GoodLife runs its AI on your device. I also build finance dashboards, interactive fiction,
+          3D browser games, and quantum tooling. Different genres, one author: endings worth reaching.
         </p>
         <div className="hero-enter mt-8 flex flex-wrap gap-4" style={step(3)}>
           <a

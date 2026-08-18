@@ -73,7 +73,7 @@ export const resume: Resume = {
   role: 'Founder of GoodLife.AI, Computer Science student, and full-stack engineer',
   headline: 'I build polished systems where useful data, humane interfaces, and ambitious ideas meet.',
   summary:
-    'Founder of GoodLife.AI and Waterloo CS student shipping local-first AI, full-stack applications, finance dashboards, interactive story systems, and 3D browser games.',
+    'I built GoodLife.AI, a coach that runs on your device and gives you three things to do today. I also build finance dashboards, interactive stories, and 3D browser games.',
   site: 'william-chenyin.vercel.app',
   location: 'Waterloo, ON / Coquitlam, BC',
   availability: 'Open to 2026 software internships, hackathons, and ambitious product builds',
@@ -112,7 +112,7 @@ export const resume: Resume = {
   projects: [
     {
       title: 'GoodLife.AI',
-      subtitle: 'A local-first AI coach for the web and Windows.',
+      subtitle: 'An AI coach that runs on your device, on the web or Windows.',
       category: 'Local-first AI · life systems',
       status: 'Live',
       date: '2026',
@@ -120,10 +120,10 @@ export const resume: Resume = {
       repo: 'https://github.com/mutms7/GoodLife.AI',
       desktopDownload: 'https://github.com/mutms7/GoodLife.AI/releases/latest/download/GoodLife.AI-Setup.exe',
       stack: ['React', 'TypeScript', 'Electron', 'WebLLM', 'Supabase'],
-      highlight: 'A local AI coach that turns a few honest answers into small, practical next steps.',
+      highlight: 'Answer a few questions, get three steps for today, then track them across the week and year.',
       bullets: [
         'Runs a quantized Qwen2.5 1.5B model on-device through WebLLM and WebGPU.',
-        'Tracks personalized actions across daily, weekly, and annual views.',
+        'Shows whether each habit was done today, this week, and across the past year.',
         'Adds Google and email authentication, secure Supabase sync, seven-day chat retention, and automated Windows releases.'
       ],
       accent: 'emerald',
