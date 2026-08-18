@@ -70,10 +70,10 @@ export type Resume = {
 
 export const resume: Resume = {
   name: 'William Chenyin',
-  role: 'Computer Science student, full-stack builder, and product-minded engineer',
+  role: 'Founder of GoodLife.AI, Computer Science student, and full-stack engineer',
   headline: 'I build polished systems where useful data, humane interfaces, and ambitious ideas meet.',
   summary:
-    'Waterloo CS student shipping full-stack applications, AI-assisted workflows, finance dashboards, interactive story systems, and 3D browser games with a bias toward fast iteration and memorable interfaces.',
+    'Founder of GoodLife.AI and Waterloo CS student shipping local-first AI, full-stack applications, finance dashboards, interactive story systems, and 3D browser games.',
   site: 'william-chenyin.vercel.app',
   location: 'Waterloo, ON / Coquitlam, BC',
   availability: 'Open to 2026 software internships, hackathons, and ambitious product builds',
@@ -127,7 +127,11 @@ export const resume: Resume = {
         'Adds Google and email authentication, secure Supabase sync, seven-day chat retention, and automated Windows releases.'
       ],
       accent: 'emerald',
-      featured: true
+      featured: true,
+      shots: [
+        { src: '/shots/goodlife/home.png', caption: 'The GoodLife.AI home page, introducing a private coach that runs locally.' },
+        { src: '/shots/goodlife/daily-coach.png', caption: 'The daily coach with three practical actions, local conversation, and habit history.' }
+      ]
     },
     {
       title: 'ConquestCartes',
