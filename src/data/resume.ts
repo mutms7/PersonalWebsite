@@ -112,19 +112,19 @@ export const resume: Resume = {
   projects: [
     {
       title: 'GoodLife.AI',
-      subtitle: 'The only ethical AI coach, running locally on your computer or phone.',
+      subtitle: 'A local-first AI coach for the web and Windows.',
       category: 'Local-first AI · life systems',
       status: 'Live',
       date: '2026',
       live: 'https://goodlifeai.vercel.app',
       repo: 'https://github.com/mutms7/GoodLife.AI',
       desktopDownload: 'https://github.com/mutms7/GoodLife.AI/releases/latest/download/GoodLife.AI-Setup.exe',
-      stack: ['React', 'TypeScript', 'WebLLM', 'Qwen2.5 1.5B', 'Prompt hardening', 'PWA'],
+      stack: ['React', 'TypeScript', 'Electron', 'WebLLM', 'Supabase'],
       highlight: 'A local AI coach that turns a few honest answers into small, practical next steps.',
       bullets: [
-        'Runs Qwen2.5 1.5B on-device through WebLLM and WebGPU; no inference server or API key.',
-        'Turns a short questionnaire into three clear actions and a lightweight habit plan.',
-        'Profile and progress stay local by default; only chosen account data syncs online, and conversations disappear after seven days.'
+        'Runs a quantized Qwen2.5 1.5B model on-device through WebLLM and WebGPU.',
+        'Tracks personalized actions across daily, weekly, and annual views.',
+        'Adds Google and email authentication, secure Supabase sync, seven-day chat retention, and automated Windows releases.'
       ],
       accent: 'emerald',
       featured: true
