@@ -4,6 +4,12 @@ A portfolio built as a story system: an interactive SVG story graph for a hero, 
 
 **Live Site:** [william-chenyin.vercel.app](https://william-chenyin.vercel.app/)
 
+![Hero section with the interactive story graph copy and a portrait collage](docs/screenshots/01-hero.png)
+
+![The Map section showing the SVG story graph connecting each project node](docs/screenshots/02-story-map.png)
+
+![Epilogue section styled as dialogue choices, with contact options and a message form](docs/screenshots/03-epilogue.png)
+
 ## Highlights
 
 - Hand-coded interactive SVG story graph in the hero — each node is a project, edges draw in like ink, and clicking a node jumps to its scene.
