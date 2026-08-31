@@ -465,8 +465,56 @@ function GoodLife() {
   )
 }
 
+function PaletteCard() {
+  const covers = [
+    { paper: '#f8e9d8', paint: '#bf4e60', label: 'folk garden', angle: -6 },
+    { paper: '#f5eedb', paint: '#548c71', label: 'paper party', angle: 0 },
+    { paper: '#e5edf2', paint: '#467496', label: 'postcard', angle: 6 }
+  ]
+  return (
+    <svg {...frameProps} aria-label="PaletteCard AI illustration: three flower cards and a row of paint colors">
+      <Chrome label="palettecardai.vercel.app" accent="#fda4af" />
+      <rect x="20" y="48" width="520" height="262" rx="8" fill="#f7f0e3" />
+      <text x="38" y="72" fill="#7e4350" fontSize="9" letterSpacing="1.8" fontFamily="IBM Plex Mono, monospace">PALETTECARD AI / COLOR STUDIO</text>
+      <text x="38" y="101" fill="#352c3d" fontSize="22" fontFamily="Georgia, serif">A little color. Something personal.</text>
+      {covers.map((cover, i) => (
+        <g key={cover.label} transform={`translate(${76 + i * 158} 119) rotate(${cover.angle} 47 62)`}>
+          <rect x="4" y="5" width="98" height="126" fill="#352c3d" opacity="0.12" />
+          <rect width="98" height="126" fill={cover.paper} stroke={cover.paint} strokeWidth="1.5" />
+          {i === 0 && [18, 108].map((y) => (
+            <path key={y} d={`M 10 ${y} Q 28 ${y - 12} 49 ${y} T 88 ${y}`} fill="none" stroke={cover.paint} strokeWidth="2" />
+          ))}
+          {i === 1 && (
+            <g fill={cover.paint} opacity="0.65">
+              <circle cx="12" cy="16" r="5" /><circle cx="83" cy="111" r="6" />
+              <path d="M 74 6 L 89 10 L 80 21 Z M 9 98 L 23 106 L 10 113 Z" />
+            </g>
+          )}
+          {i === 2 && <rect x="7" y="7" width="84" height="112" fill="none" stroke={cover.paint} strokeDasharray="5 4" />}
+          <rect x="21" y="28" width="56" height="66" fill="#fffaf2" />
+          <path d="M 49 83 Q 44 68 49 53 M 48 73 Q 30 58 35 76 Q 41 81 48 78 M 48 67 Q 65 54 61 69 Q 57 75 48 73" fill="#7b9874" stroke="#527950" strokeWidth="1.5" />
+          {[0, 72, 144, 216, 288].map((angle) => (
+            <ellipse key={angle} cx="49" cy="44" rx="6" ry="10" fill="#d66e83" transform={`rotate(${angle} 49 53)`} />
+          ))}
+          <circle cx="49" cy="53" r="6" fill="#efc26c" />
+          <text x="49" y="106" textAnchor="middle" fill="#352c3d" fontSize="8" fontFamily="Georgia, serif">made just for you</text>
+          <text x="49" y="145" textAnchor="middle" fill="#665266" fontSize="8" fontFamily="IBM Plex Mono, monospace">{cover.label}</text>
+        </g>
+      ))}
+      <text x="38" y="294" fill="#665266" fontSize="9" fontFamily="IBM Plex Mono, monospace">PICK ONE. PAINT YOUR OWN.</text>
+      {['#d66e83', '#efc26c', '#7b9874', '#73a9dc', '#f8e9d8'].map((color, i) => (
+        <circle key={color} cx={338 + i * 30} cy="289" r="10" fill={color} stroke="#665266" strokeWidth="1" />
+      ))}
+      <path d="M 502 297 L 516 277" stroke="#7e4350" strokeWidth="5" strokeLinecap="round" />
+      <path d="M 501 293 Q 488 301 496 305 Q 507 306 505 296" fill="#d66e83" />
+    </svg>
+  )
+}
+
 export default function ProjectArt({ title }: Props) {
   switch (title) {
+    case 'PaletteCard AI':
+      return <PaletteCard />
     case 'GoodLife.AI':
       return <GoodLife />
     case 'StockTracker':

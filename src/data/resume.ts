@@ -84,7 +84,7 @@ export const resume: Resume = {
   stats: [
     { label: 'Waterloo CS', value: '3.9 GPA' },
     { label: 'Hackathon podiums', value: '2' },
-    { label: 'Live products', value: '7' },
+    { label: 'Live products', value: '8' },
     { label: 'Primary stack', value: 'TS / React' }
   ],
   focusAreas: [
@@ -131,6 +131,27 @@ export const resume: Resume = {
       shots: [
         { src: '/shots/goodlife/home.png', caption: 'The GoodLife.AI home page, introducing a private coach that runs locally.' },
         { src: '/shots/goodlife/daily-coach.png', caption: 'The daily coach with three practical actions, local conversation, and habit history.' }
+      ]
+    },
+    {
+      title: 'PaletteCard AI',
+      subtitle: 'Make a personal greeting card from a photo.',
+      category: 'Machine learning · creative tools',
+      status: 'Live prototype',
+      date: 'Aug. 2026',
+      live: 'https://palettecardai.vercel.app',
+      repo: 'https://github.com/mutms7/PaletteCardAI',
+      stack: ['Python', 'PyTorch', 'MobileNetV3', 'FastAPI', 'Pillow', 'JavaScript'],
+      highlight: 'Upload a photo, choose from three covers, then paint and add your own message.',
+      bullets: [
+        "Your photo stays intact. I built the editor so you can mix paint, keep brush strokes and text on separate layers, and export the finished card as a PNG.",
+        "I fine-tuned MobileNetV3 to recognize five objects and trained a second model to assign color roles. A red flower can get a quiet background, with contrast checks keeping the text readable."
+      ],
+      accent: 'rose',
+      featured: true,
+      shots: [
+        { src: '/shots/palettecard/studio.png', caption: 'The PaletteCard AI studio: one photo, three covers, and a palette to paint with.' },
+        { src: '/shots/palettecard/how-it-works.png', caption: 'The illustrated guide to the object classifier, palette model, and color checks.' }
       ]
     },
     {

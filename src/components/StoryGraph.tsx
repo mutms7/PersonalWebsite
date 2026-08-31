@@ -12,53 +12,58 @@ const accentHex: Record<string, string> = {
 }
 
 // Positions keyed by project index in resume.projects (GoodLife.AI is index 0):
-// 0 GoodLife.AI · 1 ConquestCartes · 2 Blend Together · 3 Molt · 4 StockTracker
-// 5 The Air Outside · 6 HardHaq '25 · 7 UmbrellaShare · 8 Hairrison · 9 RougeRogue
-// Clustered by theme: interactive worlds (left), hackathon podiums (centre), live products (right).
+// 0 GoodLife.AI · 1 PaletteCard AI · 2 ConquestCartes · 3 Blend Together · 4 Molt
+// 5 StockTracker · 6 The Air Outside · 7 HardHaq '25 · 8 UmbrellaShare · 9 Hairrison · 10 RougeRogue
+// Four clusters, with AI tools on the right and multiplayer games kept together.
 const positions: Record<number, { x: number; y: number }> = {
-  5: { x: 255, y: 150 },
-  9: { x: 180, y: 295 },
-  3: { x: 300, y: 415 },
-  6: { x: 600, y: 150 },
-  7: { x: 665, y: 295 },
-  8: { x: 585, y: 415 },
-  4: { x: 960, y: 150 },
-  0: { x: 830, y: 295 },
-  1: { x: 1035, y: 295 },
-  2: { x: 955, y: 415 }
+  6: { x: 170, y: 150 },
+  10: { x: 120, y: 300 },
+  4: { x: 210, y: 450 },
+  7: { x: 450, y: 190 },
+  8: { x: 490, y: 380 },
+  2: { x: 730, y: 150 },
+  3: { x: 760, y: 300 },
+  0: { x: 1030, y: 140 },
+  1: { x: 990, y: 270 },
+  9: { x: 1070, y: 400 },
+  5: { x: 710, y: 450 }
 }
 
 const clusters = [
-  { label: 'interactive worlds', x: 245, y: 64 },
-  { label: 'hackathon podiums', x: 625, y: 64 },
-  { label: 'live products', x: 980, y: 64 }
+  { label: 'interactive worlds', x: 165, y: 64 },
+  { label: 'hackathon podiums', x: 470, y: 64 },
+  { label: 'live products', x: 745, y: 64 },
+  { label: 'AI projects', x: 1030, y: 64 }
 ]
 
-// Same three clusters, ordered for the touch-native mobile layout (project
+// Same four clusters, ordered for the touch-native mobile layout (project
 // indices into resume.projects). The SVG map is unreadable below ~640px, so
 // small screens get this legible, tappable list instead of a shrunken graph.
 const clusterGroups: { label: string; members: number[] }[] = [
-  { label: 'live products', members: [0, 4, 1, 2] },
-  { label: 'hackathon podiums', members: [6, 7, 8] },
-  { label: 'interactive worlds', members: [5, 9, 3] }
+  { label: 'AI projects', members: [0, 1, 9] },
+  { label: 'live products', members: [2, 3, 5] },
+  { label: 'hackathon podiums', members: [7, 8] },
+  { label: 'interactive worlds', members: [6, 10, 4] }
 ]
 
 type Edge = { a: number; b: number; label: string }
 
 const edgeList: Edge[] = [
-  { a: 5, b: 9, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
-  { a: 9, b: 3, label: 'Playable worlds: a roguelike crawler and a 3D platformer' },
-  { a: 5, b: 3, label: 'Same world and mood: suits as masks, presence over performance' },
-  { a: 6, b: 7, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
-  { a: 7, b: 8, label: 'Hackathon builds around everyday, human problems' },
-  { a: 4, b: 8, label: 'TypeScript + React products shipped live on Vercel' },
-  { a: 4, b: 6, label: 'Heavy data on both sides: market feeds and Maxwell capacitance matrices' },
-  { a: 1, b: 2, label: 'Live multiplayer on shared, synced game state' },
-  { a: 8, b: 2, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
-  { a: 1, b: 3, label: 'Two browser games of mine: a deck-builder and a 3D platformer' },
-  { a: 0, b: 4, label: 'GoodLife.AI and StockTracker make money decisions more legible' },
-  { a: 0, b: 5, label: 'A local-first guide and a story about making room for ordinary life' },
-  { a: 0, b: 1, label: 'Small, repeatable loops turn a useful intention into momentum' }
+  { a: 6, b: 10, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
+  { a: 10, b: 4, label: 'Playable worlds: a roguelike crawler and a 3D platformer' },
+  { a: 6, b: 4, label: 'Same world and mood: suits as masks, presence over performance' },
+  { a: 7, b: 8, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
+  { a: 8, b: 9, label: 'Hackathon builds around everyday, human problems' },
+  { a: 5, b: 9, label: 'TypeScript + React products shipped live on Vercel' },
+  { a: 5, b: 7, label: 'Heavy data on both sides: market feeds and Maxwell capacitance matrices' },
+  { a: 2, b: 3, label: 'Live multiplayer on shared, synced game state' },
+  { a: 9, b: 3, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
+  { a: 2, b: 4, label: 'Two browser games of mine: a deck-builder and a 3D platformer' },
+  { a: 0, b: 5, label: 'GoodLife.AI and StockTracker make money decisions more legible' },
+  { a: 0, b: 6, label: 'A local-first guide and a story about making room for ordinary life' },
+  { a: 0, b: 2, label: 'Small, repeatable loops turn a useful intention into momentum' },
+  { a: 1, b: 0, label: 'Small models: a trained color tool and an on-device coach' },
+  { a: 1, b: 3, label: 'Make it yourself: paint a card or sculpt a shared 3D model' }
 ]
 
 function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: number) {
@@ -70,6 +75,14 @@ function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: numb
 
 function Glyph({ title, color }: { title: string; color: string }) {
   switch (title) {
+    case 'PaletteCard AI':
+      return (
+        <g stroke={color} strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="-9" y="-11" width="18" height="22" rx="2" />
+          <path d="M 0 3 C -12 -4 -4 -10 0 -5 C 4 -10 12 -4 0 3 Z" />
+          <path d="M -4 7 H 4" />
+        </g>
+      )
     case 'StockTracker':
       return (
         <g stroke={color} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -157,7 +170,7 @@ export default function StoryGraph() {
         .map((e) => projects[e.a === activeNode ? e.b : e.a].title)
       return `${projects[activeNode].title} connects to ${related.join(' and ')}. Click to read its scene.`
     }
-    return 'Ten projects, three clusters. Hover a thread to see why two stories connect; select a project to jump to its scene.'
+    return `${projects.length} projects, ${clusters.length} clusters. Hover a thread to see why two stories connect; select a project to jump to its scene.`
   }, [activeNode, activeEdge, projects])
 
   function goTo(index: number) {
@@ -171,10 +184,10 @@ export default function StoryGraph() {
   return (
     <figure aria-label="Story map of projects grouped by theme. Threads describe how projects relate.">
       {/* Mobile: the SVG graph is illegible when scaled down, so small screens
-          get a legible, tappable list of the same three clusters. */}
+          get a legible, tappable list of the same clusters. */}
       <div className="sm:hidden">
         <p className="mb-6 px-1 text-center font-mono text-sm text-fade">
-          Ten projects in three clusters. Tap one to jump to its scene.
+          {projects.length} projects in {clusters.length} clusters. Tap one to jump to its scene.
         </p>
         <div className="space-y-6">
           {clusterGroups.map((group) => (
@@ -214,9 +227,9 @@ export default function StoryGraph() {
 
       {/* Desktop: the interactive SVG story graph. */}
       <div className="hidden sm:block">
-      <svg viewBox="0 0 1200 480" role="group" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 1200 610" role="group" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
         {clusters.map((c) => (
-          <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#9a93b8" opacity="0.7" fontSize="15" letterSpacing="4" fontFamily="IBM Plex Mono, monospace">
+          <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#9a93b8" opacity="0.7" fontSize="14" letterSpacing="2.5" fontFamily="IBM Plex Mono, monospace">
             {c.label.toUpperCase()}
           </text>
         ))}
