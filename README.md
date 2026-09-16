@@ -13,7 +13,7 @@ A portfolio built as a story system: an interactive SVG story graph for a hero, 
 ## Highlights
 
 - Hand-coded interactive SVG story graph in the hero — each node is a project, edges draw in like ink, and clicking a node jumps to its scene.
-- Editorial "scene" layout for projects with per-project accent colors, including StockTracker, The Air Outside, HardHaq '25, UmbrellaShare, Hairrison (now with Stripe payments), and RougeRogue.
+- Editorial "scene" layout for projects with per-project accent colors, including Sandfall, StockTracker, The Air Outside, HardHaq '25, UmbrellaShare, Hairrison, and RougeRogue.
 - Fraunces / Instrument Sans / IBM Plex Mono type system on a deep indigo-dusk palette.
 - Backstory, timeline, glossary (skills), and an epilogue contact section styled as dialogue choices.
 - Contact form with Vercel serverless forwarding plus a Formspree fallback; reduced-motion and keyboard-focus support throughout.

@@ -11,26 +11,27 @@ const accentHex: Record<string, string> = {
   orange: '#fb923c'
 }
 
-// Positions keyed by project index in resume.projects (GoodLife.AI is index 0):
-// 0 GoodLife.AI · 1 PaletteCard AI · 2 ConquestCartes · 3 Blend Together · 4 Molt
-// 5 StockTracker · 6 The Air Outside · 7 HardHaq '25 · 8 UmbrellaShare · 9 Hairrison · 10 RougeRogue
-// Four clusters, with AI tools on the right and multiplayer games kept together.
+// Positions keyed by project index in resume.projects (Sandfall is index 0):
+// 0 Sandfall · 1 GoodLife.AI · 2 PaletteCard AI · 3 ConquestCartes · 4 Blend Together · 5 Molt
+// 6 StockTracker · 7 The Air Outside · 8 HardHaq '25 · 9 UmbrellaShare · 10 Hairrison · 11 RougeRogue
+// Four clusters, with AI tools on the right and Sandfall anchoring the interactive worlds.
 const positions: Record<number, { x: number; y: number }> = {
-  6: { x: 170, y: 150 },
-  10: { x: 120, y: 300 },
-  4: { x: 210, y: 450 },
-  7: { x: 450, y: 190 },
-  8: { x: 490, y: 380 },
-  2: { x: 730, y: 150 },
-  3: { x: 760, y: 300 },
-  0: { x: 1030, y: 140 },
-  1: { x: 990, y: 270 },
-  9: { x: 1070, y: 400 },
-  5: { x: 710, y: 450 }
+  7: { x: 110, y: 150 },
+  11: { x: 100, y: 310 },
+  0: { x: 275, y: 285 },
+  5: { x: 205, y: 470 },
+  8: { x: 450, y: 190 },
+  9: { x: 490, y: 410 },
+  3: { x: 730, y: 150 },
+  4: { x: 760, y: 300 },
+  1: { x: 1030, y: 140 },
+  2: { x: 990, y: 270 },
+  10: { x: 1070, y: 400 },
+  6: { x: 710, y: 470 }
 }
 
 const clusters = [
-  { label: 'interactive worlds', x: 165, y: 64 },
+  { label: 'interactive worlds', x: 190, y: 64 },
   { label: 'hackathon podiums', x: 470, y: 64 },
   { label: 'live products', x: 745, y: 64 },
   { label: 'AI projects', x: 1030, y: 64 }
@@ -40,30 +41,32 @@ const clusters = [
 // indices into resume.projects). The SVG map is unreadable below ~640px, so
 // small screens get this legible, tappable list instead of a shrunken graph.
 const clusterGroups: { label: string; members: number[] }[] = [
-  { label: 'AI projects', members: [0, 1, 9] },
-  { label: 'live products', members: [2, 3, 5] },
-  { label: 'hackathon podiums', members: [7, 8] },
-  { label: 'interactive worlds', members: [6, 10, 4] }
+  { label: 'AI projects', members: [1, 2, 10] },
+  { label: 'live products', members: [3, 4, 6] },
+  { label: 'hackathon podiums', members: [8, 9] },
+  { label: 'interactive worlds', members: [0, 7, 11, 5] }
 ]
 
 type Edge = { a: number; b: number; label: string }
 
 const edgeList: Edge[] = [
-  { a: 6, b: 10, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
-  { a: 10, b: 4, label: 'Playable worlds: a roguelike crawler and a 3D platformer' },
-  { a: 6, b: 4, label: 'Same world and mood: suits as masks, presence over performance' },
-  { a: 7, b: 8, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
-  { a: 8, b: 9, label: 'Hackathon builds around everyday, human problems' },
-  { a: 5, b: 9, label: 'TypeScript + React products shipped live on Vercel' },
-  { a: 5, b: 7, label: 'Heavy data on both sides: market feeds and Maxwell capacitance matrices' },
-  { a: 2, b: 3, label: 'Live multiplayer on shared, synced game state' },
-  { a: 9, b: 3, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
-  { a: 2, b: 4, label: 'Two browser games of mine: a deck-builder and a 3D platformer' },
-  { a: 0, b: 5, label: 'GoodLife.AI and StockTracker make money decisions more legible' },
-  { a: 0, b: 6, label: 'A local-first guide and a story about making room for ordinary life' },
-  { a: 0, b: 2, label: 'Small, repeatable loops turn a useful intention into momentum' },
-  { a: 1, b: 0, label: 'Small models: a trained color tool and an on-device coach' },
-  { a: 1, b: 3, label: 'Make it yourself: paint a card or sculpt a shared 3D model' }
+  { a: 0, b: 11, label: 'Procedural worlds that grow from small, local rules' },
+  { a: 0, b: 5, label: 'Two browser worlds built around movement, physics, and discovery' },
+  { a: 7, b: 11, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
+  { a: 11, b: 5, label: 'Playable worlds: a roguelike crawler and a 3D platformer' },
+  { a: 7, b: 5, label: 'Same world and mood: suits as masks, presence over performance' },
+  { a: 8, b: 9, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
+  { a: 9, b: 10, label: 'Hackathon builds around everyday, human problems' },
+  { a: 6, b: 10, label: 'TypeScript + React products shipped live on Vercel' },
+  { a: 6, b: 8, label: 'Heavy data on both sides: market feeds and Maxwell capacitance matrices' },
+  { a: 3, b: 4, label: 'Live multiplayer on shared, synced game state' },
+  { a: 10, b: 4, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
+  { a: 3, b: 5, label: 'Two browser games of mine: a deck-builder and a 3D platformer' },
+  { a: 1, b: 6, label: 'GoodLife.AI and StockTracker make money decisions more legible' },
+  { a: 1, b: 7, label: 'A local-first guide and a story about making room for ordinary life' },
+  { a: 1, b: 3, label: 'Small, repeatable loops turn a useful intention into momentum' },
+  { a: 2, b: 1, label: 'Small models: a trained color tool and an on-device coach' },
+  { a: 2, b: 4, label: 'Make it yourself: paint a card or sculpt a shared 3D model' }
 ]
 
 function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: number) {
@@ -75,6 +78,16 @@ function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: numb
 
 function Glyph({ title, color }: { title: string; color: string }) {
   switch (title) {
+    case 'Sandfall':
+      return (
+        <g fill={color}>
+          <circle cx="-8" cy="-8" r="2" />
+          <circle cx="-3" cy="-4" r="2" opacity="0.9" />
+          <circle cx="2" cy="0" r="2" opacity="0.8" />
+          <circle cx="7" cy="4" r="2" opacity="0.7" />
+          <path d="M -11 10 Q -5 4 0 9 Q 5 4 11 10 Z" opacity="0.9" />
+        </g>
+      )
     case 'PaletteCard AI':
       return (
         <g stroke={color} strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round">

@@ -73,7 +73,7 @@ export const resume: Resume = {
   role: 'Founder of GoodLife.AI, Computer Science student, and full-stack engineer',
   headline: 'I build polished systems where useful data, humane interfaces, and ambitious ideas meet.',
   summary:
-    'I built GoodLife.AI, a coach that runs on your device and gives you three things to do today. I also build finance dashboards, interactive stories, and 3D browser games.',
+    'I built GoodLife.AI, a coach that runs on your device and gives you three things to do today. I also build simulations, finance dashboards, interactive stories, and 3D browser games.',
   site: 'william-chenyin.vercel.app',
   location: 'Waterloo, ON / Coquitlam, BC',
   availability: 'Open to 2026 software internships, hackathons, and ambitious product builds',
@@ -84,7 +84,7 @@ export const resume: Resume = {
   stats: [
     { label: 'Waterloo CS', value: '3.9 GPA' },
     { label: 'Hackathon podiums', value: '2' },
-    { label: 'Live products', value: '8' },
+    { label: 'Live products', value: '9' },
     { label: 'Primary stack', value: 'TS / React' }
   ],
   focusAreas: [
@@ -110,6 +110,25 @@ export const resume: Resume = {
     }
   ],
   projects: [
+    {
+      title: 'Sandfall',
+      subtitle: 'A tiny falling-sand alchemy world where materials, people, wildlife, and Conway\'s Game of Life share one canvas.',
+      category: 'Simulation · generative world',
+      status: 'Live',
+      date: 'Sep. 2026',
+      live: 'https://sandfall-delta.vercel.app',
+      repo: 'https://github.com/mutms7/Sandfall',
+      stack: ['JavaScript', 'Canvas API', 'HTML/CSS', 'Typed arrays', 'A* pathfinding'],
+      highlight: 'Paint the weather, terrain, and hazards, then watch a small world try to live through what you made.',
+      bullets: [
+        'Simulates sand, water, fire, oil, lava, acid, ice, plants, wood, glass, smoke, and steam through compact local rules at up to 60 ticks per second.',
+        'Adds people with gravity, oxygen, health, swept collision, and distinct behaviors, including platformers that solve ballistic arcs and daredevils that route through the world with A*.',
+        'Runs Conway\'s Game of Life as a simultaneous 10-generation-per-second pass, so gliders, terrain, hazards, and moving agents can collide inside the same world.',
+        'Builds a 900×200 side-scrolling landscape with seven regions, a minimap, persistent save states, wildlife, and a second falling-sand simulation inside the animated title.'
+      ],
+      accent: 'amber',
+      featured: true
+    },
     {
       title: 'GoodLife.AI',
       subtitle: 'An AI coach that runs on your device, on the web or Windows.',

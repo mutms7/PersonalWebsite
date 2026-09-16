@@ -465,6 +465,98 @@ function GoodLife() {
   )
 }
 
+function Sandfall() {
+  const grains = Array.from({ length: 66 }, (_, i) => ({
+    x: 34 + ((i * 47) % 486),
+    y: 169 + ((i * 29) % 91),
+    color: ['#e8b65c', '#cf8047', '#f3d27d'][i % 3]
+  }))
+  const life = [
+    [376, 79], [388, 79], [400, 79], [376, 91], [400, 91], [376, 103], [388, 103], [400, 103],
+    [424, 91], [436, 103], [424, 115], [412, 103], [424, 127]
+  ]
+
+  return (
+    <svg {...frameProps} aria-label="Sandfall preview: a village, falling materials, tiny people, and Conway's Game of Life sharing one simulated world">
+      <Chrome label="sandfall-delta.vercel.app" accent="#fcd34d" />
+      <defs>
+        <linearGradient id="sf-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#17182f" />
+          <stop offset="0.65" stopColor="#24334b" />
+          <stop offset="1" stopColor="#5a4c49" />
+        </linearGradient>
+        <linearGradient id="sf-lava" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ffd166" />
+          <stop offset="1" stopColor="#e85d3f" />
+        </linearGradient>
+      </defs>
+
+      <rect x="20" y="48" width="520" height="212" rx="8" fill="url(#sf-sky)" />
+      <circle cx="82" cy="89" r="22" fill="#f3d27d" opacity="0.82" />
+      <circle cx="75" cy="83" r="20" fill="#1c2137" opacity="0.9" />
+
+      <text x="37" y="69" fill="#e8b65c" fontSize="9" letterSpacing="1.8" fontFamily="IBM Plex Mono, monospace">THE VILLAGE</text>
+      <text x="522" y="69" textAnchor="end" fill="#93a4b8" fontSize="8" fontFamily="IBM Plex Mono, monospace">1× · 37 PEOPLE</text>
+
+      <path d="M 20 218 Q 70 188 120 213 T 220 207 T 320 214 T 420 197 T 540 210 L 540 260 L 20 260 Z" fill="#5b493f" />
+      <path d="M 20 230 Q 70 203 120 226 T 220 218 T 320 230 T 420 209 T 540 223 L 540 260 L 20 260 Z" fill="#8a6947" />
+      {grains.map((grain, i) => (
+        <rect key={i} x={grain.x} y={grain.y} width="2.4" height="2.4" fill={grain.color} opacity={grain.y < 205 ? 0.82 : 0.55} />
+      ))}
+
+      <g stroke="#71432f" strokeWidth="3" strokeLinecap="round">
+        <path d="M 114 214 V 160 M 114 171 L 98 187 M 114 177 L 130 190" />
+        <path d="M 170 220 V 177 M 170 187 L 156 199 M 170 190 L 184 202" />
+      </g>
+      <g fill="#567c4d">
+        <circle cx="114" cy="154" r="18" /><circle cx="101" cy="166" r="12" /><circle cx="128" cy="166" r="13" />
+        <circle cx="170" cy="172" r="15" /><circle cx="158" cy="182" r="10" /><circle cx="182" cy="183" r="11" />
+      </g>
+
+      <g>
+        <path d="M 207 217 V 178 L 234 159 L 261 178 V 217 Z" fill="#57403d" stroke="#e8b65c" strokeWidth="1.2" />
+        <path d="M 200 180 L 234 153 L 268 180" fill="none" stroke="#9d5f43" strokeWidth="5" strokeLinejoin="round" />
+        <rect x="229" y="194" width="12" height="23" fill="#241d29" />
+        <rect x="211" y="184" width="11" height="10" fill="#f3d27d" opacity="0.8" />
+        <rect x="247" y="184" width="11" height="10" fill="#f3d27d" opacity="0.8" />
+      </g>
+
+      <path d="M 292 104 C 285 129 298 141 291 165 C 286 184 296 198 292 218" fill="none" stroke="url(#sf-lava)" strokeWidth="8" strokeLinecap="round" />
+      <g fill="#ef6b45" opacity="0.85">
+        <rect x="289" y="92" width="4" height="4" /><rect x="296" y="112" width="3" height="3" /><rect x="287" y="129" width="3" height="3" />
+      </g>
+
+      <g fill="#7ee8e1">
+        {life.map(([x, y], i) => <rect key={i} x={x} y={y} width="9" height="9" opacity={0.55 + (i % 3) * 0.2} />)}
+      </g>
+
+      <g stroke="#f1ebdd" strokeWidth="2" strokeLinecap="round" fill="none">
+        <circle cx="332" cy="199" r="4" />
+        <path d="M 332 203 V 214 M 326 207 L 332 204 L 338 208 M 328 221 L 332 214 L 337 221" />
+        <circle cx="469" cy="188" r="4" />
+        <path d="M 469 192 V 203 M 463 196 L 469 193 L 475 197 M 465 210 L 469 203 L 474 210" />
+      </g>
+
+      <g fill="#f4cf64">
+        <circle cx="345" cy="183" r="2" /><circle cx="350" cy="178" r="1.7" /><circle cx="354" cy="185" r="1.5" />
+      </g>
+      <path d="M 482 112 q 16 -10 31 0 q -16 -4 -31 0" fill="none" stroke="#b9d5df" strokeWidth="2" strokeLinecap="round" />
+
+      <rect x="20" y="270" width="520" height="40" rx="8" fill="#14122b" />
+      {[
+        ['SAND', '#e8b65c'], ['WATER', '#75bce8'], ['PLANT', '#76a760'], ['FIRE', '#ef6b45'],
+        ['LAVA', '#f59b4a'], ['LIFE', '#7ee8e1'], ['PEOPLE', '#f1ebdd']
+      ].map(([label, color], i) => (
+        <g key={label}>
+          <rect x={32 + i * 72} y="279" width="62" height="22" rx="5" fill={i === 0 ? '#302943' : '#211d37'} stroke={color} strokeWidth={i === 0 ? 1.5 : 0.7} />
+          <circle cx={42 + i * 72} cy="290" r="3" fill={color} />
+          <text x={50 + i * 72} y="293" fill={color} fontSize="7" fontFamily="IBM Plex Mono, monospace">{label}</text>
+        </g>
+      ))}
+    </svg>
+  )
+}
+
 function PaletteCard() {
   const covers = [
     { paper: '#f8e9d8', paint: '#bf4e60', label: 'folk garden', angle: -6 },
@@ -513,6 +605,8 @@ function PaletteCard() {
 
 export default function ProjectArt({ title }: Props) {
   switch (title) {
+    case 'Sandfall':
+      return <Sandfall />
     case 'PaletteCard AI':
       return <PaletteCard />
     case 'GoodLife.AI':
