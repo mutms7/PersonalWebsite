@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { resume } from '../data/resume'
+import { getProjectSectionId, resume } from '../data/resume'
 
 const accentHex: Record<string, string> = {
   cyan: '#67e8f9',
@@ -187,7 +187,7 @@ export default function StoryGraph() {
   }, [activeNode, activeEdge, projects])
 
   function goTo(index: number) {
-    const el = document.getElementById(`scene-${index + 1}`)
+    const el = document.getElementById(getProjectSectionId(projects[index].title))
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     el?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
   }

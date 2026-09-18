@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
-import { resume, type Shot } from './data/resume'
+import { getProjectSectionId, getProjectsInDisplayOrder, resume, type Shot } from './data/resume'
 import StoryGraph from './components/StoryGraph'
 import WebBackdrop from './components/WebBackdrop'
 import ProjectArt from './components/ProjectArt'
@@ -418,14 +418,16 @@ function Lightbox({
 }
 
 function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => void }) {
+  const projects = getProjectsInDisplayOrder(resume.projects)
+
   return (
     <section id="scenes" className="mx-auto max-w-page px-5 py-20 sm:px-8">
       <SectionLabel kicker="Act I · The work" title="Scenes" />
       <div className="space-y-24">
-        {resume.projects.map((project, i) => (
+        {projects.map((project, i) => (
           <article
             key={project.title}
-            id={`scene-${i + 1}`}
+            id={getProjectSectionId(project.title)}
             className="reveal scroll-mt-24 border-t border-thread/60 pt-10"
           >
             <div className="grid gap-8 lg:grid-cols-[260px_1fr]">

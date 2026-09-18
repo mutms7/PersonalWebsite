@@ -68,6 +68,35 @@ export type Resume = {
   focusAreas: FocusArea[]
 }
 
+// The portfolio reads strongest when the most complete, distinctive work lands
+// first. Keep this separate from the data array because the story map has its
+// own thematic layout and should not change when the editorial order does.
+export const projectDisplayOrder = [
+  'GoodLife.AI',
+  'PaletteCard AI',
+  'Sandfall',
+  'Blend Together',
+  'ConquestCartes',
+  "HardHaq '25",
+  'Hairrison',
+  'Molt',
+  'The Air Outside',
+  'StockTracker',
+  'UmbrellaShare',
+  'RougeRogue'
+] as const
+
+export function getProjectsInDisplayOrder(projects: Project[]) {
+  const rank = new Map<string, number>(projectDisplayOrder.map((title, index) => [title, index]))
+  return [...projects].sort(
+    (a, b) => (rank.get(a.title) ?? projectDisplayOrder.length) - (rank.get(b.title) ?? projectDisplayOrder.length)
+  )
+}
+
+export function getProjectSectionId(title: string) {
+  return `project-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`
+}
+
 export const resume: Resume = {
   name: 'William Chenyin',
   role: 'Founder of GoodLife.AI, Computer Science student, and full-stack engineer',
