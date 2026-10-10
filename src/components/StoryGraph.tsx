@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { getProjectSectionId, resume } from '../data/resume'
 
 const accentHex: Record<string, string> = {
@@ -80,6 +80,35 @@ function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: numb
   const my = (a.y + b.y) / 2
   const bend = i % 2 === 0 ? 34 : -34
   return { d: `M ${a.x} ${a.y} Q ${mx} ${my + bend} ${b.x} ${b.y}`, lx: mx, ly: my + bend * 0.55 }
+}
+
+function ConnectionLabel({ label, x, y, color }: { label: string; x: number; y: number; color: string }) {
+  const textRef = useRef<SVGTextElement>(null)
+  const [textWidth, setTextWidth] = useState(label.length * 8.4)
+
+  useLayoutEffect(() => {
+    let cancelled = false
+    const measure = () => {
+      if (!cancelled && textRef.current) setTextWidth(textRef.current.getComputedTextLength())
+    }
+    measure()
+    // Recheck after the web font loads, since its metrics can differ from the fallback.
+    document.fonts.ready.then(measure)
+    return () => { cancelled = true }
+  }, [label])
+
+  const width = textWidth + 28
+  const centerX = Math.max(width / 2 + 16, Math.min(1200 - width / 2 - 16, x))
+  const centerY = Math.max(31, Math.min(730 - 31, y))
+
+  return (
+    <g pointerEvents="none" data-connection-label>
+      <rect x={centerX - width / 2} y={centerY - 16} width={width} height="30" rx="15" fill="#14122b" stroke={color} strokeWidth="1" />
+      <text ref={textRef} x={centerX} y={centerY + 4} textAnchor="middle" fill={color} fontSize="14" fontFamily="IBM Plex Mono, monospace">
+        {label}
+      </text>
+    </g>
+  )
 }
 
 function Glyph({ title, color }: { title: string; color: string }) {
@@ -340,23 +369,8 @@ export default function StoryGraph() {
             const edge = edgeList[activeEdge]
             const { lx, ly } = curve(positions[edge.a], positions[edge.b], activeEdge)
             const hex = accentHex[projects[edge.b].accent]
-            const short = edge.label.split(':')[0]
             return (
-              <g pointerEvents="none">
-                <rect
-                  x={lx - short.length * 4.6 - 14}
-                  y={ly - 16}
-                  width={short.length * 9.2 + 28}
-                  height="30"
-                  rx="15"
-                  fill="#14122b"
-                  stroke={hex}
-                  strokeWidth="1"
-                />
-                <text x={lx} y={ly + 4} textAnchor="middle" fill={hex} fontSize="14" fontFamily="IBM Plex Mono, monospace">
-                  {short}
-                </text>
-              </g>
+              <ConnectionLabel label={edge.label} x={lx} y={ly} color={hex} />
             )
           })()}
       </svg>
