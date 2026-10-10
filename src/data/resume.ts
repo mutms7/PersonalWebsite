@@ -421,6 +421,26 @@ export const resume: Resume = {
   ],
   experience: [
     {
+      role: 'AI Software Engineering Co-op',
+      company: 'AXL Labs Inc',
+      date: 'Jan. 11 - Apr. 30, 2027 (upcoming)',
+      location: 'Toronto, ON',
+      bullets: [
+        "I'll join AXL Labs for my Winter 2027 work term through Waterloo's co-op program."
+      ]
+    },
+    {
+      role: 'Software QA Automation Engineer, Co-op',
+      company: 'Method Integration (Method CRM)',
+      date: 'May 2026 - Aug. 2026',
+      location: 'Toronto, ON',
+      bullets: [
+        'I replaced fixed waits and fragile locators with state-based checks and shared helpers in TypeScript and Playwright, reducing test flakiness by 87% across three end-to-end suites.',
+        "I automated 20+ iOS and Android flows with WebdriverIO, Appium, and BrowserStack, then added them to the team's daily CI pipeline.",
+        'I turned API requirements into automated scheduler checks and wrote Playwright and WebdriverIO test and review guidelines adopted by an 11-person QA team.'
+      ]
+    },
+    {
       role: 'Sales Associate',
       company: 'Boathouse Retail Store',
       date: 'Oct. 2023 - Oct. 2024',
