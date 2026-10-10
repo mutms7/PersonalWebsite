@@ -423,10 +423,11 @@ export const resume: Resume = {
     {
       role: 'AI Software Engineering Co-op',
       company: 'AXL Labs Inc',
-      date: 'Jan. 11 - Apr. 30, 2027 (upcoming)',
+      date: 'Jan. - Apr. 2027 (upcoming)',
       location: 'Toronto, ON',
       bullets: [
-        "I'll join AXL Labs for my Winter 2027 work term through Waterloo's co-op program."
+        "I'll join AXL Labs for my Winter 2027 Waterloo co-op. AXL is a Toronto venture studio that turns AI research into products and new companies.",
+        'Its Labs team works with academic researchers and industry partners to prototype, build, and test AI applications.'
       ]
     },
     {
