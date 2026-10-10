@@ -603,8 +603,55 @@ function PaletteCard() {
   )
 }
 
+function SlimWaste() {
+  return (
+    <svg {...frameProps} aria-label="SlimWaste illustration: review a food estimate and choose a next step">
+      <Chrome label="slimwaste.vercel.app" accent="#6ee7b7" />
+      <rect x="20" y="50" width="520" height="260" rx="8" fill="#eaf3e5" />
+      <text x="40" y="78" fill="#24685d" fontSize="11" letterSpacing="2" fontFamily="IBM Plex Mono, monospace">SLIMWASTE / REVIEW YOUR SCAN</text>
+      <circle cx="139" cy="181" r="73" fill="#fffdf0" stroke="#a4c4b0" strokeWidth="2" />
+      <circle cx="139" cy="181" r="56" fill="none" stroke="#d0dec6" strokeWidth="2" />
+      <path d="M 105 196 Q 99 144 130 148 Q 161 160 156 190 Q 147 213 105 196" fill="#dfc477" />
+      <path d="M 141 163 Q 154 129 179 147 Q 188 169 160 184 Z" fill="#549477" />
+      <path d="M 157 174 L 171 150" stroke="#24685d" strokeWidth="2" />
+      <rect x="242" y="107" width="278" height="151" rx="10" fill="#fffdf0" />
+      <text x="262" y="136" fill="#174c43" fontSize="18" fontFamily="Georgia, serif">A rough estimate. Your call.</text>
+      <text x="262" y="168" fill="#24685d" fontSize="12" fontFamily="IBM Plex Mono, monospace">Leftover rice</text>
+      <text x="262" y="191" fill="#24685d" fontSize="11" fontFamily="IBM Plex Mono, monospace">About ½–1 cup · editable</text>
+      <rect x="262" y="212" width="238" height="28" rx="14" fill="#24685d" />
+      <text x="381" y="230" textAnchor="middle" fill="#fffdf0" fontSize="11" fontFamily="IBM Plex Mono, monospace">Save your corrected record</text>
+      <text x="40" y="288" fill="#174c43" fontSize="14" fontFamily="Georgia, serif">One small change for the next grocery run.</text>
+    </svg>
+  )
+}
+
+function Typer() {
+  return (
+    <svg {...frameProps} aria-label="Typer.AI illustration: local autocomplete with Tab to accept">
+      <Chrome label="mutms7.github.io/Typer.AI" accent="#67e8f9" />
+      <rect x="20" y="50" width="520" height="260" rx="8" fill="#14122b" />
+      <text x="40" y="78" fill="#67e8f9" fontSize="11" letterSpacing="2" fontFamily="IBM Plex Mono, monospace">TYPER.AI / YOUR WORDS, LESS TYPING</text>
+      <text x="40" y="115" fill="#f1ebdd" fontSize="23" fontFamily="Georgia, serif">Notes on neural networks</text>
+      <line x1="40" y1="134" x2="520" y2="134" stroke="#403868" />
+      <text x="40" y="169" fill="#f1ebdd" fontSize="15" fontFamily="IBM Plex Mono, monospace">The model learns through</text>
+      <text x="40" y="200" fontSize="15" fontFamily="IBM Plex Mono, monospace">
+        <tspan fill="#f1ebdd">back</tspan><tspan fill="#9a93b8">propagation</tspan>
+      </text>
+      <line x1="76" y1="185" x2="76" y2="204" stroke="#67e8f9" strokeWidth="2" />
+      <rect x="40" y="230" width="124" height="30" rx="6" fill="#221c40" stroke="#67e8f9" />
+      <text x="102" y="250" textAnchor="middle" fill="#67e8f9" fontSize="11" fontFamily="IBM Plex Mono, monospace">Tab to accept</text>
+      <text x="183" y="250" fill="#9a93b8" fontSize="11" fontFamily="IBM Plex Mono, monospace">Escape to dismiss</text>
+      <text x="40" y="288" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">Background AI ranking. Instant local completion.</text>
+    </svg>
+  )
+}
+
 export default function ProjectArt({ title }: Props) {
   switch (title) {
+    case 'SlimWaste':
+      return <SlimWaste />
+    case 'Typer.AI':
+      return <Typer />
     case 'Sandfall':
       return <Sandfall />
     case 'PaletteCard AI':

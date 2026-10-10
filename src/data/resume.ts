@@ -72,6 +72,8 @@ export type Resume = {
 // first. Keep this separate from the data array because the story map has its
 // own thematic layout and should not change when the editorial order does.
 export const projectDisplayOrder = [
+  'SlimWaste',
+  'Typer.AI',
   'GoodLife.AI',
   'PaletteCard AI',
   'Sandfall',
@@ -113,7 +115,7 @@ export const resume: Resume = {
   stats: [
     { label: 'Waterloo CS', value: '3.9 GPA' },
     { label: 'Hackathon podiums', value: '2' },
-    { label: 'Live products', value: '9' },
+    { label: 'Live products', value: '11' },
     { label: 'Primary stack', value: 'TS / React' }
   ],
   focusAreas: [
@@ -379,6 +381,42 @@ export const resume: Resume = {
         'Designed character stats, health tracking, and behavior systems for extendable gameplay.'
       ],
       accent: 'amber'
+    },
+    {
+      title: 'SlimWaste',
+      subtitle: "A food-waste tracker for student kitchens, starting with a photo of what you're throwing away.",
+      category: 'AI · everyday tools',
+      status: 'Live · early access',
+      date: 'Sep. 2026',
+      live: 'https://slimwaste.vercel.app',
+      repo: 'https://github.com/mutms7/slimwaste',
+      stack: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'Gemini'],
+      highlight: "Take a photo, fix what the AI got wrong, then find one thing to try on your next grocery run.",
+      bullets: [
+        "I built this around shared kitchens, small budgets, and irregular schedules. The coach uses your corrected scan to suggest a practical next step, like buying less of something you keep leaving behind.",
+        "A photo can't tell you an exact weight. Estimates stay as ranges, and you can change the food, amount, and reason before saving it. History and insights work from those reviewed records.",
+        "I added Supabase accounts, private photo storage, and automatic image cleanup. Photos go to the selected AI provider with an explicit data-use agreement before the free Gemini tier is used."
+      ],
+      accent: 'emerald',
+      featured: true
+    },
+    {
+      title: 'Typer.AI',
+      subtitle: 'A Chrome and Edge extension that completes familiar words and phrases from the document you\'re writing.',
+      category: 'Browser extension · writing tools',
+      status: 'Live demo · extension',
+      date: 'Oct. 2026',
+      live: 'https://mutms7.github.io/Typer.AI/',
+      repo: 'https://github.com/mutms7/Typer.AI',
+      stack: ['JavaScript', 'Chrome Extensions', 'Node.js', 'SQLite', 'Gemini / OpenAI'],
+      highlight: "Your words, less typing. Gray text at the cursor, Tab to accept, Escape to dismiss.",
+      bullets: [
+        "I wanted taking notes to feel closer to thinking. Typer learns vocabulary from the active document and its title, so you can finish a repeated technical term without typing the whole thing again.",
+        "I separated slow AI ranking from fast typing. Optional cloud mode ranks vocabulary in the background; the local engine handles each prefix immediately and keeps working offline.",
+        "The extension works in ordinary text fields and supported editable pages, with a confidence slider and per-site pause. The browser demo lets you try it first. Google Docs needs a separate adapter."
+      ],
+      accent: 'cyan',
+      featured: true
     }
   ],
   experience: [

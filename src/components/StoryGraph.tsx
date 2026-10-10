@@ -14,6 +14,7 @@ const accentHex: Record<string, string> = {
 // Positions keyed by project index in resume.projects (Sandfall is index 0):
 // 0 Sandfall · 1 GoodLife.AI · 2 PaletteCard AI · 3 ConquestCartes · 4 Blend Together · 5 Molt
 // 6 StockTracker · 7 The Air Outside · 8 HardHaq '25 · 9 UmbrellaShare · 10 Hairrison · 11 RougeRogue
+// 12 SlimWaste · 13 Typer.AI
 // Four clusters, with AI tools on the right and Sandfall anchoring the interactive worlds.
 const positions: Record<number, { x: number; y: number }> = {
   7: { x: 110, y: 150 },
@@ -24,9 +25,11 @@ const positions: Record<number, { x: number; y: number }> = {
   9: { x: 490, y: 410 },
   3: { x: 730, y: 150 },
   4: { x: 760, y: 300 },
-  1: { x: 1030, y: 140 },
-  2: { x: 990, y: 270 },
-  10: { x: 1070, y: 400 },
+  12: { x: 1030, y: 130 },
+  13: { x: 990, y: 255 },
+  1: { x: 1030, y: 380 },
+  2: { x: 990, y: 505 },
+  10: { x: 1070, y: 630 },
   6: { x: 710, y: 470 }
 }
 
@@ -41,7 +44,7 @@ const clusters = [
 // indices into resume.projects). The SVG map is unreadable below ~640px, so
 // small screens get this legible, tappable list instead of a shrunken graph.
 const clusterGroups: { label: string; members: number[] }[] = [
-  { label: 'AI projects', members: [1, 2, 10] },
+  { label: 'AI projects', members: [12, 13, 1, 2, 10] },
   { label: 'live products', members: [3, 4, 6] },
   { label: 'hackathon podiums', members: [8, 9] },
   { label: 'interactive worlds', members: [0, 7, 11, 5] }
@@ -50,6 +53,9 @@ const clusterGroups: { label: string; members: number[] }[] = [
 type Edge = { a: number; b: number; label: string }
 
 const edgeList: Edge[] = [
+  { a: 12, b: 1, label: 'Small, practical next steps from a coach built around your own context' },
+  { a: 12, b: 10, label: 'Photo-based tools with a review step before the result becomes useful' },
+  { a: 13, b: 1, label: 'Local interaction keeps working without waiting for a cloud model' },
   { a: 0, b: 11, label: 'Procedural worlds that grow from small, local rules' },
   { a: 0, b: 5, label: 'Two browser worlds built around movement, physics, and discovery' },
   { a: 7, b: 11, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
@@ -78,6 +84,19 @@ function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: numb
 
 function Glyph({ title, color }: { title: string; color: string }) {
   switch (title) {
+    case 'SlimWaste':
+      return (
+        <g stroke={color} strokeWidth="1.8" fill="none" strokeLinecap="round">
+          <circle r="10" /><circle r="6" />
+          <path d="M -13 -10 V 10 M 13 -10 V 10" />
+        </g>
+      )
+    case 'Typer.AI':
+      return (
+        <g stroke={color} strokeWidth="1.8" fill="none" strokeLinecap="round">
+          <path d="M -11 -7 H 3 M -11 0 H 0 M -11 7 H 3 M 8 -10 V 10 M 5 -10 H 11 M 5 10 H 11" />
+        </g>
+      )
     case 'Sandfall':
       return (
         <g fill={color}>
@@ -240,7 +259,7 @@ export default function StoryGraph() {
 
       {/* Desktop: the interactive SVG story graph. */}
       <div className="hidden sm:block">
-      <svg viewBox="0 0 1200 610" role="group" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 1200 730" role="group" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
         {clusters.map((c) => (
           <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#9a93b8" opacity="0.7" fontSize="14" letterSpacing="2.5" fontFamily="IBM Plex Mono, monospace">
             {c.label.toUpperCase()}

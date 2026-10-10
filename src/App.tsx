@@ -166,7 +166,7 @@ function TopBar() {
         <a href="#top" onClick={() => setOpen(false)} className="font-mono text-sm text-paper">
           w.chenyin<span className="text-glow-amber">()</span>
         </a>
-        <div className="hidden gap-6 font-mono text-sm sm:flex">
+        <div className="hidden gap-6 font-mono text-sm md:flex">
           {links.map(([label, id]) => (
             <a
               key={id}
@@ -181,7 +181,7 @@ function TopBar() {
         </div>
         <a
           href={`mailto:${resume.email}`}
-          className="hidden rounded-full border border-glow-amber px-4 py-1.5 font-mono text-sm text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink sm:inline-block"
+          className="hidden rounded-full border border-glow-amber px-4 py-1.5 font-mono text-sm text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink md:inline-block"
         >
           Say hello
         </a>
@@ -191,7 +191,7 @@ function TopBar() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
-          className="-mr-2 inline-flex h-11 w-11 items-center justify-center text-paper sm:hidden"
+          className="-mr-2 inline-flex h-11 w-11 items-center justify-center text-paper md:hidden"
         >
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
             {open ? (
@@ -210,7 +210,7 @@ function TopBar() {
         </button>
       </div>
       {open && (
-        <div id="mobile-menu" className="border-t border-thread/60 px-5 pb-4 pt-1 sm:hidden">
+        <div id="mobile-menu" className="border-t border-thread/60 px-5 pb-4 pt-1 md:hidden">
           <ul className="flex flex-col">
             {links.map(([label, id]) => (
               <li key={id}>
@@ -430,7 +430,7 @@ function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => 
             id={getProjectSectionId(project.title)}
             className="reveal scroll-mt-24 border-t border-thread/60 pt-10"
           >
-            <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
+            <div className="grid gap-8 lg:grid-cols-[220px_1fr]">
               <aside>
                 <p className={`font-mono text-sm uppercase tracking-[0.3em] ${accentText[project.accent]}`}>
                   Scene {String(i + 1).padStart(2, '0')}
@@ -451,7 +451,7 @@ function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => 
               <div>
                 <h3 className="font-display text-3xl font-medium sm:text-4xl">{project.title}</h3>
                 <p className="mt-3 max-w-2xl text-lg text-fade">{project.subtitle}</p>
-                <div className="mt-7 grid items-start gap-8 xl:grid-cols-[1fr_420px]">
+                <div className="mt-7 grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_360px]">
                   <div>
                     <p className="max-w-2xl border-l-2 border-thread pl-4 italic text-paper/90">{project.highlight}</p>
                     <ul className="mt-6 max-w-2xl space-y-3 text-fade">
