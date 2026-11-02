@@ -119,20 +119,6 @@ textarea:focus-visible {
   }
 }
 
-.node-float {
-  animation: node-drift 7s ease-in-out infinite;
-}
-
-@keyframes node-drift {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -145,9 +131,6 @@ textarea:focus-visible {
   .thread-path {
     stroke-dasharray: none;
     stroke-dashoffset: 0;
-    animation: none;
-  }
-  .node-float {
     animation: none;
   }
   .js .hero-enter,

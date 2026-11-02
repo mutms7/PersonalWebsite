@@ -15,35 +15,36 @@ const accentHex: Record<string, string> = {
 // 0 Sandfall · 1 GoodLife.AI · 2 PaletteCard AI · 3 ConquestCartes · 4 Blend Together · 5 Molt
 // 6 StockTracker · 7 The Air Outside · 8 HardHaq '25 · 9 UmbrellaShare · 10 Hairrison · 11 RougeRogue
 // 12 SlimWaste · 13 Typer.AI · 14 EastEats
-// Four clusters, with AI tools on the right and Sandfall anchoring the interactive worlds.
+// Four constellations across two pages of an open book. Relationships stay
+// within their section so long, speculative links don't obscure other work.
 const positions: Record<number, { x: number; y: number }> = {
-  7: { x: 110, y: 150 },
-  11: { x: 100, y: 310 },
-  0: { x: 275, y: 285 },
-  5: { x: 205, y: 470 },
-  8: { x: 450, y: 190 },
-  9: { x: 490, y: 410 },
-  3: { x: 730, y: 150 },
-  4: { x: 760, y: 300 },
-  12: { x: 1030, y: 130 },
-  13: { x: 990, y: 255 },
-  1: { x: 1030, y: 380 },
-  2: { x: 990, y: 505 },
-  10: { x: 1070, y: 630 },
-  6: { x: 710, y: 470 },
-  14: { x: 840, y: 630 }
+  7: { x: 150, y: 190 },
+  11: { x: 360, y: 220 },
+  0: { x: 440, y: 365 },
+  5: { x: 215, y: 380 },
+  8: { x: 175, y: 630 },
+  9: { x: 410, y: 700 },
+  3: { x: 735, y: 190 },
+  4: { x: 960, y: 220 },
+  6: { x: 1065, y: 365 },
+  14: { x: 720, y: 575 },
+  12: { x: 900, y: 560 },
+  13: { x: 1080, y: 590 },
+  1: { x: 730, y: 750 },
+  2: { x: 920, y: 735 },
+  10: { x: 1090, y: 770 }
 }
 
 const clusters = [
-  { label: 'interactive worlds', x: 190, y: 64 },
-  { label: 'hackathon podiums', x: 470, y: 64 },
-  { label: 'live products', x: 745, y: 64 },
-  { label: 'AI projects', x: 1030, y: 64 }
+  { label: 'interactive worlds', x: 295, y: 100 },
+  { label: 'hackathon podiums', x: 295, y: 535 },
+  { label: 'live products', x: 900, y: 100 },
+  { label: 'AI projects', x: 900, y: 485 }
 ]
 
 // Same four clusters, ordered for the touch-native mobile layout (project
-// indices into resume.projects). The SVG map is unreadable below ~640px, so
-// small screens get this legible, tappable list instead of a shrunken graph.
+// indices into resume.projects). Phone and tablet screens get a legible,
+// tappable layout instead of shrinking the desktop constellations.
 const clusterGroups: { label: string; members: number[] }[] = [
   { label: 'AI projects', members: [14, 13, 12, 1, 2, 10] },
   { label: 'live products', members: [3, 4, 6] },
@@ -55,33 +56,22 @@ type Edge = { a: number; b: number; label: string }
 
 const edgeList: Edge[] = [
   { a: 14, b: 12, label: 'Food tools built around personal habits and choices' },
-  { a: 14, b: 13, label: 'Background AI work stays separate from everyday interaction' },
-  { a: 12, b: 1, label: 'Small, practical next steps from a coach built around your own context' },
-  { a: 12, b: 10, label: 'Photo-based tools with a review step before the result becomes useful' },
-  { a: 13, b: 1, label: 'Local interaction keeps working without waiting for a cloud model' },
+  { a: 12, b: 13, label: 'AI analysis runs separately from everyday interactions' },
+  { a: 14, b: 1, label: 'Personal preferences shape recommendations' },
+  { a: 1, b: 2, label: 'Small models: an on-device coach and a trained color tool' },
+  { a: 2, b: 10, label: 'A photo becomes the starting point for a creative tool' },
   { a: 0, b: 11, label: 'Procedural worlds that grow from small, local rules' },
   { a: 0, b: 5, label: 'Two browser worlds built around movement, physics, and discovery' },
   { a: 7, b: 11, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
-  { a: 11, b: 5, label: 'Playable worlds: a roguelike crawler and a 3D platformer' },
   { a: 7, b: 5, label: 'Same world and mood: suits as masks, presence over performance' },
   { a: 8, b: 9, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
-  { a: 9, b: 10, label: 'Hackathon builds around everyday, human problems' },
-  { a: 6, b: 10, label: 'TypeScript + React products shipped live on Vercel' },
-  { a: 6, b: 8, label: 'Heavy data on both sides: market feeds and Maxwell capacitance matrices' },
-  { a: 3, b: 4, label: 'Live multiplayer on shared, synced game state' },
-  { a: 10, b: 4, label: 'AI does the heavy lifting: generative restyling and a vision-model judge' },
-  { a: 3, b: 5, label: 'Two browser games of mine: a deck-builder and a 3D platformer' },
-  { a: 1, b: 6, label: 'GoodLife.AI and StockTracker make money decisions more legible' },
-  { a: 1, b: 7, label: 'A local-first guide and a story about making room for ordinary life' },
-  { a: 1, b: 3, label: 'Small, repeatable loops turn a useful intention into momentum' },
-  { a: 2, b: 1, label: 'Small models: a trained color tool and an on-device coach' },
-  { a: 2, b: 4, label: 'Make it yourself: paint a card or sculpt a shared 3D model' }
+  { a: 3, b: 4, label: 'Live multiplayer on shared, synced game state' }
 ]
 
 function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: number) {
   const mx = (a.x + b.x) / 2
   const my = (a.y + b.y) / 2
-  const bend = i % 2 === 0 ? 34 : -34
+  const bend = i % 2 === 0 ? 12 : -12
   return { d: `M ${a.x} ${a.y} Q ${mx} ${my + bend} ${b.x} ${b.y}`, lx: mx, ly: my + bend * 0.55 }
 }
 
@@ -102,7 +92,7 @@ function ConnectionLabel({ label, x, y, color }: { label: string; x: number; y: 
 
   const width = textWidth + 28
   const centerX = Math.max(width / 2 + 16, Math.min(1200 - width / 2 - 16, x))
-  const centerY = Math.max(31, Math.min(730 - 31, y))
+  const centerY = Math.max(31, Math.min(880 - 31, y))
 
   return (
     <g pointerEvents="none" data-connection-label>
@@ -116,6 +106,19 @@ function ConnectionLabel({ label, x, y, color }: { label: string; x: number; y: 
 
 function Glyph({ title, color }: { title: string; color: string }) {
   switch (title) {
+    case 'EastEats':
+      return (
+        <g stroke={color} strokeWidth="1.7" fill="none" strokeLinecap="round" strokeLinejoin="round" data-project-symbol="easteats-bowl">
+          <path d="M -12 0 H 12 C 10 8 5 11 0 11 C -5 11 -10 8 -12 0 Z" />
+          <path d="M -6 12 H 6 M -5 -4 C -9 -8 -1 -9 -5 -13 M 2 -4 C -2 -8 6 -9 2 -13 M 7 -2 L 12 -13 M 10 -1 L 16 -11" />
+        </g>
+      )
+    case 'GoodLife.AI':
+      return (
+        <g stroke={color} strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M 0 12 V -2 M 0 4 C -11 4 -12 -4 -11 -8 C -3 -8 0 -3 0 4 M 0 -2 C 0 -10 6 -13 12 -12 C 12 -5 8 -1 0 -2" />
+        </g>
+      )
     case 'SlimWaste':
       return (
         <g stroke={color} strokeWidth="1.8" fill="none" strokeLinecap="round">
@@ -231,10 +234,12 @@ export default function StoryGraph() {
     if (activeNode !== null) {
       const related = edgeList
         .filter((e) => e.a === activeNode || e.b === activeNode)
-        .map((e) => projects[e.a === activeNode ? e.b : e.a].title)
-      return `${projects[activeNode].title} connects to ${related.join(' and ')}. Click to read its scene.`
+        .map((e) => `${projects[e.a === activeNode ? e.b : e.a].title}: ${e.label}.`)
+      return related.length
+        ? `${projects[activeNode].title}. ${related.join(' ')} Select it to read its scene.`
+        : `${projects[activeNode].title}: ${projects[activeNode].category}. Select it to read its scene.`
     }
-    return `${projects.length} projects, ${clusters.length} clusters. Hover a thread to see why two stories connect; select a project to jump to its scene.`
+    return `${projects.length} projects across four constellations. Follow a thread to see the connection, or select a project to read its scene.`
   }, [activeNode, activeEdge, projects])
 
   function goTo(index: number) {
@@ -252,14 +257,14 @@ export default function StoryGraph() {
   const edgeIsLit = (e: Edge, i: number) => activeEdge === i || activeNode === e.a || activeNode === e.b
 
   return (
-    <figure aria-label="Story map of projects grouped by theme. Threads describe how projects relate.">
+    <figure aria-label="Project constellations arranged across an open book, grouped into four themes.">
       {/* Mobile: the SVG graph is illegible when scaled down, so small screens
           get a legible, tappable list of the same clusters. */}
-      <div className="sm:hidden">
+      <div className="lg:hidden">
         <p className="mb-6 px-1 text-center font-mono text-sm text-fade">
           {projects.length} projects in {clusters.length} clusters. Tap one to jump to its scene.
         </p>
-        <div className="space-y-6">
+        <div className="grid gap-6 sm:grid-cols-2">
           {clusterGroups.map((group) => (
             <section key={group.label}>
               <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-fade">
@@ -296,10 +301,14 @@ export default function StoryGraph() {
       </div>
 
       {/* Desktop: the interactive SVG story graph. */}
-      <div className="hidden sm:block">
-      <svg viewBox="0 0 1200 730" role="group" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+      <div className="hidden lg:block">
+      <svg viewBox="0 0 1200 880" role="group" aria-label="Four project constellations" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+        <g aria-hidden="true" fill="none" stroke="#9a93b8" strokeWidth="1" opacity="0.16" pointerEvents="none">
+          <path d="M 600 130 Q 375 5 45 55 L 45 785 Q 375 745 600 850 Q 825 745 1155 850 L 1155 55 Q 825 5 600 130 L 600 850" />
+          <path d="M 30 80 L 30 805 Q 345 770 585 865 M 1170 80 L 1170 870 Q 845 770 615 865" />
+        </g>
         {clusters.map((c) => (
-          <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#9a93b8" opacity="0.7" fontSize="14" letterSpacing="2.5" fontFamily="IBM Plex Mono, monospace">
+          <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#b6afcc" fontSize="14" letterSpacing="2.5" fontFamily="IBM Plex Mono, monospace">
             {c.label.toUpperCase()}
           </text>
         ))}
@@ -320,8 +329,9 @@ export default function StoryGraph() {
               <path
                 d={d}
                 fill="none"
-                stroke={lit ? hex : '#403868'}
-                strokeWidth={lit ? 2.25 : 1.25}
+                stroke={lit ? hex : '#71628f'}
+                strokeOpacity={lit ? 0.95 : 0.45}
+                strokeWidth={lit ? 2 : 1}
                 className="thread-path"
                 style={{ animationDelay: `${i * 0.18}s`, transition: 'stroke 0.25s' }}
               />
@@ -337,8 +347,7 @@ export default function StoryGraph() {
           return (
             <g
               key={project.title}
-              className="node-float cursor-pointer"
-              style={{ animationDelay: `${i * 0.6}s` }}
+              className="constellation-node cursor-pointer"
               onMouseEnter={() => setActiveNode(i)}
               onMouseLeave={() => setActiveNode(null)}
               onFocus={() => setActiveNode(i)}
@@ -353,8 +362,9 @@ export default function StoryGraph() {
               tabIndex={0}
               role="link"
               aria-label={`Go to ${project.title}`}
+              aria-describedby="project-map-caption"
             >
-              <circle cx={pos.x} cy={pos.y} r={isActive ? 30 : 24} fill="#221c40" stroke={hex} strokeWidth={isActive ? 2.5 : 1.5} />
+              <circle cx={pos.x} cy={pos.y} r={isActive ? 30 : 26} fill="#221c40" stroke={hex} strokeWidth={isActive ? 2.5 : 1.25} />
               <g transform={`translate(${pos.x} ${pos.y})${isActive ? ' scale(1.25)' : ''}`}>
                 <Glyph title={project.title} color={hex} />
               </g>
@@ -362,8 +372,8 @@ export default function StoryGraph() {
                 x={pos.x}
                 y={pos.y + (isActive ? 52 : 46)}
                 textAnchor="middle"
-                fill={isActive ? hex : '#9a93b8'}
-                fontSize={isActive ? 17 : 15}
+                fill={isActive ? hex : '#c5bed7'}
+                fontSize="15"
                 fontFamily="IBM Plex Mono, monospace"
               >
                 {project.title}
@@ -383,7 +393,7 @@ export default function StoryGraph() {
             )
           })()}
       </svg>
-      <figcaption className="mx-auto mt-4 max-w-3xl text-center font-mono text-sm text-fade min-h-[2.5rem] px-4">
+      <figcaption id="project-map-caption" className="mx-auto mt-4 max-w-3xl text-center font-mono text-sm text-fade min-h-[2.5rem] px-4">
         {caption}
       </figcaption>
       </div>

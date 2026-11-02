@@ -1,6 +1,6 @@
 EastEats | Live App: https://easteats.vercel.app/ | Source: https://github.com/mutms7/easteats
 TypeScript, Next.js, PostgreSQL, Claude | Oct. 2026 - Present
 
-- Personalized restaurant discovery across six ranking signals by separating Claude review extraction from deterministic TypeScript scoring of food, taste, value, distance, service, and atmosphere.
-- Eliminated repeat Apify and Claude calls when reopening restaurant lists by storing account-owned search snapshots in Supabase PostgreSQL and restoring the latest list at sign-in.
-- Enabled review enrichment for up to 120 restaurants per search in stable batches of 12 by separating discovery from analysis with pgmq and Supabase Edge Functions, while enforcing database-backed spending limits.
+- Built an East Asian restaurant finder in Next.js and TypeScript, serving listings before review analysis finishes through pgmq jobs that cover up to 120 restaurants per search.
+- Kept food quality independent of service and atmosphere by using Claude to extract source-linked review evidence and deterministic TypeScript to rank it against each user's taste profile.
+- Avoided new Apify and Claude calls when reopening restaurant lists by restoring account-owned search snapshots from Supabase PostgreSQL, with fresh collection triggered by new searches or explicit refresh.

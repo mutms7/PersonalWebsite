@@ -27,3 +27,7 @@ Source repository: [mutms7/easteats](https://github.com/mutms7/easteats).
 | October start | Original project build prompt dated October 24, 2026 in the architecture chat |
 
 No adoption, ranking-quality benchmark, latency improvement, percentage savings, or native store release is claimed. The 120-place figure is a configured coverage limit, subject to budget and evidence availability. Zero repeat provider calls describes the saved-list reopening path, not a measured percentage reduction across all traffic.
+
+## Refinement
+
+The revised entry introduces the East Asian restaurant finder before describing its pipeline. The three bullets now cover distinct claims: asynchronous listings and review jobs, separation of food quality from service/atmosphere in personalized ranking, and provider-free saved-list reopening. The 120 figure remains a configured upper bound rather than a throughput benchmark. The current LaTeX and plain-text wording match, and the isolated section preview was compiled with the supplied resume preamble and visually inspected. This doesn't establish that appending the section to the complete resume preserves one page.

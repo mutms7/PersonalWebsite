@@ -2,7 +2,7 @@
 % Uses the supplied resume's existing project and tech macros.
 \project{EastEats}{https://easteats.vercel.app/}{https://github.com/mutms7/easteats}{Oct. 2026 -- Present}{TypeScript, Next.js, PostgreSQL, Claude}
 \begin{itemize}
-  \item Personalized restaurant discovery across six ranking signals by separating \tech{Claude} review extraction from deterministic \tech{TypeScript} scoring of food, taste, value, distance, service, and atmosphere.
-  \item Eliminated repeat \tech{Apify} and \tech{Claude} calls when reopening restaurant lists by storing account-owned search snapshots in \tech{Supabase PostgreSQL} and restoring the latest list at sign-in.
-  \item Enabled review enrichment for up to 120 restaurants per search in stable batches of 12 by separating discovery from analysis with \tech{pgmq} and \tech{Supabase Edge Functions}, while enforcing database-backed spending limits.
+  \item Built an East Asian restaurant finder in \tech{Next.js} and \tech{TypeScript}, serving listings before review analysis finishes through \tech{pgmq} jobs that cover up to 120 restaurants per search.
+  \item Kept food quality independent of service and atmosphere by using \tech{Claude} to extract source-linked review evidence and deterministic \tech{TypeScript} to rank it against each user's taste profile.
+  \item Avoided new \tech{Apify} and \tech{Claude} calls when reopening restaurant lists by restoring account-owned search snapshots from \tech{Supabase PostgreSQL}, with fresh collection triggered by new searches or explicit refresh.
 \end{itemize}
