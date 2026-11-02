@@ -253,9 +253,9 @@ function Hero() {
   const step = (i: number) => ({ animationDelay: `${0.04 + i * 0.08}s` })
 
   return (
-    <section id="top" className="mx-auto grid max-w-page items-start gap-8 overflow-x-clip px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-10">
-      <div className="lg:flex lg:flex-col lg:justify-between lg:self-stretch lg:pb-10">
-        <div className="hero-enter font-label text-sm leading-relaxed text-fade" style={step(0)}>
+    <section id="top" className="mx-auto grid max-w-page items-center gap-8 overflow-x-clip px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-10">
+      <div>
+        <div className="hero-enter font-label text-base leading-relaxed text-fade" style={step(0)}>
           <p>{resume.location}</p>
           <p className="mt-1">{resume.availability}</p>
         </div>
@@ -273,14 +273,17 @@ function Hero() {
           </span>
         </h1>
         <p className="hero-enter mt-7 max-w-xl text-lg leading-relaxed text-fade" style={step(2)}>
-          I'm <span className="text-paper">{resume.name}</span>, a Waterloo CS student. I build tools
-          like EastEats for finding food and GoodLife.AI for planning your day, along with browser games
-          and simulations.
+          I'm <span className="text-paper">{resume.name}</span>, a second-year Computer Science student
+          at Waterloo. A lot of my projects start with something I want to use myself, like finding
+          a great bowl of noodles when a restaurant's overall rating doesn't tell me much about the
+          food. That became EastEats. I also built GoodLife.AI to turn plans into a few things to do
+          today, and I make browser games and simulations to explore what happens when small rules
+          interact.
         </p>
         <div className="hero-enter mt-8 flex flex-wrap gap-4" style={step(3)}>
           <a
             href="#scenes"
-            className="rounded-full bg-glow-amber px-6 py-3 font-label text-sm text-ink transition-transform hover:-translate-y-0.5"
+            className="rounded-full bg-glow-amber px-5 py-3 font-label text-base text-ink transition-transform hover:-translate-y-0.5"
           >
             Read the scenes
           </a>
@@ -288,7 +291,7 @@ function Hero() {
             href="/resume.pdf"
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-glow-amber/60 px-6 py-3 font-label text-sm text-glow-amber transition-colors hover:bg-glow-amber/10"
+            className="rounded-full border border-glow-amber/60 px-5 py-3 font-label text-base text-glow-amber transition-colors hover:bg-glow-amber/10"
           >
             Get my résumé ↓
           </a>
@@ -296,7 +299,7 @@ function Hero() {
             href={`https://${resume.github}`}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-thread px-6 py-3 font-label text-sm text-paper transition-colors hover:border-paper"
+            className="rounded-full border border-thread px-5 py-3 font-label text-base text-paper transition-colors hover:border-paper"
           >
             github/mutms7
           </a>
