@@ -304,10 +304,10 @@ function Hero() {
             github/mutms7
           </a>
         </div>
-        <dl className="hero-enter mt-12 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4" style={step(4)}>
+        <dl className="hero-enter mt-10 grid grid-cols-2 gap-x-6 gap-y-7 sm:grid-cols-[1fr_1fr_1fr_1.25fr] sm:gap-x-4 lg:pr-5" style={step(4)}>
           {portfolioStats.map((stat) => (
             <div key={stat.label}>
-              <dd className="whitespace-nowrap font-display text-3xl leading-none text-paper lg:text-2xl xl:text-3xl">{stat.value}</dd>
+              <dd className="whitespace-nowrap font-display text-[1.75rem] leading-none text-paper lg:text-2xl xl:text-[1.75rem]">{stat.value}</dd>
               <dt className="mt-2 font-label text-xs uppercase tracking-widest text-fade">{stat.label}</dt>
             </div>
           ))}
