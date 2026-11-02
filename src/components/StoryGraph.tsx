@@ -11,28 +11,24 @@ const accentHex: Record<string, string> = {
   orange: '#fb923c'
 }
 
-// Positions keyed by project index in resume.projects (Sandfall is index 0):
-// 0 Sandfall · 1 GoodLife.AI · 2 PaletteCard AI · 3 ConquestCartes · 4 Blend Together · 5 Molt
-// 6 StockTracker · 7 The Air Outside · 8 HardHaq '25 · 9 UmbrellaShare · 10 Hairrison · 11 RougeRogue
-// 12 SlimWaste · 13 Typer.AI · 14 EastEats
+// Project names keep the map stable when entries are added or removed.
 // Four constellations across two pages of an open book. Relationships stay
 // within their section so long, speculative links don't obscure other work.
-const positions: Record<number, { x: number; y: number }> = {
-  7: { x: 150, y: 190 },
-  11: { x: 360, y: 220 },
-  0: { x: 440, y: 365 },
-  5: { x: 215, y: 380 },
-  8: { x: 175, y: 630 },
-  9: { x: 410, y: 700 },
-  3: { x: 735, y: 190 },
-  4: { x: 960, y: 220 },
-  6: { x: 1065, y: 365 },
-  14: { x: 720, y: 575 },
-  12: { x: 900, y: 560 },
-  13: { x: 1080, y: 590 },
-  1: { x: 730, y: 750 },
-  2: { x: 920, y: 735 },
-  10: { x: 1090, y: 770 }
+const positions: Record<string, { x: number; y: number }> = {
+  "The Air Outside": { x: 150, y: 190 },
+  "Sandfall": { x: 440, y: 365 },
+  "Molt": { x: 215, y: 380 },
+  "HardHaq '25": { x: 175, y: 630 },
+  "UmbrellaShare": { x: 410, y: 700 },
+  "ConquestCartes": { x: 735, y: 190 },
+  "Blend Together": { x: 960, y: 220 },
+  "StockTracker": { x: 1065, y: 365 },
+  "EastEats": { x: 720, y: 575 },
+  "SlimWaste": { x: 900, y: 560 },
+  "Typer.AI": { x: 1080, y: 590 },
+  "GoodLife.AI": { x: 730, y: 750 },
+  "PaletteCard AI": { x: 920, y: 735 },
+  "Hairrison": { x: 1090, y: 770 }
 }
 
 const clusters = [
@@ -42,30 +38,26 @@ const clusters = [
   { label: 'AI projects', x: 900, y: 485 }
 ]
 
-// Same four clusters, ordered for the touch-native mobile layout (project
-// indices into resume.projects). Phone and tablet screens get a legible,
-// tappable layout instead of shrinking the desktop constellations.
-const clusterGroups: { label: string; members: number[] }[] = [
-  { label: 'AI projects', members: [14, 13, 12, 1, 2, 10] },
-  { label: 'live products', members: [3, 4, 6] },
-  { label: 'hackathon podiums', members: [8, 9] },
-  { label: 'interactive worlds', members: [0, 7, 11, 5] }
+// Phone and tablet screens use grouped project controls.
+const clusterGroups: { label: string; members: string[] }[] = [
+  { label: 'AI projects', members: ["EastEats", "Typer.AI", "SlimWaste", "GoodLife.AI", "PaletteCard AI", "Hairrison"] },
+  { label: 'live products', members: ["ConquestCartes", "Blend Together", "StockTracker"] },
+  { label: 'hackathon podiums', members: ["HardHaq '25", "UmbrellaShare"] },
+  { label: 'interactive worlds', members: ["Sandfall", "The Air Outside", "Molt"] }
 ]
 
-type Edge = { a: number; b: number; label: string }
+type Edge = { a: string; b: string; label: string }
 
 const edgeList: Edge[] = [
-  { a: 14, b: 12, label: 'Food tools built around personal habits and choices' },
-  { a: 12, b: 13, label: 'AI analysis runs separately from everyday interactions' },
-  { a: 14, b: 1, label: 'Personal preferences shape recommendations' },
-  { a: 1, b: 2, label: 'Small models: an on-device coach and a trained color tool' },
-  { a: 2, b: 10, label: 'A photo becomes the starting point for a creative tool' },
-  { a: 0, b: 11, label: 'Procedural worlds that grow from small, local rules' },
-  { a: 0, b: 5, label: 'Two browser worlds built around movement, physics, and discovery' },
-  { a: 7, b: 11, label: 'Two C# worlds: a branching narrative engine and a procedural dungeon' },
-  { a: 7, b: 5, label: 'Same world and mood: suits as masks, presence over performance' },
-  { a: 8, b: 9, label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
-  { a: 3, b: 4, label: 'Live multiplayer on shared, synced game state' }
+  { a: "EastEats", b: "SlimWaste", label: 'Food tools built around personal habits and choices' },
+  { a: "SlimWaste", b: "Typer.AI", label: 'AI analysis runs separately from everyday interactions' },
+  { a: "EastEats", b: "GoodLife.AI", label: 'Personal preferences shape recommendations' },
+  { a: "GoodLife.AI", b: "PaletteCard AI", label: 'Small models: an on-device coach and a trained color tool' },
+  { a: "PaletteCard AI", b: "Hairrison", label: 'A photo becomes the starting point for a creative tool' },
+  { a: "Sandfall", b: "Molt", label: 'Two browser worlds built around movement, physics, and discovery' },
+  { a: "The Air Outside", b: "Molt", label: 'Same world and mood: suits as masks, presence over performance' },
+  { a: "HardHaq '25", b: "UmbrellaShare", label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
+  { a: "ConquestCartes", b: "Blend Together", label: 'Live multiplayer on shared, synced game state' }
 ]
 
 function curve(a: { x: number; y: number }, b: { x: number; y: number }, i: number) {
@@ -97,7 +89,7 @@ function ConnectionLabel({ label, x, y, color }: { label: string; x: number; y: 
   return (
     <g pointerEvents="none" data-connection-label>
       <rect x={centerX - width / 2} y={centerY - 16} width={width} height="30" rx="15" fill="#14122b" stroke={color} strokeWidth="1" />
-      <text ref={textRef} x={centerX} y={centerY + 4} textAnchor="middle" fill={color} fontSize="14" fontFamily="IBM Plex Mono, monospace">
+      <text ref={textRef} x={centerX} y={centerY + 4} textAnchor="middle" fill={color} fontSize="14" fontFamily="Manrope, sans-serif">
         {label}
       </text>
     </g>
@@ -191,12 +183,6 @@ function Glyph({ title, color }: { title: string; color: string }) {
           <line x1="5" y1="3.5" x2="-8" y2="-9" />
         </g>
       )
-    case 'RougeRogue':
-      return (
-        <text textAnchor="middle" dominantBaseline="central" fill={color} fontSize="17" fontFamily="IBM Plex Mono, monospace">
-          @
-        </text>
-      )
     case 'ConquestCartes':
       return (
         <g stroke={color} strokeWidth="1.8" fill="none" strokeLinejoin="round">
@@ -226,7 +212,8 @@ function Glyph({ title, color }: { title: string; color: string }) {
 
 export default function StoryGraph() {
   const projects = resume.projects
-  const [activeNode, setActiveNode] = useState<number | null>(null)
+  const projectByTitle: Record<string, (typeof projects)[number]> = Object.fromEntries(projects.map(project => [project.title, project]))
+  const [activeNode, setActiveNode] = useState<string | null>(null)
   const [activeEdge, setActiveEdge] = useState<number | null>(null)
 
   const caption = useMemo(() => {
@@ -234,16 +221,16 @@ export default function StoryGraph() {
     if (activeNode !== null) {
       const related = edgeList
         .filter((e) => e.a === activeNode || e.b === activeNode)
-        .map((e) => `${projects[e.a === activeNode ? e.b : e.a].title}: ${e.label}.`)
+        .map((e) => `${projectByTitle[e.a === activeNode ? e.b : e.a].title}: ${e.label}.`)
       return related.length
-        ? `${projects[activeNode].title}. ${related.join(' ')} Select it to read its scene.`
-        : `${projects[activeNode].title}: ${projects[activeNode].category}. Select it to read its scene.`
+        ? `${projectByTitle[activeNode].title}. ${related.join(' ')} Select it to read its scene.`
+        : `${projectByTitle[activeNode].title}: ${projectByTitle[activeNode].category}. Select it to read its scene.`
     }
     return `${projects.length} projects across four constellations. Follow a thread to see the connection, or select a project to read its scene.`
   }, [activeNode, activeEdge, projects])
 
-  function goTo(index: number) {
-    const id = getProjectSectionId(projects[index].title)
+  function goTo(index: string) {
+    const id = getProjectSectionId(projectByTitle[index].title)
     if (window.location.hash === `#${id}`) {
       window.dispatchEvent(new HashChangeEvent('hashchange'))
     } else {
@@ -261,18 +248,18 @@ export default function StoryGraph() {
       {/* Mobile: the SVG graph is illegible when scaled down, so small screens
           get a legible, tappable list of the same clusters. */}
       <div className="lg:hidden">
-        <p className="mb-6 px-1 text-center font-mono text-sm text-fade">
+        <p className="mb-6 px-1 text-center font-label text-sm text-fade">
           {projects.length} projects in {clusters.length} clusters. Tap one to jump to its scene.
         </p>
         <div className="grid gap-6 sm:grid-cols-2">
           {clusterGroups.map((group) => (
             <section key={group.label}>
-              <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-fade">
+              <h3 className="mb-3 font-label text-xs uppercase tracking-[0.3em] text-fade">
                 {group.label}
               </h3>
               <ul className="space-y-2">
                 {group.members.map((i) => {
-                  const project = projects[i]
+                  const project = projectByTitle[i]
                   const hex = accentHex[project.accent] ?? '#f1ebdd'
                   return (
                     <li key={project.title}>
@@ -284,10 +271,10 @@ export default function StoryGraph() {
                           <Glyph title={project.title} color={hex} />
                         </svg>
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate font-mono text-sm text-paper">{project.title}</span>
-                          <span className="block truncate font-mono text-xs text-fade">{project.category}</span>
+                          <span className="block truncate font-label text-sm text-paper">{project.title}</span>
+                          <span className="block truncate font-label text-xs text-fade">{project.category}</span>
                         </span>
-                        <span aria-hidden className="font-mono text-lg" style={{ color: hex }}>
+                        <span aria-hidden className="font-label text-lg" style={{ color: hex }}>
                           ›
                         </span>
                       </button>
@@ -308,7 +295,7 @@ export default function StoryGraph() {
           <path d="M 30 80 L 30 805 Q 345 770 585 865 M 1170 80 L 1170 870 Q 845 770 615 865" />
         </g>
         {clusters.map((c) => (
-          <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#b6afcc" fontSize="14" letterSpacing="2.5" fontFamily="IBM Plex Mono, monospace">
+          <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#b6afcc" fontSize="14" letterSpacing="2.5" fontFamily="Manrope, sans-serif">
             {c.label.toUpperCase()}
           </text>
         ))}
@@ -316,7 +303,7 @@ export default function StoryGraph() {
         {edgeList.map((edge, i) => {
           const { d, lx, ly } = curve(positions[edge.a], positions[edge.b], i)
           const lit = edgeIsLit(edge, i)
-          const hex = accentHex[projects[edge.b].accent]
+          const hex = accentHex[projectByTitle[edge.b].accent]
           return (
             <g
               key={i}
@@ -340,8 +327,8 @@ export default function StoryGraph() {
         })}
 
         {Object.entries(positions).map(([key, pos]) => {
-          const i = Number(key)
-          const project = projects[i]
+          const i = key
+          const project = projectByTitle[i]
           const hex = accentHex[project.accent] ?? '#f1ebdd'
           const isActive = activeNode === i
           return (
@@ -377,7 +364,7 @@ export default function StoryGraph() {
                 textAnchor="middle"
                 fill={isActive ? hex : '#c5bed7'}
                 fontSize="15"
-                fontFamily="IBM Plex Mono, monospace"
+                fontFamily="Manrope, sans-serif"
               >
                 {project.title}
               </text>
@@ -390,13 +377,13 @@ export default function StoryGraph() {
           (() => {
             const edge = edgeList[activeEdge]
             const { lx, ly } = curve(positions[edge.a], positions[edge.b], activeEdge)
-            const hex = accentHex[projects[edge.b].accent]
+            const hex = accentHex[projectByTitle[edge.b].accent]
             return (
               <ConnectionLabel label={edge.label} x={lx} y={ly} color={hex} />
             )
           })()}
       </svg>
-      <figcaption id="project-map-caption" className="mx-auto mt-4 max-w-3xl text-center font-mono text-sm text-fade min-h-[2.5rem] px-4">
+      <figcaption id="project-map-caption" className="mx-auto mt-4 max-w-3xl text-center font-label text-sm text-fade min-h-[2.5rem] px-4">
         {caption}
       </figcaption>
       </div>

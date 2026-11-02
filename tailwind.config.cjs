@@ -22,7 +22,7 @@ module.exports = {
       fontFamily: {
         display: ['Fraunces', 'Georgia', 'serif'],
         body: ['"Instrument Sans"', 'system-ui', 'sans-serif'],
-        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace']
+        label: ['Manrope', 'system-ui', 'sans-serif']
       },
       maxWidth: {
         page: '76rem'

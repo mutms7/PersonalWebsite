@@ -20,7 +20,7 @@ function Chrome({ label, accent }: { label: string; accent: string }) {
       <circle cx="40" cy="17" r="5" fill="#fcd34d" opacity="0.8" />
       <circle cx="58" cy="17" r="5" fill="#6ee7b7" opacity="0.8" />
       <rect x="150" y="9" width="260" height="16" rx="8" fill="#14122b" />
-      <text x="280" y="21" textAnchor="middle" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">
+      <text x="280" y="21" textAnchor="middle" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">
         {label}
       </text>
       <circle cx="536" cy="17" r="4" fill={accent} />
@@ -39,8 +39,8 @@ function StockTracker() {
       <rect x="20" y="50" width="120" height="260" rx="8" fill="#14122b" />
       {['AAPL', 'NVDA', 'VTI', 'SHOP', 'TSLA'].map((t, i) => (
         <g key={t}>
-          <text x="34" y={80 + i * 38} fill="#f1ebdd" fontSize="11" fontFamily="IBM Plex Mono, monospace">{t}</text>
-          <text x="126" y={80 + i * 38} textAnchor="end" fill={i % 2 ? '#fda4af' : '#6ee7b7'} fontSize="10" fontFamily="IBM Plex Mono, monospace">
+          <text x="34" y={80 + i * 38} fill="#f1ebdd" fontSize="11" fontFamily="Manrope, sans-serif">{t}</text>
+          <text x="126" y={80 + i * 38} textAnchor="end" fill={i % 2 ? '#fda4af' : '#6ee7b7'} fontSize="10" fontFamily="Manrope, sans-serif">
             {i % 2 ? '-1.2%' : '+2.4%'}
           </text>
           <polyline
@@ -50,8 +50,8 @@ function StockTracker() {
         </g>
       ))}
       <rect x="152" y="50" width="388" height="190" rx="8" fill="#14122b" />
-      <text x="168" y="74" fill="#f1ebdd" fontSize="13" fontFamily="IBM Plex Mono, monospace">NVDA · 1D</text>
-      <text x="524" y="74" textAnchor="end" fill="#67e8f9" fontSize="13" fontFamily="IBM Plex Mono, monospace">+3.18%</text>
+      <text x="168" y="74" fill="#f1ebdd" fontSize="13" fontFamily="Manrope, sans-serif">NVDA · 1D</text>
+      <text x="524" y="74" textAnchor="end" fill="#67e8f9" fontSize="13" fontFamily="Manrope, sans-serif">+3.18%</text>
       {[100, 130, 160, 190, 220].map((y) => (
         <line key={y} x1="168" y1={y} x2="524" y2={y} stroke="#2e2754" strokeWidth="0.75" />
       ))}
@@ -63,11 +63,11 @@ function StockTracker() {
       ))}
       <path d="M 168 200 C 230 180, 280 196, 330 160 S 460 120, 524 96" fill="none" stroke="#67e8f9" strokeWidth="2" />
       <rect x="152" y="252" width="186" height="58" rx="8" fill="#14122b" />
-      <text x="168" y="274" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">AI QUICK TAKE</text>
+      <text x="168" y="274" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">AI QUICK TAKE</text>
       <rect x="168" y="284" width="150" height="6" rx="3" fill="#2e2754" />
       <rect x="168" y="296" width="110" height="6" rx="3" fill="#2e2754" />
       <rect x="354" y="252" width="186" height="58" rx="8" fill="#14122b" />
-      <text x="370" y="274" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">NEWS · BRAVE SEARCH</text>
+      <text x="370" y="274" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">NEWS · BRAVE SEARCH</text>
       <rect x="370" y="284" width="150" height="6" rx="3" fill="#2e2754" />
       <rect x="370" y="296" width="92" height="6" rx="3" fill="#2e2754" />
     </svg>
@@ -97,15 +97,15 @@ function AirOutside() {
       </g>
       <rect x="20" y="240" width="520" height="70" rx="8" fill="#14122b" />
       <rect x="20.75" y="240.75" width="518.5" height="68.5" rx="7" fill="none" stroke="#403868" strokeWidth="1.5" />
-      <text x="40" y="262" fill="#6ee7b7" fontSize="11" fontFamily="IBM Plex Mono, monospace">MARI</text>
+      <text x="40" y="262" fill="#6ee7b7" fontSize="11" fontFamily="Manrope, sans-serif">MARI</text>
       <text x="40" y="282" fill="#f1ebdd" fontSize="12" fontFamily="Georgia, serif" fontStyle="italic">
         The air outside is the same air. You just have to go meet it.
       </text>
       <rect x="40" y="292" width="150" height="12" rx="6" fill="#2e2754" />
-      <text x="48" y="301" fill="#9a93b8" fontSize="8" fontFamily="IBM Plex Mono, monospace">› Step onto the balcony</text>
+      <text x="48" y="301" fill="#9a93b8" fontSize="8" fontFamily="Manrope, sans-serif">› Step onto the balcony</text>
       <rect x="200" y="292" width="120" height="12" rx="6" fill="#2e2754" />
-      <text x="208" y="301" fill="#9a93b8" fontSize="8" fontFamily="IBM Plex Mono, monospace">› Stay a little longer</text>
-      <text x="524" y="262" textAnchor="end" fill="#9a93b8" fontSize="9" fontFamily="IBM Plex Mono, monospace">scene 12/15</text>
+      <text x="208" y="301" fill="#9a93b8" fontSize="8" fontFamily="Manrope, sans-serif">› Stay a little longer</text>
+      <text x="524" y="262" textAnchor="end" fill="#9a93b8" fontSize="9" fontFamily="Manrope, sans-serif">scene 12/15</text>
     </svg>
   )
 }
@@ -120,11 +120,11 @@ function HardHaq() {
       <path d="M 170 142 C 200 142, 180 212, 200 212" fill="none" stroke="#f1ebdd" strokeWidth="1.5" strokeDasharray="4 4" />
       <path d="M 80 130 h 70 M 80 144 h 70 M 80 158 h 70" stroke="#fcd34d" strokeWidth="1" opacity="0.5" />
       <path d="M 220 200 h 70 M 220 214 h 70 M 220 228 h 70" stroke="#67e8f9" strokeWidth="1" opacity="0.5" />
-      <text x="115" y="100" textAnchor="middle" fill="#fcd34d" fontSize="10" fontFamily="IBM Plex Mono, monospace">qubit A</text>
-      <text x="255" y="262" textAnchor="middle" fill="#67e8f9" fontSize="10" fontFamily="IBM Plex Mono, monospace">qubit B</text>
+      <text x="115" y="100" textAnchor="middle" fill="#fcd34d" fontSize="10" fontFamily="Manrope, sans-serif">qubit A</text>
+      <text x="255" y="262" textAnchor="middle" fill="#67e8f9" fontSize="10" fontFamily="Manrope, sans-serif">qubit B</text>
       <path d="M 40 286 q 20 -14 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0" fill="none" stroke="#fda4af" strokeWidth="1.5" opacity="0.8" />
       <rect x="366" y="50" width="174" height="150" rx="8" fill="#14122b" />
-      <text x="382" y="72" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">MAXWELL C-MATRIX</text>
+      <text x="382" y="72" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">MAXWELL C-MATRIX</text>
       {[0, 1, 2, 3].map((r) =>
         [0, 1, 2, 3].map((c) => (
           <rect
@@ -140,10 +140,10 @@ function HardHaq() {
         ))
       )}
       <rect x="366" y="212" width="174" height="98" rx="8" fill="#14122b" />
-      <text x="382" y="234" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">COUPLING</text>
-      <text x="382" y="262" fill="#fcd34d" fontSize="20" fontFamily="IBM Plex Mono, monospace">35.8 MHz</text>
-      <text x="382" y="284" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">vs 900 MHz detuning</text>
-      <text x="382" y="300" fill="#6ee7b7" fontSize="10" fontFamily="IBM Plex Mono, monospace">✓ 1st place · 20+ teams</text>
+      <text x="382" y="234" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">COUPLING</text>
+      <text x="382" y="262" fill="#fcd34d" fontSize="20" fontFamily="Manrope, sans-serif">35.8 MHz</text>
+      <text x="382" y="284" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">vs 900 MHz detuning</text>
+      <text x="382" y="300" fill="#6ee7b7" fontSize="10" fontFamily="Manrope, sans-serif">✓ 1st place · 20+ teams</text>
     </svg>
   )
 }
@@ -173,7 +173,7 @@ function UmbrellaShare() {
       </g>
       <rect x="208" y="150" width="58" height="86" rx="6" fill="#14122b" stroke="#403868" strokeWidth="1.5" />
       <rect x="216" y="160" width="42" height="30" rx="3" fill="#2e2754" />
-      <text x="237" y="179" textAnchor="middle" fill="#93c5fd" fontSize="9" fontFamily="IBM Plex Mono, monospace">SCAN ID</text>
+      <text x="237" y="179" textAnchor="middle" fill="#93c5fd" fontSize="9" fontFamily="Manrope, sans-serif">SCAN ID</text>
       <rect x="216" y="198" width="42" height="8" rx="2" fill="#6ee7b7" opacity="0.8" />
       <rect x="216" y="212" width="42" height="8" rx="2" fill="#2e2754" />
       <path d="M 20 236 h 520" stroke="#2e2754" strokeWidth="2" />
@@ -182,10 +182,10 @@ function UmbrellaShare() {
       <rect x="368" y="158" width="36" height="46" rx="3" fill="#221c40" />
       <path d="M 374 186 a 12 12 0 0 1 24 0" fill="#93c5fd" opacity="0.9" />
       <line x1="386" y1="186" x2="386" y2="198" stroke="#f1ebdd" strokeWidth="1.5" />
-      <text x="386" y="172" textAnchor="middle" fill="#9a93b8" fontSize="7" fontFamily="IBM Plex Mono, monospace">2 nearby</text>
+      <text x="386" y="172" textAnchor="middle" fill="#9a93b8" fontSize="7" fontFamily="Manrope, sans-serif">2 nearby</text>
       <rect x="368" y="212" width="36" height="10" rx="5" fill="#93c5fd" />
-      <text x="386" y="220" textAnchor="middle" fill="#14122b" fontSize="7" fontFamily="IBM Plex Mono, monospace">UNLOCK</text>
-      <text x="280" y="292" textAnchor="middle" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">
+      <text x="386" y="220" textAnchor="middle" fill="#14122b" fontSize="7" fontFamily="Manrope, sans-serif">UNLOCK</text>
+      <text x="280" y="292" textAnchor="middle" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">
         rust backend · java android · uwaterloo id scanner · 3rd place, un-habitat hackathon
       </text>
     </svg>
@@ -197,12 +197,12 @@ function Hairrison() {
     <svg {...frameProps} aria-label="Hairrison styling app preview">
       <Chrome label="hairrison.vercel.app" accent="#fda4af" />
       <rect x="20" y="50" width="246" height="200" rx="8" fill="#14122b" />
-      <text x="143" y="74" textAnchor="middle" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">BEFORE</text>
+      <text x="143" y="74" textAnchor="middle" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">BEFORE</text>
       <circle cx="143" cy="140" r="34" fill="#2e2754" />
       <path d="M 109 136 q 0 -36 34 -36 q 34 0 34 36 q -10 -22 -34 -22 q -24 0 -34 22" fill="#403868" />
       <ellipse cx="143" cy="206" rx="44" ry="18" fill="#2e2754" />
       <rect x="294" y="50" width="246" height="200" rx="8" fill="#14122b" stroke="#fda4af" strokeWidth="1.5" />
-      <text x="417" y="74" textAnchor="middle" fill="#fda4af" fontSize="10" fontFamily="IBM Plex Mono, monospace">AFTER · CURTAIN FRINGE</text>
+      <text x="417" y="74" textAnchor="middle" fill="#fda4af" fontSize="10" fontFamily="Manrope, sans-serif">AFTER · CURTAIN FRINGE</text>
       <circle cx="417" cy="140" r="34" fill="#2e2754" />
       <path d="M 383 140 q -4 -44 34 -44 q 38 0 34 44 q -4 -18 -12 -22 q 2 12 -6 16 q 0 -14 -16 -16 q -16 2 -16 16 q -8 -4 -6 -16 q -8 4 -12 22" fill="#fda4af" />
       <ellipse cx="417" cy="206" rx="44" ry="18" fill="#2e2754" />
@@ -210,53 +210,12 @@ function Hairrison() {
       {['fringe', 'bob', 'waves', 'buzz'].map((s, i) => (
         <g key={s}>
           <rect x={20 + i * 84} y="262" width="76" height="20" rx="10" fill={i === 0 ? '#fda4af' : '#221c40'} stroke={i === 0 ? 'none' : '#403868'} />
-          <text x={58 + i * 84} y="275" textAnchor="middle" fill={i === 0 ? '#14122b' : '#9a93b8'} fontSize="9" fontFamily="IBM Plex Mono, monospace">{s}</text>
+          <text x={58 + i * 84} y="275" textAnchor="middle" fill={i === 0 ? '#14122b' : '#9a93b8'} fontSize="9" fontFamily="Manrope, sans-serif">{s}</text>
         </g>
       ))}
       <rect x="376" y="258" width="164" height="48" rx="8" fill="#6ee7b7" />
-      <text x="458" y="278" textAnchor="middle" fill="#14122b" fontSize="11" fontFamily="IBM Plex Mono, monospace">Pay with Stripe</text>
-      <text x="458" y="294" textAnchor="middle" fill="#14302b" fontSize="9" fontFamily="IBM Plex Mono, monospace">$4.99 · secure checkout</text>
-    </svg>
-  )
-}
-
-function RougeRogue() {
-  const wall = '#403868'
-  const floor = '#221c40'
-  const cells: string[] = []
-  const map = [
-    '############################',
-    '#......#########....########',
-    '#......+.......#....+......#',
-    '#......#.......#....#......#',
-    '########.......######......#',
-    '#......+.......+....+......#',
-    '#......#########....########',
-    '############################'
-  ]
-  return (
-    <svg {...frameProps} aria-label="RougeRogue dungeon preview">
-      <Chrome label="rougerogue.exe · roguesharp + rlnet" accent="#fcd34d" />
-      <rect x="20" y="50" width="520" height="222" rx="8" fill="#0d0b1e" />
-      {map.map((row, r) =>
-        row.split('').map((ch, c) => {
-          const x = 36 + c * 17.5
-          const y = 64 + r * 25
-          if (ch === '#')
-            return <rect key={`${r}-${c}`} x={x} y={y} width="16" height="23" fill={wall} opacity="0.85" />
-          if (ch === '+')
-            return <rect key={`${r}-${c}`} x={x} y={y} width="16" height="23" fill="#fcd34d" opacity="0.35" />
-          return <rect key={`${r}-${c}`} x={x} y={y} width="16" height="23" fill={floor} opacity="0.6" />
-        })
-      )}
-      <circle cx={36 + 3.5 * 17.5} cy={64 + 2.5 * 25} r="52" fill="#fcd34d" opacity="0.08" />
-      <text x={36 + 3 * 17.5 + 8} y={64 + 2 * 25 + 17} textAnchor="middle" fill="#fcd34d" fontSize="16" fontFamily="IBM Plex Mono, monospace">@</text>
-      <text x={36 + 12 * 17.5 + 8} y={64 + 2 * 25 + 17} textAnchor="middle" fill="#fda4af" fontSize="14" fontFamily="IBM Plex Mono, monospace">g</text>
-      <text x={36 + 21 * 17.5 + 8} y={64 + 5 * 25 + 17} textAnchor="middle" fill="#fda4af" fontSize="14" fontFamily="IBM Plex Mono, monospace">o</text>
-      <line x1={36 + 4 * 17.5} y1={64 + 2.5 * 25} x2={36 + 12 * 17.5} y2={64 + 2.5 * 25} stroke="#fda4af" strokeWidth="1" strokeDasharray="3 4" opacity="0.6" />
-      <rect x="20" y="280" width="520" height="30" rx="8" fill="#14122b" />
-      <text x="36" y="299" fill="#6ee7b7" fontSize="10" fontFamily="IBM Plex Mono, monospace">HP ██████████░░ 24/30</text>
-      <text x="280" y="299" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">depth 3 · the goblin notices you</text>
+      <text x="458" y="278" textAnchor="middle" fill="#14122b" fontSize="11" fontFamily="Manrope, sans-serif">Pay with Stripe</text>
+      <text x="458" y="294" textAnchor="middle" fill="#14302b" fontSize="9" fontFamily="Manrope, sans-serif">$4.99 · secure checkout</text>
     </svg>
   )
 }
@@ -270,13 +229,13 @@ function ConquestCartes() {
       <rect x="20" y="48" width="520" height="262" rx="8" fill="#100d20" />
       <text x="34" y="70" fill="#e8c87a" fontSize="14" fontFamily="Georgia, serif" letterSpacing="1">CONQUEST CARTES</text>
       <rect x="214" y="54" width="150" height="20" rx="10" fill="#1b1630" stroke="#4a3f68" strokeWidth="1" />
-      <text x="228" y="68" fill="#9a93b8" fontSize="9" fontFamily="IBM Plex Mono, monospace">RELICS</text>
+      <text x="228" y="68" fill="#9a93b8" fontSize="9" fontFamily="Manrope, sans-serif">RELICS</text>
       {[286, 306, 326, 346].map((cx) => (
         <circle key={cx} cx={cx} cy="64" r="6" fill="none" stroke="#6a5f88" strokeWidth="1" />
       ))}
-      <text x="26" y="92" fill="#c9922e" fontSize="8" fontFamily="IBM Plex Mono, monospace">TREASURY</text>
-      <text x="280" y="92" textAnchor="middle" fill="#5a8fd6" fontSize="8" fontFamily="IBM Plex Mono, monospace">BARRACKS</text>
-      <text x="534" y="92" textAnchor="end" fill="#a85a8a" fontSize="8" fontFamily="IBM Plex Mono, monospace">ESTATES</text>
+      <text x="26" y="92" fill="#c9922e" fontSize="8" fontFamily="Manrope, sans-serif">TREASURY</text>
+      <text x="280" y="92" textAnchor="middle" fill="#5a8fd6" fontSize="8" fontFamily="Manrope, sans-serif">BARRACKS</text>
+      <text x="534" y="92" textAnchor="end" fill="#a85a8a" fontSize="8" fontFamily="Manrope, sans-serif">ESTATES</text>
       {[0, 1].map((i) => (
         <g key={`t${i}`}>
           <rect x="26" y={98 + i * 74} width="46" height="66" rx="5" fill="#241d1a" stroke="#c9922e" strokeWidth="1" />
@@ -304,13 +263,13 @@ function ConquestCartes() {
         <g key={`e${i}`}>
           <rect x="496" y={98 + i * 74} width="44" height="66" rx="5" fill="#2a1d2a" stroke="#8a3a72" strokeWidth="1" />
           <rect x="500" y={102 + i * 74} width="36" height="26" rx="3" fill="#3a2438" />
-          <text x="518" y={152 + i * 74} textAnchor="middle" fill="#c98ab5" fontSize="8" fontFamily="IBM Plex Mono, monospace">{i ? '3' : '6'} VP</text>
+          <text x="518" y={152 + i * 74} textAnchor="middle" fill="#c98ab5" fontSize="8" fontFamily="Manrope, sans-serif">{i ? '3' : '6'} VP</text>
         </g>
       ))}
       <rect x="20" y="250" width="150" height="60" rx="6" fill="#161227" />
-      <text x="34" y="272" fill="#e8c87a" fontSize="10" fontFamily="IBM Plex Mono, monospace">COINS · 0</text>
-      <text x="34" y="289" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">ACTIONS · 1</text>
-      <text x="34" y="306" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">BUYS · 1</text>
+      <text x="34" y="272" fill="#e8c87a" fontSize="10" fontFamily="Manrope, sans-serif">COINS · 0</text>
+      <text x="34" y="289" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">ACTIONS · 1</text>
+      <text x="34" y="306" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">BUYS · 1</text>
       {[0, 1, 2, 3, 4].map((i) => (
         <g key={`h${i}`} transform={`rotate(${(i - 2) * 7} 320 430)`}>
           <rect x={282 + i * 6} y="256" width="42" height="56" rx="4" fill="#241d1a" stroke="#c9922e" strokeWidth="1" />
@@ -318,7 +277,7 @@ function ConquestCartes() {
         </g>
       ))}
       <rect x="448" y="280" width="92" height="30" rx="6" fill="#d9b45e" />
-      <text x="494" y="300" textAnchor="middle" fill="#1a1206" fontSize="10" fontFamily="IBM Plex Mono, monospace">END TURN</text>
+      <text x="494" y="300" textAnchor="middle" fill="#1a1206" fontSize="10" fontFamily="Manrope, sans-serif">END TURN</text>
     </svg>
   )
 }
@@ -331,14 +290,14 @@ function BlendTogether() {
       <text x="34" y="68" fill="#f1ebdd" fontSize="12" fontFamily="Instrument Sans, sans-serif">Blend Together</text>
       <circle cx="150" cy="63" r="4" fill="#fb7185" />
       <rect x="250" y="53" width="72" height="20" rx="6" fill="#3b82f6" />
-      <text x="286" y="67" textAnchor="middle" fill="#ffffff" fontSize="9" fontFamily="IBM Plex Mono, monospace">Start round</text>
+      <text x="286" y="67" textAnchor="middle" fill="#ffffff" fontSize="9" fontFamily="Manrope, sans-serif">Start round</text>
       <rect x="328" y="53" width="48" height="20" rx="6" fill="#1b2438" stroke="#33415c" strokeWidth="1" />
-      <text x="352" y="67" textAnchor="middle" fill="#c9d4e6" fontSize="9" fontFamily="IBM Plex Mono, monospace">★ Daily</text>
+      <text x="352" y="67" textAnchor="middle" fill="#c9d4e6" fontSize="9" fontFamily="Manrope, sans-serif">★ Daily</text>
       <rect x="28" y="86" width="86" height="216" rx="8" fill="#141c2e" stroke="#28324a" strokeWidth="1" />
       {['Cube', 'Sphere', 'Vertex', 'Edge', 'Face', 'Move', 'Rotate'].map((t, i) => (
         <g key={t}>
           <rect x="36" y={96 + i * 28} width="70" height="20" rx="5" fill={i === 4 || i === 5 ? '#3b82f6' : '#1b2438'} stroke="#2c3852" strokeWidth="1" />
-          <text x="44" y={110 + i * 28} fill={i === 4 || i === 5 ? '#ffffff' : '#aab7cc'} fontSize="9" fontFamily="IBM Plex Mono, monospace">{t}</text>
+          <text x="44" y={110 + i * 28} fill={i === 4 || i === 5 ? '#ffffff' : '#aab7cc'} fontSize="9" fontFamily="Manrope, sans-serif">{t}</text>
         </g>
       ))}
       {[0, 1, 2, 3, 4].map((i) => (
@@ -351,17 +310,17 @@ function BlendTogether() {
       <line x1="330" y1="187" x2="406" y2="207" stroke="#f87171" strokeWidth="2.5" />
       <line x1="330" y1="187" x2="272" y2="216" stroke="#60a5fa" strokeWidth="2.5" />
       <rect x="132" y="264" width="40" height="40" rx="4" fill="#1b2438" stroke="#33415c" strokeWidth="1" />
-      <text x="152" y="288" textAnchor="middle" fill="#8ea3bf" fontSize="7" fontFamily="IBM Plex Mono, monospace">FRONT</text>
+      <text x="152" y="288" textAnchor="middle" fill="#8ea3bf" fontSize="7" fontFamily="Manrope, sans-serif">FRONT</text>
       <rect x="212" y="266" width="182" height="40" rx="8" fill="#131b2c" stroke="#3b82f6" strokeWidth="1" />
-      <text x="303" y="283" textAnchor="middle" fill="#7fb0ff" fontSize="8" fontFamily="IBM Plex Mono, monospace">TUTORIAL · STEP 3 OF 7</text>
+      <text x="303" y="283" textAnchor="middle" fill="#7fb0ff" fontSize="8" fontFamily="Manrope, sans-serif">TUTORIAL · STEP 3 OF 7</text>
       <text x="303" y="298" textAnchor="middle" fill="#f1ebdd" fontSize="9" fontFamily="Instrument Sans, sans-serif">Drag the arrows to move the face</text>
       <rect x="452" y="86" width="88" height="118" rx="8" fill="#141c2e" stroke="#28324a" strokeWidth="1" />
-      <text x="462" y="102" fill="#8ea3bf" fontSize="8" fontFamily="IBM Plex Mono, monospace">COLOR</text>
+      <text x="462" y="102" fill="#8ea3bf" fontSize="8" fontFamily="Manrope, sans-serif">COLOR</text>
       {['#f87171', '#fb923c', '#fcd34d', '#4ade80', '#22d3ee', '#60a5fa', '#a78bfa', '#f472b6'].map((c, i) => (
         <circle key={c} cx={466 + (i % 4) * 20} cy={118 + Math.floor(i / 4) * 18} r="6" fill={c} />
       ))}
       <rect x="462" y="158" width="72" height="20" rx="5" fill="#3b82f6" />
-      <text x="498" y="172" textAnchor="middle" fill="#ffffff" fontSize="8" fontFamily="IBM Plex Mono, monospace">Color face</text>
+      <text x="498" y="172" textAnchor="middle" fill="#ffffff" fontSize="8" fontFamily="Manrope, sans-serif">Color face</text>
     </svg>
   )
 }
@@ -408,9 +367,9 @@ function Molt() {
       <circle cx="38" cy="64" r="5" fill="#fb923c" />
       <text x="48" y="68" fill="#f1ebdd" fontSize="9" fontFamily="Instrument Sans, sans-serif">Bare · slow-seeing</text>
       <rect x="26" y="78" width="104" height="18" rx="9" fill="#2a2620" opacity="0.85" />
-      <text x="36" y="91" fill="#fcd34d" fontSize="9" fontFamily="IBM Plex Mono, monospace">★ 0 / 4 needed</text>
+      <text x="36" y="91" fill="#fcd34d" fontSize="9" fontFamily="Manrope, sans-serif">★ 0 / 4 needed</text>
       <rect x="150" y="292" width="260" height="16" rx="8" fill="#2a2620" opacity="0.85" />
-      <text x="280" y="304" textAnchor="middle" fill="#d9d2c4" fontSize="8" fontFamily="IBM Plex Mono, monospace">WASD move · Space jump · Q molt</text>
+      <text x="280" y="304" textAnchor="middle" fill="#d9d2c4" fontSize="8" fontFamily="Manrope, sans-serif">WASD move · Space jump · Q molt</text>
     </svg>
   )
 }
@@ -426,18 +385,18 @@ function GoodLife() {
       <Chrome label="goodlifeai.vercel.app" accent="#8fbe9f" />
       <rect x="20" y="48" width="520" height="262" rx="8" fill="#10241f" />
       <path d="M 20 48 H 540 V 112 C 440 90 360 126 260 102 C 170 80 92 114 20 94 Z" fill="#173b31" />
-      <text x="38" y="76" fill="#f1d08b" fontSize="9" letterSpacing="2" fontFamily="IBM Plex Mono, monospace">GOODLIFE.AI / DAILY GUIDE</text>
+      <text x="38" y="76" fill="#f1d08b" fontSize="9" letterSpacing="2" fontFamily="Manrope, sans-serif">GOODLIFE.AI / DAILY GUIDE</text>
       <text x="38" y="103" fill="#f7f0df" fontSize="19" fontFamily="Georgia, serif">Make the next good step small.</text>
-      <text x="38" y="121" fill="#a9c2ad" fontSize="9" fontFamily="IBM Plex Mono, monospace">private · local-first · built for ordinary days</text>
+      <text x="38" y="121" fill="#a9c2ad" fontSize="9" fontFamily="Manrope, sans-serif">private · local-first · built for ordinary days</text>
 
       <rect x="36" y="142" width="194" height="116" rx="8" fill="#17352c" stroke="#496d5c" strokeWidth="1" />
-      <text x="50" y="162" fill="#8fbe9f" fontSize="9" letterSpacing="1.4" fontFamily="IBM Plex Mono, monospace">YOUR FIRST WEEK</text>
+      <text x="50" y="162" fill="#8fbe9f" fontSize="9" letterSpacing="1.4" fontFamily="Manrope, sans-serif">YOUR FIRST WEEK</text>
       <text x="50" y="180" fill="#f7f0df" fontSize="12" fontFamily="Georgia, serif">Three starts, not a total reset.</text>
       {[['01', 'Put shoes by the door'], ['02', 'Automate one transfer'], ['03', 'Call someone you love']].map(([n, text], i) => (
         <g key={n}>
           <circle cx="54" cy={200 + i * 17} r="6" fill={i === 1 ? '#f28f78' : '#f1d08b'} />
-          <text x="54" y={203 + i * 17} textAnchor="middle" fill="#10241f" fontSize="7" fontFamily="IBM Plex Mono, monospace">{n}</text>
-          <text x="68" y={203 + i * 17} fill="#dce8d7" fontSize="9" fontFamily="IBM Plex Mono, monospace">{text}</text>
+          <text x="54" y={203 + i * 17} textAnchor="middle" fill="#10241f" fontSize="7" fontFamily="Manrope, sans-serif">{n}</text>
+          <text x="68" y={203 + i * 17} fill="#dce8d7" fontSize="9" fontFamily="Manrope, sans-serif">{text}</text>
         </g>
       ))}
 
@@ -446,21 +405,21 @@ function GoodLife() {
         <g key={step.label} transform={`translate(${270 + i * 54} ${179 + (i === 1 ? 0 : i === 2 ? 0 : 0)})`}>
           <circle r="15" fill="#10241f" stroke={step.color} strokeWidth="2" />
           <circle r="5" fill={step.color} opacity="0.9" />
-          <text y="30" textAnchor="middle" fill={step.color} fontSize="8" fontFamily="IBM Plex Mono, monospace">{step.label}</text>
+          <text y="30" textAnchor="middle" fill={step.color} fontSize="8" fontFamily="Manrope, sans-serif">{step.label}</text>
         </g>
       ))}
 
       <rect x="390" y="142" width="134" height="116" rx="8" fill="#19352b" stroke="#496d5c" strokeWidth="1" />
-      <text x="404" y="162" fill="#f28f78" fontSize="9" letterSpacing="1.4" fontFamily="IBM Plex Mono, monospace">GUARDRAILS</text>
-      <text x="404" y="181" fill="#dce8d7" fontSize="9" fontFamily="IBM Plex Mono, monospace">debt first</text>
+      <text x="404" y="162" fill="#f28f78" fontSize="9" letterSpacing="1.4" fontFamily="Manrope, sans-serif">GUARDRAILS</text>
+      <text x="404" y="181" fill="#dce8d7" fontSize="9" fontFamily="Manrope, sans-serif">debt first</text>
       <rect x="404" y="187" width="104" height="4" rx="2" fill="#2f5b4a" />
-      <text x="404" y="207" fill="#dce8d7" fontSize="9" fontFamily="IBM Plex Mono, monospace">cash buffer</text>
+      <text x="404" y="207" fill="#dce8d7" fontSize="9" fontFamily="Manrope, sans-serif">cash buffer</text>
       <rect x="404" y="213" width="74" height="4" rx="2" fill="#f1d08b" />
-      <text x="404" y="233" fill="#dce8d7" fontSize="9" fontFamily="IBM Plex Mono, monospace">risk-aware</text>
+      <text x="404" y="233" fill="#dce8d7" fontSize="9" fontFamily="Manrope, sans-serif">risk-aware</text>
       <rect x="404" y="239" width="90" height="4" rx="2" fill="#8fbe9f" />
 
       <rect x="36" y="274" width="488" height="24" rx="12" fill="#17352c" />
-      <text x="280" y="290" textAnchor="middle" fill="#a9c2ad" fontSize="8" fontFamily="IBM Plex Mono, monospace">sleep · outdoors · meditation · cooking · relationships · meaning · rent vs own</text>
+      <text x="280" y="290" textAnchor="middle" fill="#a9c2ad" fontSize="8" fontFamily="Manrope, sans-serif">sleep · outdoors · meditation · cooking · relationships · meaning · rent vs own</text>
     </svg>
   )
 }
@@ -495,8 +454,8 @@ function Sandfall() {
       <circle cx="82" cy="89" r="22" fill="#f3d27d" opacity="0.82" />
       <circle cx="75" cy="83" r="20" fill="#1c2137" opacity="0.9" />
 
-      <text x="37" y="69" fill="#e8b65c" fontSize="9" letterSpacing="1.8" fontFamily="IBM Plex Mono, monospace">THE VILLAGE</text>
-      <text x="522" y="69" textAnchor="end" fill="#93a4b8" fontSize="8" fontFamily="IBM Plex Mono, monospace">1× · 37 PEOPLE</text>
+      <text x="37" y="69" fill="#e8b65c" fontSize="9" letterSpacing="1.8" fontFamily="Manrope, sans-serif">THE VILLAGE</text>
+      <text x="522" y="69" textAnchor="end" fill="#93a4b8" fontSize="8" fontFamily="Manrope, sans-serif">1× · 37 PEOPLE</text>
 
       <path d="M 20 218 Q 70 188 120 213 T 220 207 T 320 214 T 420 197 T 540 210 L 540 260 L 20 260 Z" fill="#5b493f" />
       <path d="M 20 230 Q 70 203 120 226 T 220 218 T 320 230 T 420 209 T 540 223 L 540 260 L 20 260 Z" fill="#8a6947" />
@@ -550,7 +509,7 @@ function Sandfall() {
         <g key={label}>
           <rect x={32 + i * 72} y="279" width="62" height="22" rx="5" fill={i === 0 ? '#302943' : '#211d37'} stroke={color} strokeWidth={i === 0 ? 1.5 : 0.7} />
           <circle cx={42 + i * 72} cy="290" r="3" fill={color} />
-          <text x={50 + i * 72} y="293" fill={color} fontSize="7" fontFamily="IBM Plex Mono, monospace">{label}</text>
+          <text x={50 + i * 72} y="293" fill={color} fontSize="7" fontFamily="Manrope, sans-serif">{label}</text>
         </g>
       ))}
     </svg>
@@ -567,7 +526,7 @@ function PaletteCard() {
     <svg {...frameProps} aria-label="PaletteCard AI illustration: three flower cards and a row of paint colors">
       <Chrome label="palettecardai.vercel.app" accent="#fda4af" />
       <rect x="20" y="48" width="520" height="262" rx="8" fill="#f7f0e3" />
-      <text x="38" y="72" fill="#7e4350" fontSize="9" letterSpacing="1.8" fontFamily="IBM Plex Mono, monospace">PALETTECARD AI / COLOR STUDIO</text>
+      <text x="38" y="72" fill="#7e4350" fontSize="9" letterSpacing="1.8" fontFamily="Manrope, sans-serif">PALETTECARD AI / COLOR STUDIO</text>
       <text x="38" y="101" fill="#352c3d" fontSize="22" fontFamily="Georgia, serif">A little color. Something personal.</text>
       {covers.map((cover, i) => (
         <g key={cover.label} transform={`translate(${76 + i * 158} 119) rotate(${cover.angle} 47 62)`}>
@@ -590,10 +549,10 @@ function PaletteCard() {
           ))}
           <circle cx="49" cy="53" r="6" fill="#efc26c" />
           <text x="49" y="106" textAnchor="middle" fill="#352c3d" fontSize="8" fontFamily="Georgia, serif">made just for you</text>
-          <text x="49" y="145" textAnchor="middle" fill="#665266" fontSize="8" fontFamily="IBM Plex Mono, monospace">{cover.label}</text>
+          <text x="49" y="145" textAnchor="middle" fill="#665266" fontSize="8" fontFamily="Manrope, sans-serif">{cover.label}</text>
         </g>
       ))}
-      <text x="38" y="294" fill="#665266" fontSize="9" fontFamily="IBM Plex Mono, monospace">PICK ONE. PAINT YOUR OWN.</text>
+      <text x="38" y="294" fill="#665266" fontSize="9" fontFamily="Manrope, sans-serif">PICK ONE. PAINT YOUR OWN.</text>
       {['#d66e83', '#efc26c', '#7b9874', '#73a9dc', '#f8e9d8'].map((color, i) => (
         <circle key={color} cx={338 + i * 30} cy="289" r="10" fill={color} stroke="#665266" strokeWidth="1" />
       ))}
@@ -608,7 +567,7 @@ function SlimWaste() {
     <svg {...frameProps} aria-label="SlimWaste illustration: review a food estimate and choose a next step">
       <Chrome label="slimwaste.vercel.app" accent="#6ee7b7" />
       <rect x="20" y="50" width="520" height="260" rx="8" fill="#eaf3e5" />
-      <text x="40" y="78" fill="#24685d" fontSize="11" letterSpacing="2" fontFamily="IBM Plex Mono, monospace">SLIMWASTE / REVIEW YOUR SCAN</text>
+      <text x="40" y="78" fill="#24685d" fontSize="11" letterSpacing="2" fontFamily="Manrope, sans-serif">SLIMWASTE / REVIEW YOUR SCAN</text>
       <circle cx="139" cy="181" r="73" fill="#fffdf0" stroke="#a4c4b0" strokeWidth="2" />
       <circle cx="139" cy="181" r="56" fill="none" stroke="#d0dec6" strokeWidth="2" />
       <path d="M 105 196 Q 99 144 130 148 Q 161 160 156 190 Q 147 213 105 196" fill="#dfc477" />
@@ -616,10 +575,10 @@ function SlimWaste() {
       <path d="M 157 174 L 171 150" stroke="#24685d" strokeWidth="2" />
       <rect x="242" y="107" width="278" height="151" rx="10" fill="#fffdf0" />
       <text x="262" y="136" fill="#174c43" fontSize="18" fontFamily="Georgia, serif">A rough estimate. Your call.</text>
-      <text x="262" y="168" fill="#24685d" fontSize="12" fontFamily="IBM Plex Mono, monospace">Leftover rice</text>
-      <text x="262" y="191" fill="#24685d" fontSize="11" fontFamily="IBM Plex Mono, monospace">About ½–1 cup · editable</text>
+      <text x="262" y="168" fill="#24685d" fontSize="12" fontFamily="Manrope, sans-serif">Leftover rice</text>
+      <text x="262" y="191" fill="#24685d" fontSize="11" fontFamily="Manrope, sans-serif">About ½–1 cup · editable</text>
       <rect x="262" y="212" width="238" height="28" rx="14" fill="#24685d" />
-      <text x="381" y="230" textAnchor="middle" fill="#fffdf0" fontSize="11" fontFamily="IBM Plex Mono, monospace">Save your corrected record</text>
+      <text x="381" y="230" textAnchor="middle" fill="#fffdf0" fontSize="11" fontFamily="Manrope, sans-serif">Save your corrected record</text>
       <text x="40" y="288" fill="#174c43" fontSize="14" fontFamily="Georgia, serif">One small change for the next grocery run.</text>
     </svg>
   )
@@ -630,18 +589,18 @@ function Typer() {
     <svg {...frameProps} aria-label="Typer.AI illustration: local autocomplete with Tab to accept">
       <Chrome label="mutms7.github.io/Typer.AI" accent="#67e8f9" />
       <rect x="20" y="50" width="520" height="260" rx="8" fill="#14122b" />
-      <text x="40" y="78" fill="#67e8f9" fontSize="11" letterSpacing="2" fontFamily="IBM Plex Mono, monospace">TYPER.AI / YOUR WORDS, LESS TYPING</text>
+      <text x="40" y="78" fill="#67e8f9" fontSize="11" letterSpacing="2" fontFamily="Manrope, sans-serif">TYPER.AI / YOUR WORDS, LESS TYPING</text>
       <text x="40" y="115" fill="#f1ebdd" fontSize="23" fontFamily="Georgia, serif">Notes on neural networks</text>
       <line x1="40" y1="134" x2="520" y2="134" stroke="#403868" />
-      <text x="40" y="169" fill="#f1ebdd" fontSize="15" fontFamily="IBM Plex Mono, monospace">The model learns through</text>
-      <text x="40" y="200" fontSize="15" fontFamily="IBM Plex Mono, monospace">
+      <text x="40" y="169" fill="#f1ebdd" fontSize="15" fontFamily="Manrope, sans-serif">The model learns through</text>
+      <text x="40" y="200" fontSize="15" fontFamily="Manrope, sans-serif">
         <tspan fill="#f1ebdd">back</tspan><tspan fill="#9a93b8">propagation</tspan>
       </text>
       <line x1="76" y1="185" x2="76" y2="204" stroke="#67e8f9" strokeWidth="2" />
       <rect x="40" y="230" width="124" height="30" rx="6" fill="#221c40" stroke="#67e8f9" />
-      <text x="102" y="250" textAnchor="middle" fill="#67e8f9" fontSize="11" fontFamily="IBM Plex Mono, monospace">Tab to accept</text>
-      <text x="183" y="250" fill="#9a93b8" fontSize="11" fontFamily="IBM Plex Mono, monospace">Escape to dismiss</text>
-      <text x="40" y="288" fill="#9a93b8" fontSize="10" fontFamily="IBM Plex Mono, monospace">Background AI ranking. Instant local completion.</text>
+      <text x="102" y="250" textAnchor="middle" fill="#67e8f9" fontSize="11" fontFamily="Manrope, sans-serif">Tab to accept</text>
+      <text x="183" y="250" fill="#9a93b8" fontSize="11" fontFamily="Manrope, sans-serif">Escape to dismiss</text>
+      <text x="40" y="288" fill="#9a93b8" fontSize="10" fontFamily="Manrope, sans-serif">Background AI ranking. Instant local completion.</text>
     </svg>
   )
 }
@@ -696,8 +655,6 @@ export default function ProjectArt({ title }: Props) {
       return <UmbrellaShare />
     case 'Hairrison':
       return <Hairrison />
-    case 'RougeRogue':
-      return <RougeRogue />
     case 'ConquestCartes':
       return <ConquestCartes />
     case 'Blend Together':

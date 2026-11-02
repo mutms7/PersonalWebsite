@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
-import { getProjectSectionId, getProjectsInDisplayOrder, resume, type Shot } from './data/resume'
+import { getProjectSectionId, getProjectsInDisplayOrder, portfolioStats, resume, type Shot } from './data/resume'
 import StoryGraph from './components/StoryGraph'
 import WebBackdrop from './components/WebBackdrop'
 import ProjectArt from './components/ProjectArt'
@@ -10,7 +10,9 @@ const accentText: Record<string, string> = {
   emerald: 'text-glow-emerald',
   amber: 'text-glow-amber',
   rose: 'text-glow-rose',
-  blue: 'text-glow-blue'
+  blue: 'text-glow-blue',
+  violet: 'text-glow-violet',
+  orange: 'text-glow-orange'
 }
 
 const accentBorder: Record<string, string> = {
@@ -18,7 +20,9 @@ const accentBorder: Record<string, string> = {
   emerald: 'border-glow-emerald',
   amber: 'border-glow-amber',
   rose: 'border-glow-rose',
-  blue: 'border-glow-blue'
+  blue: 'border-glow-blue',
+  violet: 'border-glow-violet',
+  orange: 'border-glow-orange'
 }
 
 const reducedMotion = () =>
@@ -133,7 +137,7 @@ function useActiveSection(ids: string[]) {
 function SectionLabel({ kicker, title }: { kicker: string; title: string }) {
   return (
     <header className="reveal mb-12">
-      <p className="font-mono text-sm uppercase tracking-[0.3em] text-glow-amber">{kicker}</p>
+      <p className="font-label text-sm uppercase tracking-[0.3em] text-glow-amber">{kicker}</p>
       <h2 className="mt-3 font-display text-4xl sm:text-5xl font-medium">{title}</h2>
     </header>
   )
@@ -163,10 +167,10 @@ function TopBar() {
   return (
     <nav className="sticky top-0 z-40 border-b border-thread/60 bg-ink/85 backdrop-blur">
       <div className="mx-auto flex max-w-page items-center justify-between px-5 py-3 sm:px-8">
-        <a href="#top" onClick={() => setOpen(false)} className="font-mono text-sm text-paper">
+        <a href="#top" onClick={() => setOpen(false)} className="font-label text-sm text-paper">
           w.chenyin<span className="text-glow-amber">()</span>
         </a>
-        <div className="hidden gap-6 font-mono text-sm md:flex">
+        <div className="hidden gap-6 font-label text-sm md:flex">
           {links.map(([label, id]) => (
             <a
               key={id}
@@ -181,7 +185,7 @@ function TopBar() {
         </div>
         <a
           href={`mailto:${resume.email}`}
-          className="hidden rounded-full border border-glow-amber px-4 py-1.5 font-mono text-sm text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink md:inline-block"
+          className="hidden rounded-full border border-glow-amber px-4 py-1.5 font-label text-sm text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink md:inline-block"
         >
           Say hello
         </a>
@@ -217,7 +221,7 @@ function TopBar() {
                 <a
                   href={`#${id}`}
                   onClick={() => setOpen(false)}
-                  className={`flex min-h-[3rem] items-center font-mono text-sm transition-colors ${
+                  className={`flex min-h-[3rem] items-center font-label text-sm transition-colors ${
                     active === id ? 'text-glow-amber' : 'text-fade'
                   }`}
                 >
@@ -229,7 +233,7 @@ function TopBar() {
           <a
             href={`mailto:${resume.email}`}
             onClick={() => setOpen(false)}
-            className="mt-2 flex min-h-[3rem] items-center justify-center rounded-full border border-glow-amber font-mono text-sm text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink"
+            className="mt-2 flex min-h-[3rem] items-center justify-center rounded-full border border-glow-amber font-label text-sm text-glow-amber transition-colors hover:bg-glow-amber hover:text-ink"
           >
             Say hello
           </a>
@@ -249,11 +253,12 @@ function Hero() {
   const step = (i: number) => ({ animationDelay: `${0.04 + i * 0.08}s` })
 
   return (
-    <section id="top" className="mx-auto grid max-w-page items-center gap-12 overflow-x-clip px-5 pb-24 pt-16 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-24">
+    <section id="top" className="mx-auto grid max-w-page items-start gap-8 overflow-x-clip px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-10">
       <div>
-        <p className="hero-enter font-mono text-sm uppercase tracking-[0.3em] text-fade" style={step(0)}>
-          {resume.location} · {resume.availability}
-        </p>
+        <div className="hero-enter font-label text-sm leading-relaxed text-fade" style={step(0)}>
+          <p>{resume.location}</p>
+          <p className="mt-1">{resume.availability}</p>
+        </div>
         <h1
           className="hero-enter mt-6 font-display font-medium leading-[1.02] tracking-[-0.02em] text-[clamp(2.75rem,7vw,5.25rem)]"
           style={step(1)}
@@ -268,14 +273,14 @@ function Hero() {
           </span>
         </h1>
         <p className="hero-enter mt-7 max-w-xl text-lg leading-relaxed text-fade" style={step(2)}>
-          I'm <span className="text-paper">{resume.name}</span>, founder of GoodLife.AI and a Waterloo CS
-          student. GoodLife runs its AI on your device. I also build finance dashboards, interactive fiction,
-          3D browser games, and quantum tooling. Different genres, one author: endings worth reaching.
+          I'm <span className="text-paper">{resume.name}</span>, a Waterloo CS student. I build tools
+          like EastEats for finding food and GoodLife.AI for planning your day, along with browser games
+          and simulations.
         </p>
         <div className="hero-enter mt-8 flex flex-wrap gap-4" style={step(3)}>
           <a
             href="#scenes"
-            className="rounded-full bg-glow-amber px-6 py-3 font-mono text-sm text-ink transition-transform hover:-translate-y-0.5"
+            className="rounded-full bg-glow-amber px-6 py-3 font-label text-sm text-ink transition-transform hover:-translate-y-0.5"
           >
             Read the scenes
           </a>
@@ -283,16 +288,16 @@ function Hero() {
             href={`https://${resume.github}`}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-thread px-6 py-3 font-mono text-sm text-paper transition-colors hover:border-paper"
+            className="rounded-full border border-thread px-6 py-3 font-label text-sm text-paper transition-colors hover:border-paper"
           >
             github/mutms7
           </a>
         </div>
         <dl className="hero-enter mt-12 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4" style={step(4)}>
-          {resume.stats.map((stat) => (
+          {portfolioStats.map((stat) => (
             <div key={stat.label}>
-              <dd className="font-display text-4xl leading-none text-paper">{stat.value}</dd>
-              <dt className="mt-2 font-mono text-xs uppercase tracking-widest text-fade">{stat.label}</dt>
+              <dd className="whitespace-nowrap font-display text-3xl leading-none text-paper">{stat.value}</dd>
+              <dt className="mt-2 font-label text-xs uppercase tracking-widest text-fade">{stat.label}</dt>
             </div>
           ))}
         </dl>
@@ -307,7 +312,7 @@ function Hero() {
                 className="block h-auto w-full"
               />
             </div>
-            <figcaption className="mt-3 text-center font-mono text-sm text-fade">
+            <figcaption className="mt-3 text-center font-label text-sm text-fade">
               the author, between takes · the water boys, winter 2026
             </figcaption>
           </figure>
@@ -380,7 +385,7 @@ function Lightbox({
         ref={closeRef}
         onClick={onClose}
         aria-label="Close screenshot"
-        className="absolute right-4 top-4 rounded-full border border-thread bg-dusk/60 px-3 py-1.5 font-mono text-sm text-paper transition-colors hover:border-glow-amber hover:text-glow-amber"
+        className="absolute right-4 top-4 rounded-full border border-thread bg-dusk/60 px-3 py-1.5 font-label text-sm text-paper transition-colors hover:border-glow-amber hover:text-glow-amber"
       >
         Close ✕
       </button>
@@ -390,7 +395,7 @@ function Lightbox({
           alt={shot.caption}
           className="mx-auto max-h-[78vh] w-auto rounded-xl border border-thread shadow-[0_30px_90px_-20px_rgba(0,0,0,0.9)]"
         />
-        <figcaption className="mt-4 px-4 text-center font-mono text-sm text-fade">
+        <figcaption className="mt-4 px-4 text-center font-label text-sm text-fade">
           {shot.caption}
           {many && <span className="ml-3 text-fade">{index + 1} / {shots.length}</span>}
         </figcaption>
@@ -399,14 +404,14 @@ function Lightbox({
             <button
               onClick={() => onNav(-1)}
               aria-label="Previous screenshot"
-              className="absolute -left-2 top-1/2 -translate-y-1/2 rounded-full border border-thread bg-ink/80 px-3 py-2 font-mono text-lg text-paper transition-colors hover:border-glow-amber hover:text-glow-amber sm:-left-14"
+              className="absolute -left-2 top-1/2 -translate-y-1/2 rounded-full border border-thread bg-ink/80 px-3 py-2 font-label text-lg text-paper transition-colors hover:border-glow-amber hover:text-glow-amber sm:-left-14"
             >
               ‹
             </button>
             <button
               onClick={() => onNav(1)}
               aria-label="Next screenshot"
-              className="absolute -right-2 top-1/2 -translate-y-1/2 rounded-full border border-thread bg-ink/80 px-3 py-2 font-mono text-lg text-paper transition-colors hover:border-glow-amber hover:text-glow-amber sm:-right-14"
+              className="absolute -right-2 top-1/2 -translate-y-1/2 rounded-full border border-thread bg-ink/80 px-3 py-2 font-label text-lg text-paper transition-colors hover:border-glow-amber hover:text-glow-amber sm:-right-14"
             >
               ›
             </button>
@@ -449,17 +454,17 @@ function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => 
           >
             <div className="grid gap-8 lg:grid-cols-[220px_1fr]">
               <aside>
-                <p className={`font-mono text-sm uppercase tracking-[0.3em] ${accentText[project.accent]}`}>
+                <p className={`font-label text-sm uppercase tracking-[0.3em] ${accentText[project.accent]}`}>
                   Scene {String(i + 1).padStart(2, '0')}
                 </p>
-                <p className="mt-4 font-mono text-sm text-fade">{project.category}</p>
-                <p className="mt-1 font-mono text-sm text-fade">{project.date}</p>
-                <p className={`mt-4 inline-block rounded-full border px-3 py-1 font-mono text-xs ${accentBorder[project.accent]} ${accentText[project.accent]}`}>
+                <p className="mt-4 font-label text-sm text-fade">{project.category}</p>
+                <p className="mt-1 font-label text-sm text-fade">{project.date}</p>
+                <p className={`mt-4 inline-block rounded-full border px-3 py-1 font-label text-xs ${accentBorder[project.accent]} ${accentText[project.accent]}`}>
                   {project.status}
                 </p>
                 <ul className="mt-6 flex flex-wrap gap-2">
                   {project.stack.map((tech) => (
-                    <li key={tech} className="rounded bg-dusk px-2.5 py-1 font-mono text-xs text-fade">
+                    <li key={tech} className="rounded bg-dusk px-2.5 py-1 font-label text-xs text-fade">
                       {tech}
                     </li>
                   ))}
@@ -478,7 +483,7 @@ function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => 
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-7 flex flex-wrap gap-5 font-mono text-sm">
+                    <div className="mt-7 flex flex-wrap gap-5 font-label text-sm">
                       {project.desktopDownload && (
                         <a
                           href={project.desktopDownload}
@@ -513,13 +518,12 @@ function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => 
                       <div className={`overflow-hidden rounded-xl border ${accentBorder[project.accent]} border-opacity-40 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)]`}>
                         <ProjectArt title={project.title} />
                       </div>
-                      <p className="mt-2 text-center font-mono text-xs text-fade">illustrated preview, drawn in code</p>
+                      <p className="mt-2 text-center font-label text-xs text-fade">illustrated preview, drawn in code</p>
                     </Tilt>
                     {project.shots && project.shots.length > 0 && (
                       <div className="mt-6">
-                        <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-fade">
-                          From the real build →{' '}
-                          <span className="text-paper/70">tap to enlarge</span>
+                        <p className="mb-2 font-label text-xs uppercase tracking-[0.2em] text-fade">
+                          From the real build
                         </p>
                         <div className="flex flex-wrap gap-2.5">
                           {project.shots.map((shot, si) => (
@@ -557,7 +561,7 @@ function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => 
             setExpanded(!expanded)
             if (expanded) document.getElementById('scenes')?.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth' })
           }}
-          className="mt-12 min-h-11 rounded-lg border border-thread px-5 py-3 font-mono text-sm text-paper transition-colors hover:border-glow-amber hover:text-glow-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-glow-amber"
+          className="mt-12 min-h-11 rounded-lg border border-thread px-5 py-3 font-label text-sm text-paper transition-colors hover:border-glow-amber hover:text-glow-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-glow-amber"
         >
           {expanded ? 'Show fewer projects ↑' : `More projects (${projects.length - 4}) ↓`}
         </button>
@@ -580,8 +584,8 @@ function Backstory() {
             </div>
           ))}
         </div>
-        <p className="reveal mt-10 font-mono text-sm text-fade">
-          Off the keyboard: {resume.interests.join(' · ').toLowerCase()}.
+        <p className="reveal mt-10 text-lg leading-relaxed text-paper">
+          Off the keyboard: {resume.interests.join(' · ')}
         </p>
       </div>
     </section>
@@ -589,40 +593,41 @@ function Backstory() {
 }
 
 function Timeline() {
-  const entries = [
-    ...resume.education.map((e) => ({
-      title: e.school,
-      subtitle: e.degree,
-      date: e.date,
-      bullets: e.details ? [e.details] : []
-    })),
-    ...resume.experience.map((e) => ({
-      title: `${e.role} · ${e.company}`,
-      subtitle: e.location ?? '',
-      date: e.date,
-      bullets: e.bullets
-    }))
-  ]
   return (
     <section id="timeline" className="mx-auto max-w-page px-5 py-20 sm:px-8">
       <SectionLabel kicker="Act III · The arc" title="Timeline" />
-      <ol className="relative ml-3 space-y-12 border-l border-thread pl-8">
-        {entries.map((entry, i) => (
-          <li key={entry.title} className="reveal relative" style={{ transitionDelay: `${i * 0.1}s` }}>
-            <span className="absolute -left-[39px] top-1.5 h-3 w-3 rounded-full border border-glow-amber bg-ink" aria-hidden />
-            <p className="font-mono text-sm uppercase tracking-widest text-fade">{entry.date}</p>
-            <h3 className="mt-2 font-display text-2xl">{entry.title}</h3>
-            {entry.subtitle && <p className="mt-1 text-fade">{entry.subtitle}</p>}
-            <ul className="mt-3 max-w-2xl space-y-2 text-fade">
-              {entry.bullets.map((b) => (
-                <li key={b} className="leading-relaxed">
-                  {b}
-                </li>
-              ))}
-            </ul>
+      <h3 className="mb-6 font-label text-sm font-semibold uppercase tracking-widest text-fade">Experience</h3>
+      <ol className="divide-y divide-thread/60 border-y border-thread/60">
+        {resume.experience.map((entry) => (
+          <li key={entry.company} className="reveal grid gap-3 py-7 sm:grid-cols-[190px_1fr] sm:gap-8">
+            <div className="font-label text-sm leading-relaxed text-fade">
+              <p>{entry.date}</p>
+              <p className="mt-1">{entry.location}</p>
+            </div>
+            <div>
+              <h4 className="font-display text-2xl text-paper">{entry.company}</h4>
+              <p className="mt-1 text-lg font-medium text-glow-blue">{entry.role}</p>
+              <ul className="mt-4 max-w-3xl space-y-2 text-fade">
+                {entry.bullets.map((bullet) => <li key={bullet} className="leading-relaxed">{bullet}</li>)}
+              </ul>
+            </div>
           </li>
         ))}
       </ol>
+      <h3 className="mb-6 mt-10 font-label text-sm font-semibold uppercase tracking-widest text-fade">Education</h3>
+      {resume.education.map((entry) => (
+        <div key={entry.school} className="reveal grid gap-3 border-y border-thread/60 py-7 sm:grid-cols-[190px_1fr] sm:gap-8">
+          <div className="font-label text-sm leading-relaxed text-fade">
+            <p>{entry.date}</p>
+            <p className="mt-1">Waterloo, ON</p>
+          </div>
+          <div>
+            <h4 className="font-display text-2xl text-paper">{entry.school}</h4>
+            <p className="mt-1 text-lg font-medium text-glow-blue">{entry.degree}</p>
+            <p className="mt-4 max-w-3xl leading-relaxed text-fade">{entry.details}</p>
+          </div>
+        </div>
+      ))}
     </section>
   )
 }
@@ -636,7 +641,7 @@ function Glossary() {
           {resume.skills.map((skill) => (
             <li
               key={skill}
-              className="rounded-full border border-thread px-4 py-2 font-mono text-sm text-fade transition-all hover:-translate-y-0.5 hover:border-glow-amber hover:text-paper"
+              className="rounded-full border border-thread px-4 py-2 font-label text-sm text-fade transition-all hover:-translate-y-0.5 hover:border-glow-amber hover:text-paper"
             >
               {skill}
             </li>
@@ -724,7 +729,7 @@ function Epilogue() {
 
   return (
     <section id="epilogue" className="mx-auto max-w-page px-5 py-24 sm:px-8">
-      <SectionLabel kicker="Epilogue · Your move" title="Choose your next branch" />
+      <SectionLabel kicker="Epilogue" title="Get in touch" />
       <div className="grid gap-12 lg:grid-cols-2">
         <div className="reveal space-y-4">
           {choices.map((choice) => (
@@ -736,12 +741,12 @@ function Epilogue() {
               className="block rounded-xl border border-thread bg-dusk/40 px-6 py-5 transition-all hover:-translate-y-0.5 hover:border-glow-amber"
             >
               <span className="font-display text-xl text-paper">{choice.label}</span>
-              <span className="mt-1 block font-mono text-sm text-fade">{choice.detail}</span>
+              <span className="mt-1 block font-label text-sm text-fade">{choice.detail}</span>
             </a>
           ))}
         </div>
         <div className="reveal rounded-xl border border-thread bg-dusk/40 p-6">
-          <h3 className="font-display text-xl">Or write the next line here</h3>
+          <h3 className="font-display text-xl">Send me a message</h3>
           <form onSubmit={handleSubmit} noValidate className="mt-5 space-y-4">
             <div>
               <input
@@ -755,7 +760,7 @@ function Epilogue() {
                 aria-describedby={errors.name ? 'cf-name-err' : undefined}
                 className={`w-full rounded-lg border bg-ink px-4 py-3 text-paper placeholder:text-fade ${errors.name ? 'border-glow-rose' : 'border-thread'}`}
               />
-              {errors.name && <p id="cf-name-err" className="mt-1.5 font-mono text-xs text-glow-rose">{errors.name}</p>}
+              {errors.name && <p id="cf-name-err" className="mt-1.5 font-label text-xs text-glow-rose">{errors.name}</p>}
             </div>
             <div>
               <input
@@ -770,7 +775,7 @@ function Epilogue() {
                 aria-describedby={errors.email ? 'cf-email-err' : undefined}
                 className={`w-full rounded-lg border bg-ink px-4 py-3 text-paper placeholder:text-fade ${errors.email ? 'border-glow-rose' : 'border-thread'}`}
               />
-              {errors.email && <p id="cf-email-err" className="mt-1.5 font-mono text-xs text-glow-rose">{errors.email}</p>}
+              {errors.email && <p id="cf-email-err" className="mt-1.5 font-label text-xs text-glow-rose">{errors.email}</p>}
             </div>
             <div>
               <textarea
@@ -785,7 +790,7 @@ function Epilogue() {
                 aria-describedby={errors.message ? 'cf-message-err' : undefined}
                 className={`w-full rounded-lg border bg-ink px-4 py-3 text-paper placeholder:text-fade ${errors.message ? 'border-glow-rose' : 'border-thread'}`}
               />
-              {errors.message && <p id="cf-message-err" className="mt-1.5 font-mono text-xs text-glow-rose">{errors.message}</p>}
+              {errors.message && <p id="cf-message-err" className="mt-1.5 font-label text-xs text-glow-rose">{errors.message}</p>}
             </div>
             <input
               value={website}
@@ -798,11 +803,11 @@ function Epilogue() {
             <button
               type="submit"
               disabled={status === 'sending'}
-              className="w-full rounded-lg bg-glow-amber py-3 font-mono text-sm text-ink transition-opacity disabled:opacity-60"
+              className="w-full rounded-lg bg-glow-amber py-3 font-label text-sm text-ink transition-opacity disabled:opacity-60"
             >
               {status === 'sending' ? 'Sending…' : 'Send message'}
             </button>
-            <p role="status" aria-live="polite" className="min-h-[1.25rem] font-mono text-sm">
+            <p role="status" aria-live="polite" className="min-h-[1.25rem] font-label text-sm">
               {status === 'success' && <span className="text-glow-emerald">Message sent. I'll reply soon.</span>}
               {status === 'error' && (
                 <span className="text-glow-rose">Couldn't send. Please email me directly at {resume.email}.</span>
@@ -818,9 +823,8 @@ function Epilogue() {
 function Footer() {
   return (
     <footer className="border-t border-thread/60">
-      <div className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-3 px-5 py-8 font-mono text-sm text-fade sm:px-8">
+      <div className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-3 px-5 py-8 font-label text-sm text-fade sm:px-8">
         <p>© {new Date().getFullYear()} {resume.name}. Hand-built with React, TypeScript, and Tailwind.</p>
-        <p>fin, until the next commit.</p>
       </div>
     </footer>
   )
