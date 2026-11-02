@@ -14,7 +14,7 @@ const accentHex: Record<string, string> = {
 // Positions keyed by project index in resume.projects (Sandfall is index 0):
 // 0 Sandfall · 1 GoodLife.AI · 2 PaletteCard AI · 3 ConquestCartes · 4 Blend Together · 5 Molt
 // 6 StockTracker · 7 The Air Outside · 8 HardHaq '25 · 9 UmbrellaShare · 10 Hairrison · 11 RougeRogue
-// 12 SlimWaste · 13 Typer.AI
+// 12 SlimWaste · 13 Typer.AI · 14 EastEats
 // Four clusters, with AI tools on the right and Sandfall anchoring the interactive worlds.
 const positions: Record<number, { x: number; y: number }> = {
   7: { x: 110, y: 150 },
@@ -30,7 +30,8 @@ const positions: Record<number, { x: number; y: number }> = {
   1: { x: 1030, y: 380 },
   2: { x: 990, y: 505 },
   10: { x: 1070, y: 630 },
-  6: { x: 710, y: 470 }
+  6: { x: 710, y: 470 },
+  14: { x: 840, y: 630 }
 }
 
 const clusters = [
@@ -44,7 +45,7 @@ const clusters = [
 // indices into resume.projects). The SVG map is unreadable below ~640px, so
 // small screens get this legible, tappable list instead of a shrunken graph.
 const clusterGroups: { label: string; members: number[] }[] = [
-  { label: 'AI projects', members: [12, 13, 1, 2, 10] },
+  { label: 'AI projects', members: [14, 13, 12, 1, 2, 10] },
   { label: 'live products', members: [3, 4, 6] },
   { label: 'hackathon podiums', members: [8, 9] },
   { label: 'interactive worlds', members: [0, 7, 11, 5] }
@@ -53,6 +54,8 @@ const clusterGroups: { label: string; members: number[] }[] = [
 type Edge = { a: number; b: number; label: string }
 
 const edgeList: Edge[] = [
+  { a: 14, b: 12, label: 'Food tools built around personal habits and choices' },
+  { a: 14, b: 13, label: 'Background AI work stays separate from everyday interaction' },
   { a: 12, b: 1, label: 'Small, practical next steps from a coach built around your own context' },
   { a: 12, b: 10, label: 'Photo-based tools with a review step before the result becomes useful' },
   { a: 13, b: 1, label: 'Local interaction keeps working without waiting for a cloud model' },
@@ -235,7 +238,13 @@ export default function StoryGraph() {
   }, [activeNode, activeEdge, projects])
 
   function goTo(index: number) {
-    const el = document.getElementById(getProjectSectionId(projects[index].title))
+    const id = getProjectSectionId(projects[index].title)
+    if (window.location.hash === `#${id}`) {
+      window.dispatchEvent(new HashChangeEvent('hashchange'))
+    } else {
+      window.location.hash = id
+    }
+    const el = document.getElementById(id)
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     el?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
   }

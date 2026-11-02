@@ -72,8 +72,9 @@ export type Resume = {
 // first. Keep this separate from the data array because the story map has its
 // own thematic layout and should not change when the editorial order does.
 export const projectDisplayOrder = [
-  'SlimWaste',
+  'EastEats',
   'Typer.AI',
+  'SlimWaste',
   'GoodLife.AI',
   'PaletteCard AI',
   'Sandfall',
@@ -416,6 +417,24 @@ export const resume: Resume = {
         "The extension works in ordinary text fields and supported editable pages, with a confidence slider and per-site pause. The browser demo lets you try it first. Google Docs needs a separate adapter."
       ],
       accent: 'cyan',
+      featured: true
+    },
+    {
+      title: 'EastEats',
+      subtitle: 'Find East Asian food around you, ranked around what you actually like eating.',
+      category: 'AI · restaurant discovery',
+      status: 'Live web app · native clients in development',
+      date: 'Oct. 2026 - Present',
+      live: 'https://easteats.vercel.app',
+      repo: 'https://github.com/mutms7/easteats',
+      stack: ['Next.js', 'TypeScript', 'React Native / Expo', 'Supabase', 'PostgreSQL / PostGIS', 'Claude', 'Apify'],
+      highlight: "Tell EastEats where you love eating and why, then find your next spot from a list built around your tastes.",
+      bullets: [
+        "I wanted food, service, and atmosphere to count separately. A rushed ordering experience shouldn't bury a great bowl of noodles, so Claude extracts review evidence and my ranking code weighs it against each person's preferences. Missing evidence stays neutral.",
+        "I made returning to your last list the default. Searches stay with your account, and reopening one or liking a restaurant doesn't call Apify or Claude. A new search or explicit refresh collects fresh places.",
+        "Listings appear while review analysis runs in the background, with stable batches covering up to 120 restaurants under spending limits. The Next.js web app and Expo mobile clients share the same authenticated backend; native store releases are still pending."
+      ],
+      accent: 'rose',
       featured: true
     }
   ],

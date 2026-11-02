@@ -13,7 +13,7 @@ A portfolio built as a story system: an interactive SVG story graph for a hero, 
 ## Highlights
 
 - Hand-coded interactive SVG story graph in the hero — each node is a project, edges draw in like ink, and clicking a node jumps to its scene.
-- Editorial "scene" layout for projects with consistent metadata, technology tags, links, and per-project accent colors. SlimWaste and Typer.AI lead the project list, followed by GoodLife.AI, PaletteCard AI, and Sandfall.
+- Editorial "scene" layout for projects with consistent metadata, technology tags, links, and per-project accent colors. EastEats, Typer.AI, SlimWaste, and GoodLife.AI appear first, with a More projects button for the rest. Story-map selections and direct links reveal older projects automatically.
 - Fraunces / Instrument Sans / IBM Plex Mono type system on a deep indigo-dusk palette.
 - Backstory, timeline, glossary (skills), and an epilogue contact section styled as dialogue choices.
 - Contact form with Vercel serverless forwarding plus a Formspree fallback; reduced-motion and keyboard-focus support throughout.

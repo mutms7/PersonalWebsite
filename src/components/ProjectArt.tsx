@@ -646,8 +646,36 @@ function Typer() {
   )
 }
 
+function EastEats() {
+  return (
+    <svg {...frameProps} aria-label="EastEats illustrated preview of taste preferences and restaurant discovery">
+      <Chrome label="easteats.vercel.app" accent="#fda4af" />
+      <rect x="20" y="50" width="520" height="260" rx="8" fill="#fff9f2" />
+      <text x="40" y="84" fill="#bf3038" fontSize="24" fontFamily="Georgia, serif">EastEats</text>
+      <text x="40" y="110" fill="#514047" fontSize="12">Your next bowl of noodles, your kind of place.</text>
+      <rect x="40" y="130" width="220" height="35" rx="17" fill="#fbe2dc" />
+      <text x="55" y="152" fill="#8c2830" fontSize="11">Noodles · Nearby · Your tastes</text>
+      <rect x="40" y="182" width="220" height="105" rx="10" fill="#ffffff" stroke="#e9d9d2" />
+      <text x="55" y="207" fill="#352832" fontSize="15" fontFamily="Georgia, serif">Find your kind of good.</text>
+      <text x="55" y="232" fill="#67565c" fontSize="11">Food · Value · Taste fit</text>
+      <text x="55" y="254" fill="#67565c" fontSize="11">Review evidence, personal priorities.</text>
+      <text x="55" y="275" fill="#bf3038" fontSize="11">Return to your saved list →</text>
+      <rect x="280" y="130" width="240" height="157" rx="10" fill="#eee9db" />
+      <path d="M 280 170 L 520 230 M 320 130 L 380 287 M 460 130 L 400 287 M 280 260 L 520 160" fill="none" stroke="#fffdf7" strokeWidth="12" />
+      {[[340, 185], [440, 215], [390, 255]].map(([x, y]) => (
+        <g key={x} transform={`translate(${x} ${y})`}>
+          <path d="M 0 13 C -23 -9 -10 -22 0 -22 C 10 -22 23 -9 0 13" fill="#bf3038" />
+          <circle cy="-8" r="5" fill="#fff9f2" />
+        </g>
+      ))}
+    </svg>
+  )
+}
+
 export default function ProjectArt({ title }: Props) {
   switch (title) {
+    case 'EastEats':
+      return <EastEats />
     case 'SlimWaste':
       return <SlimWaste />
     case 'Typer.AI':

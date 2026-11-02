@@ -419,15 +419,32 @@ function Lightbox({
 
 function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => void }) {
   const projects = getProjectsInDisplayOrder(resume.projects)
+  const [expanded, setExpanded] = useState(false)
+
+  useEffect(() => {
+    const revealTarget = () => {
+      const id = window.location.hash.slice(1)
+      if (projects.slice(4).some((project) => getProjectSectionId(project.title) === id)) {
+        setExpanded(true)
+        requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({
+          behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start'
+        }))
+      }
+    }
+    revealTarget()
+    window.addEventListener('hashchange', revealTarget)
+    return () => window.removeEventListener('hashchange', revealTarget)
+  }, [])
 
   return (
     <section id="scenes" className="mx-auto max-w-page px-5 py-20 sm:px-8">
       <SectionLabel kicker="Act I · The work" title="Scenes" />
-      <div className="space-y-24">
+      <div id="project-scenes" className="space-y-24">
         {projects.map((project, i) => (
           <article
             key={project.title}
             id={getProjectSectionId(project.title)}
+            hidden={!expanded && i >= 4}
             className="reveal scroll-mt-24 border-t border-thread/60 pt-10"
           >
             <div className="grid gap-8 lg:grid-cols-[220px_1fr]">
@@ -531,6 +548,20 @@ function Scenes({ onOpenShot }: { onOpenShot: (shots: Shot[], index: number) => 
           </article>
         ))}
       </div>
+      {projects.length > 4 && (
+        <button
+          type="button"
+          aria-expanded={expanded}
+          aria-controls="project-scenes"
+          onClick={() => {
+            setExpanded(!expanded)
+            if (expanded) document.getElementById('scenes')?.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth' })
+          }}
+          className="mt-12 min-h-11 rounded-lg border border-thread px-5 py-3 font-mono text-sm text-paper transition-colors hover:border-glow-amber hover:text-glow-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-glow-amber"
+        >
+          {expanded ? 'Show fewer projects ↑' : `More projects (${projects.length - 4}) ↓`}
+        </button>
+      )}
     </section>
   )
 }
