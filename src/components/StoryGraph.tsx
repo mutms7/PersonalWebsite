@@ -350,7 +350,10 @@ export default function StoryGraph() {
               className="constellation-node cursor-pointer"
               onMouseEnter={() => setActiveNode(i)}
               onMouseLeave={() => setActiveNode(null)}
-              onFocus={() => setActiveNode(i)}
+              onFocus={() => {
+                setActiveEdge(null)
+                setActiveNode(i)
+              }}
               onBlur={() => setActiveNode(null)}
               onClick={() => goTo(i)}
               onKeyDown={(e) => {
