@@ -254,13 +254,13 @@ function Hero() {
 
   return (
     <section id="top" className="mx-auto grid max-w-page items-start gap-8 overflow-x-clip px-5 pb-14 pt-8 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-10">
-      <div>
+      <div className="lg:flex lg:flex-col lg:justify-between lg:self-stretch lg:pb-10">
         <div className="hero-enter font-label text-sm leading-relaxed text-fade" style={step(0)}>
           <p>{resume.location}</p>
           <p className="mt-1">{resume.availability}</p>
         </div>
         <h1
-          className="hero-enter mt-6 font-display font-medium leading-[1.02] tracking-[-0.02em] text-[clamp(2.75rem,7vw,5.25rem)]"
+          className="hero-enter mt-6 font-display font-medium leading-[1.02] tracking-[-0.02em] text-[clamp(2.75rem,7vw,5.25rem)] lg:text-[clamp(2.75rem,5.7vw,5.25rem)]"
           style={step(1)}
         >
           Every build is a{' '}<br />
@@ -285,6 +285,14 @@ function Hero() {
             Read the scenes
           </a>
           <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-glow-amber/60 px-6 py-3 font-label text-sm text-glow-amber transition-colors hover:bg-glow-amber/10"
+          >
+            Get my résumé ↓
+          </a>
+          <a
             href={`https://${resume.github}`}
             target="_blank"
             rel="noreferrer"
@@ -296,7 +304,7 @@ function Hero() {
         <dl className="hero-enter mt-12 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4" style={step(4)}>
           {portfolioStats.map((stat) => (
             <div key={stat.label}>
-              <dd className="whitespace-nowrap font-display text-3xl leading-none text-paper">{stat.value}</dd>
+              <dd className="whitespace-nowrap font-display text-3xl leading-none text-paper lg:text-2xl xl:text-3xl">{stat.value}</dd>
               <dt className="mt-2 font-label text-xs uppercase tracking-widest text-fade">{stat.label}</dt>
             </div>
           ))}

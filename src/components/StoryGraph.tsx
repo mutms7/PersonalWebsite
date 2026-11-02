@@ -89,7 +89,7 @@ function ConnectionLabel({ label, x, y, color }: { label: string; x: number; y: 
   return (
     <g pointerEvents="none" data-connection-label>
       <rect x={centerX - width / 2} y={centerY - 16} width={width} height="30" rx="15" fill="#14122b" stroke={color} strokeWidth="1" />
-      <text ref={textRef} x={centerX} y={centerY + 4} textAnchor="middle" fill={color} fontSize="14" fontFamily="Manrope, sans-serif">
+      <text ref={textRef} x={centerX} y={centerY + 4} textAnchor="middle" fill={color} fontSize="14" fontFamily="IBM Plex Sans, sans-serif">
         {label}
       </text>
     </g>
@@ -295,7 +295,7 @@ export default function StoryGraph() {
           <path d="M 30 80 L 30 805 Q 345 770 585 865 M 1170 80 L 1170 870 Q 845 770 615 865" />
         </g>
         {clusters.map((c) => (
-          <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#b6afcc" fontSize="14" letterSpacing="2.5" fontFamily="Manrope, sans-serif">
+          <text key={c.label} x={c.x} y={c.y} textAnchor="middle" fill="#b6afcc" fontSize="14" letterSpacing="2.5" fontFamily="IBM Plex Sans, sans-serif">
             {c.label.toUpperCase()}
           </text>
         ))}
@@ -364,7 +364,7 @@ export default function StoryGraph() {
                 textAnchor="middle"
                 fill={isActive ? hex : '#c5bed7'}
                 fontSize="15"
-                fontFamily="Manrope, sans-serif"
+                fontFamily="IBM Plex Sans, sans-serif"
               >
                 {project.title}
               </text>
