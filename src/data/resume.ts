@@ -62,6 +62,7 @@ export type Resume = {
   education: Education[]
   projects: Project[]
   experience: Experience[]
+  leadership: Experience[]
   skills: string[]
   interests: string[]
   stats: Stat[]
@@ -183,7 +184,7 @@ export const resume: Resume = {
       "subtitle": "An AI coach that runs on your device, on the web or Windows.",
       "category": "Local-first AI · life systems",
       "status": "Live",
-      "date": "2026",
+      "date": "Aug. 2026 - Present",
       "live": "https://goodlifeai.vercel.app",
       "repo": "https://github.com/mutms7/GoodLife.AI",
       "desktopDownload": "https://github.com/mutms7/GoodLife.AI/releases/latest/download/GoodLife.AI-Setup.exe",
@@ -198,7 +199,7 @@ export const resume: Resume = {
       "bullets": [
         "I kept inference on your device with a quantized Qwen2.5 1.5B model, WebLLM, and WebGPU.",
         "Habit history shows what you’ve done today, this week, and across the year. Accounts sync through Supabase.",
-        "The Windows installer includes the model for offline use, with releases built through GitHub Actions."
+        "The Windows installer includes the model for offline use, with releases built through GitHub Actions. Supabase auth and row-level security keep each account's data separate."
       ],
       "accent": "emerald",
       "featured": true,
@@ -534,22 +535,24 @@ export const resume: Resume = {
       "title": "Typer.AI",
       "subtitle": "A Chrome and Edge extension that completes familiar words and phrases from the document you're writing.",
       "category": "Browser extension · writing tools",
-      "status": "Live · extension",
-      "date": "Oct. 2026",
+      "status": "Live · Chrome Web Store",
+      "date": "Oct. 2026 - Present",
       "live": "https://mutms7.github.io/Typer.AI/",
       "repo": "https://github.com/mutms7/Typer.AI",
       "stack": [
         "JavaScript",
-        "Chrome Extensions",
+        "Manifest V3",
         "Node.js",
-        "SQLite",
-        "Gemini / OpenAI"
+        "PostgreSQL",
+        "Supabase",
+        "Docker",
+        "Gemini"
       ],
       "highlight": "Gray text at the cursor, Tab to accept, Escape to dismiss.",
       "bullets": [
-        "I wanted repeated technical terms to take less effort when writing notes. Typer learns vocabulary from the active document and its title.",
-        "I separated background AI ranking from typing. The local engine completes each prefix immediately and keeps working offline.",
-        "A confidence slider and per-site pause give you control. The browser demo works without installing the extension; Google Docs needs a separate adapter."
+        "I wanted repeated technical terms to take less effort when writing notes. Typer learns vocabulary from the active document, and 25+ people have used it across 100+ documents in Chrome and Edge.",
+        "I separated background AI ranking from typing. Gemini 3.1 Flash-Lite ranks up to 80 terms and phrases, and the local engine completes each prefix between refreshes, cutting estimated AI requests by about 99% compared with calling per keystroke.",
+        "It passed Google's review and is published on the Chrome Web Store, with AI off until you opt in. A Dockerized Node.js API on Render keeps request budgets in Supabase PostgreSQL, and GitHub Actions runs 57 tests, packages the extension, and deploys the site."
       ],
       "accent": "cyan",
       "featured": true,
@@ -595,12 +598,13 @@ export const resume: Resume = {
   ],
   "experience": [
     {
-      "role": "AI Software Engineering Co-op",
-      "company": "AXL Labs Inc",
-      "date": "Jan. - Apr. 2027 (upcoming)",
+      "role": "AI Software Engineer, Co-op (incoming)",
+      "company": "AXL Labs Inc.",
+      "date": "Jan. 2027 - Apr. 2027",
       "location": "Toronto, ON",
       "bullets": [
-        "I’ll join AXL Labs for my Winter 2027 co-op, working on AI applications with engineers, researchers, and founders."
+        "I'm joining a small team that builds full-stack AI apps, LLM and RAG prototypes, and internal tools for startups.",
+        "I'll prototype OpenAI API integrations and computer vision features alongside engineers and founders."
       ]
     },
     {
@@ -633,6 +637,26 @@ export const resume: Resume = {
       ]
     }
   ],
+  "leadership": [
+    {
+      "role": "Vice President",
+      "company": "The Water Boys A Cappella",
+      "date": "Aug. 2026 - Present",
+      "location": "Waterloo, ON",
+      "bullets": [
+        "I recruited 50+ auditioners through social media promotion and in-person outreach to first-year students."
+      ]
+    },
+    {
+      "role": "Team Captain",
+      "company": "Waterloo Math Orientation",
+      "date": "Jul. 2026 - Sep. 2026",
+      "location": "Waterloo, ON",
+      "bullets": [
+        "I co-led orientation for 350+ incoming students with three other captains and 40+ volunteers, gave the welcome speech, and led daily activities."
+      ]
+    }
+  ],
   "skills": [
     "TypeScript",
     "JavaScript",
@@ -652,6 +676,7 @@ export const resume: Resume = {
     "PostgreSQL",
     "SQLite",
     "Supabase",
+    "Docker",
     "Git",
     "GitHub Actions",
     "Gemini API",

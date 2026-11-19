@@ -625,6 +625,24 @@ function Timeline() {
           </li>
         ))}
       </ol>
+      <h3 className="mb-6 mt-10 font-label text-sm font-semibold uppercase tracking-widest text-fade">Leadership</h3>
+      <ol className="divide-y divide-thread/60 border-y border-thread/60">
+        {resume.leadership.map((entry) => (
+          <li key={entry.company} className="reveal grid gap-3 py-7 sm:grid-cols-[190px_1fr] sm:gap-8">
+            <div className="font-label text-sm leading-relaxed text-fade">
+              <p>{entry.date}</p>
+              <p className="mt-1">{entry.location}</p>
+            </div>
+            <div>
+              <h4 className="font-display text-2xl text-paper">{entry.company}</h4>
+              <p className="mt-1 text-lg font-medium text-glow-blue">{entry.role}</p>
+              <ul className="mt-4 max-w-3xl space-y-2 text-fade">
+                {entry.bullets.map((bullet) => <li key={bullet} className="leading-relaxed">{bullet}</li>)}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
       <h3 className="mb-6 mt-10 font-label text-sm font-semibold uppercase tracking-widest text-fade">Education</h3>
       {resume.education.map((entry) => (
         <div key={entry.school} className="reveal grid gap-3 border-y border-thread/60 py-7 sm:grid-cols-[190px_1fr] sm:gap-8">
