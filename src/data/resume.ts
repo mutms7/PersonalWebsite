@@ -75,8 +75,9 @@ export type Resume = {
 export const projectDisplayOrder = [
   'EastEats',
   'Typer.AI',
-  'SlimWaste',
+  'Firefliers',
   'GoodLife.AI',
+  'SlimWaste',
   'PaletteCard AI',
   'Sandfall',
   'Blend Together',
@@ -592,6 +593,44 @@ export const resume: Resume = {
         {
           "src": "/shots/easteats/home.webp",
           "caption": "EastEats homepage with its food discovery introduction and sign-in."
+        }
+      ]
+    },
+    {
+      "title": "Firefliers",
+      "subtitle": "A browser survivors game about keeping one firefly's light alive until dawn.",
+      "category": "Game · roguelite",
+      "status": "Live",
+      "date": "Nov. 2026",
+      "live": "https://firefliers.vercel.app",
+      "repo": "https://github.com/mutms7/firefliers",
+      "stack": [
+        "JavaScript",
+        "Canvas API",
+        "Web Audio",
+        "HTML/CSS",
+        "Vercel Functions"
+      ],
+      "highlight": "Steer through the night while your weapons fire on their own, then spend the amber you bring home on the Root Tree.",
+      "bullets": [
+        "To see dawn, you reach 6:00 and beat the third boss, drawn from six. Each of the eight weapons evolves at level 6 once you pair it with the right boost, so every level-up is a small build decision.",
+        "Between runs you walk around the Haven, grow the Root Tree, and talk to four residents. Telling Glim what you think sends it to my Discord through a Vercel function, so the webhook never reaches the browser.",
+        "I rebuilt the tutorial so each line stays up long enough to read and every step leaves time to practice, without a countdown. The game ships as one HTML file, with its pixel art and music generated in code."
+      ],
+      "accent": "amber",
+      "featured": true,
+      "shots": [
+        {
+          "src": "/shots/firefliers/night.webp",
+          "caption": "Two minutes into a run: Moon Guard scythes, Spore Trail clouds, and a field of sparks to collect."
+        },
+        {
+          "src": "/shots/firefliers/title.webp",
+          "caption": "The Firefliers title screen, with the Daily and Nightmare modes."
+        },
+        {
+          "src": "/shots/firefliers/haven.webp",
+          "caption": "Back in the Haven, where Glim asks your name before showing you around."
         }
       ]
     }

@@ -18,6 +18,7 @@ const positions: Record<string, { x: number; y: number }> = {
   "The Air Outside": { x: 150, y: 190 },
   "Sandfall": { x: 440, y: 365 },
   "Molt": { x: 215, y: 380 },
+  "Firefliers": { x: 300, y: 230 },
   "HardHaq '25": { x: 175, y: 630 },
   "UmbrellaShare": { x: 410, y: 700 },
   "ConquestCartes": { x: 735, y: 190 },
@@ -43,7 +44,7 @@ const clusterGroups: { label: string; members: string[] }[] = [
   { label: 'AI projects', members: ["EastEats", "Typer.AI", "SlimWaste", "GoodLife.AI", "PaletteCard AI", "Hairrison"] },
   { label: 'live products', members: ["ConquestCartes", "Blend Together", "StockTracker"] },
   { label: 'hackathon podiums', members: ["HardHaq '25", "UmbrellaShare"] },
-  { label: 'interactive worlds', members: ["Sandfall", "The Air Outside", "Molt"] }
+  { label: 'interactive worlds', members: ["Firefliers", "Sandfall", "The Air Outside", "Molt"] }
 ]
 
 type Edge = { a: string; b: string; label: string }
@@ -55,6 +56,7 @@ const edgeList: Edge[] = [
   { a: "GoodLife.AI", b: "PaletteCard AI", label: 'Small models: an on-device coach and a trained color tool' },
   { a: "PaletteCard AI", b: "Hairrison", label: 'A photo becomes the starting point for a creative tool' },
   { a: "Sandfall", b: "Molt", label: 'Two browser worlds built around movement, physics, and discovery' },
+  { a: "Sandfall", b: "Firefliers", label: 'Plain JavaScript on a canvas, with no engine or asset files' },
   { a: "The Air Outside", b: "Molt", label: 'Same world and mood: suits as masks, presence over performance' },
   { a: "HardHaq '25", b: "UmbrellaShare", label: 'Hackathon podiums: 1st in quantum hardware, 3rd at UN-Habitat' },
   { a: "ConquestCartes", b: "Blend Together", label: 'Live multiplayer on shared, synced game state' }
@@ -203,6 +205,18 @@ function Glyph({ title, color }: { title: string; color: string }) {
         <g stroke={color} strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="0" cy="-6" r="3.5" />
           <path d="M 0 -2 L 0 6 M -5 1 L 0 -2 L 5 1 M -4 11 L 0 6 L 4 11" />
+        </g>
+      )
+    case 'Firefliers':
+      return (
+        <g data-project-symbol="firefliers-firefly">
+          <circle cx="6" cy="5" r="7" fill={color} opacity="0.22" />
+          <g stroke={color} strokeWidth="1.7" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M -2 -3 C -6 -12 -14 -11 -12 -5 C -11 -2 -6 -2 -2 -3 M 1 -4 C 2 -13 10 -14 10 -7 C 10 -4 5 -3 1 -4" />
+            <ellipse cx="-1" cy="1" rx="8" ry="4.2" transform="rotate(25 -1 1)" />
+            <path d="M -9 -4 L -13 -9 M -8 -2 L -14 -4" />
+          </g>
+          <circle cx="6" cy="5" r="3" fill={color} />
         </g>
       )
     default:

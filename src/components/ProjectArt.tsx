@@ -631,8 +631,71 @@ function EastEats() {
   )
 }
 
+function Firefliers() {
+  const sparks = Array.from({ length: 34 }, (_, i) => ({ x: 34 + ((i * 53) % 492), y: 66 + ((i * 37) % 232) }))
+  const bugs = [[96, 120], [470, 104], [500, 236], [128, 262], [392, 276], [214, 86]]
+  return (
+    <svg {...frameProps} aria-label="Firefliers preview: a firefly's glow holding back night bugs, with sparks to collect and dawn at 6:00">
+      <Chrome label="firefliers.vercel.app" accent="#fcd34d" />
+      <defs>
+        <radialGradient id="ff-glow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stopColor="#fff3b0" stopOpacity="0.55" />
+          <stop offset="0.45" stopColor="#f2c14e" stopOpacity="0.18" />
+          <stop offset="1" stopColor="#f2c14e" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <rect x="20" y="48" width="520" height="262" rx="8" fill="#0d1311" />
+      {[[60, 90], [180, 230], [330, 120], [450, 180], [260, 290], [520, 290]].map(([x, y], i) => (
+        <path key={i} d={`M ${x} ${y} l 3 -6 l 3 6`} fill="none" stroke="#1f3a2a" strokeWidth="2" />
+      ))}
+      <rect x="148" y="160" width="10" height="20" rx="2" fill="#24402e" />
+      <rect x="410" y="232" width="10" height="20" rx="2" fill="#24402e" />
+      {sparks.map((s, i) => (
+        <path key={i} d={`M ${s.x - 3} ${s.y} H ${s.x + 3} M ${s.x} ${s.y - 3} V ${s.y + 3}`} stroke="#7cc8ff" strokeWidth="1.5" opacity={0.45 + (i % 3) * 0.2} />
+      ))}
+      <circle cx="280" cy="182" r="112" fill="url(#ff-glow)" />
+      <circle cx="280" cy="182" r="66" fill="none" stroke="#c9e27a" strokeWidth="1.2" opacity="0.45" />
+      <ellipse cx="402" cy="128" rx="34" ry="30" fill="#c9e27a" opacity="0.12" />
+      {[[-40, 0], [160, 1], [280, 2]].map(([a, k]) => (
+        <path key={k} d="M 0 -52 Q 18 -46 24 -32" transform={`translate(280 182) rotate(${a})`} fill="none" stroke="#c8f0ff" strokeWidth="3" strokeLinecap="round" opacity="0.85" />
+      ))}
+      {[[318, 162], [338, 150], [358, 138]].map(([x, y], i) => (
+        <rect key={i} x={x} y={y} width="4" height="2" fill="#ffe066" transform={`rotate(-30 ${x} ${y})`} />
+      ))}
+      <g transform="translate(280 182)">
+        <ellipse cx="-4" cy="-8" rx="8" ry="5" fill="#d9f1ff" opacity="0.7" transform="rotate(-25 -4 -8)" />
+        <ellipse cx="-12" cy="0" rx="13" ry="7" fill="#2b2148" />
+        <circle cx="-23" cy="-1" r="4" fill="#3a2d60" />
+        <circle cx="4" cy="2" r="7" fill="#ffe066" />
+        <circle cx="4" cy="2" r="3.5" fill="#fff8d6" />
+      </g>
+      {bugs.map(([x, y], i) => (
+        <g key={i} transform={`translate(${x} ${y})`}>
+          <ellipse rx="12" ry="8" fill={i % 3 === 1 ? '#8f5bd6' : '#c9446b'} />
+          <path d="M -7 -2 h 2 M -1 -3 h 2 M 5 -2 h 2" stroke="#2a0f1e" strokeWidth="2" />
+          <path d="M -8 7 v 3 M 0 8 v 3 M 8 7 v 3" stroke="#2a0f1e" strokeWidth="2" />
+        </g>
+      ))}
+      <rect x="32" y="60" width="104" height="8" rx="2" fill="#3a1a22" />
+      <rect x="32" y="60" width="86" height="8" rx="2" fill="#e0475b" />
+      {['#ffe066', '#7ad7ff', '#d6ff5c', '#9dff8a'].map((c, i) => (
+        <g key={c}>
+          <rect x={32 + i * 22} y="76" width="18" height="18" rx="2" fill="#141a17" stroke="#3b4a41" />
+          <circle cx={41 + i * 22} cy="85" r="4" fill={c} />
+        </g>
+      ))}
+      <text x="280" y="80" textAnchor="middle" fill="#f1ebdd" fontSize="20" fontFamily="IBM Plex Sans, sans-serif">2:20</text>
+      <text x="280" y="94" textAnchor="middle" fill="#8d9491" fontSize="8" letterSpacing="1.5" fontFamily="IBM Plex Sans, sans-serif">DAWN AT 6:00</text>
+      <text x="522" y="72" textAnchor="end" fill="#f2c14e" fontSize="13" fontFamily="IBM Plex Sans, sans-serif">2,450 pts</text>
+      <text x="522" y="86" textAnchor="end" fill="#8d9491" fontSize="8" fontFamily="IBM Plex Sans, sans-serif">538 squashed</text>
+    </svg>
+  )
+}
+
 export default function ProjectArt({ title }: Props) {
   switch (title) {
+    case 'Firefliers':
+      return <Firefliers />
     case 'EastEats':
       return <EastEats />
     case 'SlimWaste':
